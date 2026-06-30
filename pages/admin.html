@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng quan Admin - Vethic AI</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Topbar -->
+        <header class="topbar">
+            <h1 class="page-title">Tổng quan</h1>
+            <div class="user-profile">
+                <span class="user-name">Adminstrator</span>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <!-- Stats Row -->
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="stat-icon" style="background: rgba(0, 105, 80, 0.1); color: var(--primary);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Tổng số người dùng</h3>
+                        <p class="stat-number">15,420</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon" style="background: rgba(186, 26, 26, 0.1); color: var(--danger);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Tổng số bệnh án</h3>
+                        <p class="stat-number">3,250</p>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon" style="background: rgba(90, 90, 108, 0.1); color: #5A5A6C;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Phiên chẩn đoán AI</h3>
+                        <p class="stat-number">45,100</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <div class="recent-activity">
+                <div class="section-header-card">
+                    <h2>Hoạt động gần đây</h2>
+                    <a href="#" class="view-all">Xem tất cả</a>
+                </div>
+                <div class="activity-table-container">
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>Người dùng</th>
+                                <th>Hành động</th>
+                                <th>Thời gian</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>nguyen.van.a@example.com</td>
+                                <td>Thêm hồ sơ thú cưng "Milo"</td>
+                                <td>10 phút trước</td>
+                                <td><span class="status success">Thành công</span></td>
+                            </tr>
+                            <tr>
+                                <td>tran.thi.b@example.com</td>
+                                <td>Sử dụng Chẩn đoán AI</td>
+                                <td>25 phút trước</td>
+                                <td><span class="status success">Thành công</span></td>
+                            </tr>
+                            <tr>
+                                <td>admin@vethic.vn</td>
+                                <td>Cập nhật kiến thức bệnh "Viêm ruột"</td>
+                                <td>1 giờ trước</td>
+                                <td><span class="status info">Đã cập nhật</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
+

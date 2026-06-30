@@ -1,0 +1,266 @@
+/* Admin Dashboard Styles */
+
+.admin-body {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--background-light);
+  margin: 0;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 280px;
+  background-color: var(--white);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.sidebar-nav {
+  padding: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 24px;
+  color: var(--text-body);
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+.nav-item svg {
+  opacity: 0.7;
+}
+
+.nav-item:hover, .nav-item.active {
+  background-color: rgba(0, 105, 80, 0.05);
+  color: var(--primary);
+  border-right: 4px solid var(--primary);
+}
+
+.nav-item.active svg {
+  opacity: 1;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Topbar */
+.topbar {
+  height: 80px;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.stat-box {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-info h3 {
+  font-size: 14px;
+  color: var(--text-body);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* Recent Activity */
+.recent-activity {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--border-light);
+  padding: 24px;
+}
+
+.section-header-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-header-card h2 {
+  font-size: 18px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.view-all {
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.activity-table-container {
+  overflow-x: auto;
+}
+
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.activity-table th {
+  text-align: left;
+  padding: 12px 16px;
+  color: var(--text-body);
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.activity-table td {
+  padding: 16px;
+  color: var(--text-dark);
+  font-size: 14px;
+  border-bottom: 1px solid rgba(188, 202, 194, 0.3);
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.success {
+  background: rgba(127, 248, 207, 0.2);
+  color: var(--primary-hover);
+}
+
+.status.info {
+  background: rgba(90, 90, 108, 0.1);
+  color: #5A5A6C;
+}
+
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-body {
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .sidebar-header {
+    justify-content: center;
+  }
+  
+  .sidebar-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 16px;
+  }
+  
+  .nav-item {
+    white-space: nowrap;
+    border-right: none;
+    border-bottom: 4px solid transparent;
+  }
+  
+  .nav-item.active {
+    border-right: none;
+    border-bottom: 4px solid var(--primary);
+  }
+  
+  .topbar {
+    padding: 0 24px;
+  }
+  
+  .dashboard-content {
+    padding: 24px;
+  }
+}

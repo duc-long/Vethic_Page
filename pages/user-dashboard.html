@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vethic AI - Bảng điều khiển người dùng</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/activity-history.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .layout-wrapper {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+        .content-frame {
+            flex: 1;
+            border: none;
+            height: 100%;
+            background-color: var(--background-light);
+        }
+    </style>
+</head>
+<body>
+    <div class="layout-wrapper">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo flex items-center" style="text-decoration: none; display: flex; align-items: center;">
+                    <div style="background-color: #FFF; padding: 4px; border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                        <img src="../assets/logo/logo_ten.png" style="height:36px; object-fit: contain;" alt="Vethic">
+                    </div>
+                    <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 12px;">
+                        <span style="color: #FFF; font-size: 22px; font-weight: 700; line-height: 1.2;">Vethic</span>
+                        <span style="font-size: 10px; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.5px; text-transform: uppercase;">AI Veterinary Assistant</span>
+                    </div>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="ai-chat.html" target="content-frame" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    Chẩn đoán AI
+                </a>
+                <a href="pet-profile.html" target="content-frame" class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+                    Hồ sơ thú cưng
+                </a>
+                <a href="first-aid.html" target="content-frame" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    Hướng dẫn sơ cứu
+                </a>
+                <a href="find-clinic.html" target="content-frame" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    Tìm phòng khám
+                </a>
+                <a href="activity-history.html" target="content-frame" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"></path><circle cx="12" cy="12" r="10"></circle></svg>
+                    Lịch sử hoạt động
+                </a>
+                <a href="account.html" target="content-frame" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    Tài khoản
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="pet-profile.html" target="content-frame" class="btn flex items-center justify-center btn-full" id="new-diagnosis-btn" style="background-color: #FFF; color: var(--primary);">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    Add New Pet
+                </a>
+                <a href="login.html" class="flex items-center" style="margin-top: 24px; color: #FFB4AB; text-decoration: none; font-weight: 500; font-size: 14px; padding: 0 16px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 12px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Đăng xuất
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content Iframe -->
+        <iframe name="content-frame" id="content-frame" class="content-frame" src="pet-profile.html"></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
+            const newDiagBtn = document.getElementById('new-diagnosis-btn');
+            
+            // Hàm chuyển đổi active class
+            function setActive(clickedItem) {
+                if (clickedItem.getAttribute('href') === '#') return; // Bỏ qua nếu là link trống (như Tài khoản)
+                
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Nếu là link trên nav
+                if (clickedItem.classList.contains('nav-item')) {
+                    clickedItem.classList.add('active');
+                } else if (clickedItem === newDiagBtn) {
+                    // Nếu bấm nút thêm thú cưng, active menu Hồ sơ thú cưng
+                    const petProfileNav = Array.from(navItems).find(item => item.getAttribute('href') === 'pet-profile.html');
+                    if (petProfileNav) petProfileNav.classList.add('active');
+                }
+            }
+
+            // Lắng nghe sự kiện từ iframe để cập nhật sidebar an toàn (tránh lỗi CORS file://)
+            window.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'UPDATE_SIDEBAR') {
+                    const url = event.data.url;
+                    navItems.forEach(item => {
+                        item.classList.remove('active');
+                        if (item.getAttribute('href') === url) {
+                            item.classList.add('active');
+                        }
+                    });
+                }
+            });
+
+            // Gán sự kiện click cho các nav items
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    setActive(this);
+                });
+            });
+
+            // Gán sự kiện cho nút chẩn đoán mới
+            newDiagBtn.addEventListener('click', function() {
+                setActive(this);
+            });
+        });
+    </script>
+</body>
+</html>

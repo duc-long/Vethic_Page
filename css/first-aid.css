@@ -1,0 +1,472 @@
+/* first-aid.css */
+
+/* --- First Aid Index Page --- */
+.hero-banner {
+    background-color: #E6F3EF;
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-banner-tag {
+    background-color: var(--primary);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.hero-banner h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 24px;
+}
+
+.search-bar-wrapper {
+    position: relative;
+    max-width: 480px;
+}
+
+.search-bar-wrapper svg {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-body);
+}
+
+.search-bar-wrapper input {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px 0 48px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.search-bar-wrapper input:focus {
+    outline: 2px solid var(--primary);
+}
+
+.hero-banner-icon {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.1;
+    width: 120px;
+    height: 120px;
+}
+
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.guide-card {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.guide-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.guide-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.icon-red {
+    background-color: #FEEBEB;
+    color: var(--danger);
+}
+
+.icon-green {
+    background-color: #E6F3EF;
+    color: var(--primary);
+}
+
+.icon-grey {
+    background-color: #F3F4F6;
+    color: var(--text-body);
+}
+
+.guide-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.guide-card p {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.5;
+    margin-bottom: 24px;
+    flex: 1;
+}
+
+.guide-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.guide-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.tag-red { background-color: #FEEBEB; color: var(--danger); }
+.tag-grey { background-color: #F3F4F6; color: var(--text-body); }
+
+.read-time {
+    font-size: 12px;
+    color: var(--text-body);
+}
+
+.ai-consult-card {
+    background-color: var(--primary);
+    color: white;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ai-consult-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.ai-consult-card p {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.ai-consult-card .btn {
+    align-self: flex-start;
+    background-color: white;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.emergency-banner {
+    background-color: #FEEBEB;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.emergency-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: var(--danger);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.emergency-content h3 {
+    color: var(--danger);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.emergency-content p {
+    color: var(--danger);
+    font-size: 14px;
+}
+
+/* --- First Aid Detail Page --- */
+
+.breadcrumb {
+    font-size: 12px;
+    color: var(--text-body);
+    margin-bottom: 16px;
+}
+
+.breadcrumb a {
+    color: var(--text-body);
+    text-decoration: none;
+}
+
+.breadcrumb span {
+    margin: 0 8px;
+}
+
+.detail-header-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.date-text {
+    font-size: 12px;
+    color: var(--text-body);
+}
+
+.detail-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.detail-desc {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.detail-layout {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.detail-main {
+    flex: 1;
+}
+
+.detail-sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.info-box {
+    background-color: #F9FAFB;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.info-box h4 {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.info-box h4 svg {
+    margin-right: 8px;
+    color: var(--danger);
+}
+
+.symptom-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.symptom-item {
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
+.symptom-item svg {
+    margin-right: 8px;
+    margin-top: 2px;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.step-list {
+    margin-bottom: 32px;
+}
+
+.step-title-section {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.step-card {
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.step-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.step-content h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+}
+
+.step-content p {
+    font-size: 14px;
+    color: var(--text-body);
+    line-height: 1.5;
+}
+
+.warning-box {
+    background-color: #FEEBEB;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.warning-box h4 {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--danger);
+    margin-bottom: 16px;
+}
+
+.warning-box h4 svg {
+    margin-right: 8px;
+}
+
+.warning-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.warning-box li {
+    font-size: 14px;
+    color: var(--danger);
+    line-height: 1.6;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.warning-box li::before {
+    content: "•";
+    font-size: 20px;
+    margin-right: 8px;
+    color: var(--danger);
+}
+
+.warning-box li:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar-card-danger {
+    background-color: #D32F2F;
+    border-radius: 12px;
+    padding: 24px;
+    color: white;
+    margin-bottom: 24px;
+}
+
+.sidebar-card-danger h4 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.sidebar-card-danger p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.sidebar-card-grey {
+    background-color: #F3F4F6;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.sidebar-card-grey h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.related-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+}
+
+.related-link:last-child {
+    margin-bottom: 0;
+}
+
+.related-link:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}

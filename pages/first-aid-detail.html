@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết hướng dẫn sơ cứu - Vethic AI</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <style>
+        body {
+            background-color: #F8F9FA;
+            margin: 0;
+            padding: 0;
+        }
+
+        .detail-container {
+            padding: 32px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-body);
+            margin-bottom: 24px;
+        }
+        .breadcrumb a {
+            color: var(--text-body);
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+
+        .meta-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .meta-tag {
+            background: #B91C1C;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+        .meta-date {
+            font-size: 13px;
+            color: var(--text-body);
+        }
+
+        .article-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 16px 0;
+            line-height: 1.3;
+        }
+
+        .article-intro {
+            font-size: 15px;
+            color: var(--text-body);
+            line-height: 1.6;
+            margin: 0 0 32px 0;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 40px;
+        }
+
+        /* Left Content */
+        .signs-box {
+            background: #F8F9FA;
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+        .box-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 20px 0;
+        }
+        .signs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .sign-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        .sign-item svg {
+            color: var(--primary);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .steps-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 20px 0;
+        }
+
+        .step-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        .step-card {
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            gap: 16px;
+            background: white;
+        }
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .step-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 8px 0;
+        }
+        .step-desc {
+            font-size: 14px;
+            color: var(--text-body);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .alert-box {
+            background: #FEEBEB;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+        }
+        .alert-box .box-title {
+            color: var(--danger);
+        }
+        .alert-box ul {
+            margin: 0;
+            padding-left: 24px;
+            color: var(--text-dark);
+            font-size: 14px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Right Sidebar */
+        .help-card {
+            background: #B91C1C;
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            margin-bottom: 24px;
+        }
+        .help-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+        }
+        .help-card p {
+            font-size: 13px;
+            line-height: 1.5;
+            opacity: 0.9;
+            margin: 0 0 24px 0;
+        }
+        .help-btn {
+            background: white;
+            color: #B91C1C;
+            font-weight: 700;
+            font-size: 13px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .help-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .related-card {
+            background: #F3F4F6;
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .related-card h3 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 16px 0;
+        }
+        .related-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .related-item {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+            border: 1px solid var(--border-light);
+        }
+        .related-item:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Render container ID */
+        #renderContainer {
+            display: none;
+        }
+        #renderContainer.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray">
+    <!-- Topbar -->
+    <header class="topbar" style="height: 72px; background-color: var(--white); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
+        <h1 class="page-title" style="font-size: 20px; font-weight: 600; color: var(--primary); margin: 0;">Hướng dẫn sơ cứu</h1>
+        <div class="user-menu flex items-center gap-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); cursor: pointer;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+        </div>
+    </header>
+
+    <main class="detail-container" id="renderContainer">
+        <div class="breadcrumb">
+            <a href="first-aid.html">Hướng dẫn sơ cứu</a>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg>
+            <span id="bcTitle">Đang tải...</span>
+        </div>
+
+        <div class="meta-row">
+            <span class="meta-tag" id="metaBadge">KHẨN CẤP</span>
+            <span class="meta-date">Cập nhật: 12/10/2026</span>
+        </div>
+
+        <h2 class="article-title" id="artTitle">Đang tải...</h2>
+        <p class="article-intro" id="artIntro"></p>
+
+        <div class="layout-grid">
+            <div class="main-content-left">
+                <div class="signs-box">
+                    <h3 class="box-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--danger)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                        Dấu hiệu nhận biết
+                    </h3>
+                    <div class="signs-grid" id="signsGrid">
+                        <!-- Dynamic signs -->
+                    </div>
+                </div>
+
+                <div class="steps-section">
+                    <h3>Các bước xử lý ngay lập tức</h3>
+                    <div class="step-list" id="stepList">
+                        <!-- Dynamic steps -->
+                    </div>
+                </div>
+
+                <div class="alert-box">
+                    <h3 class="box-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        Lưu ý quan trọng
+                    </h3>
+                    <ul id="alertList">
+                        <!-- Dynamic alerts -->
+                    </ul>
+                </div>
+            </div>
+
+            <div class="sidebar-right">
+                <div class="help-card">
+                    <h3>Cần hỗ trợ ngay?</h3>
+                    <p>Đừng chần chừ. Mỗi giây đều quý giá đối với tính mạng thú cưng.</p>
+                    <a href="find-clinic.html" class="help-btn">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        TÌM PHÒNG KHÁM NGAY
+                    </a>
+                </div>
+
+                <div class="related-card">
+                    <h3>Hướng dẫn liên quan</h3>
+                    <div class="related-list" id="relatedList">
+                        <!-- Dynamic related -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/first-aid-detail.js"></script>
+</body>
+</html>

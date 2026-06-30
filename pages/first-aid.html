@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn sơ cứu - Vethic AI</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <style>
+        body {
+            background-color: #F8F9FA;
+            margin: 0;
+            padding: 0;
+        }
+
+        .first-aid-container {
+            padding: 32px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Banner Hero */
+        .hero-banner {
+            background-color: #E6F3F0;
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .hero-banner .badge {
+            background-color: var(--primary);
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 20px;
+            width: fit-content;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-banner h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+            z-index: 1;
+        }
+
+        .search-bar {
+            position: relative;
+            max-width: 500px;
+            z-index: 1;
+            margin-top: 8px;
+        }
+
+        .search-bar svg {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-body);
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+            background: var(--white);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+        
+        .search-bar input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 105, 80, 0.15);
+        }
+
+        .hero-banner .bg-icon {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(0, 105, 80, 0.1);
+            z-index: 0;
+        }
+
+        /* Grid Cards */
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .guide-card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        .guide-card:hover {
+            box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+            transform: translateY(-4px);
+            border-color: rgba(0, 105, 80, 0.3);
+        }
+
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .icon-danger { background: #FEEBEB; color: var(--danger); }
+        .icon-success { background: #E6F3F0; color: var(--primary); }
+        .icon-gray { background: #F3F4F6; color: var(--text-dark); }
+        
+        .guide-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 12px 0;
+            line-height: 1.4;
+        }
+
+        .guide-desc {
+            font-size: 13px;
+            color: var(--text-body);
+            line-height: 1.5;
+            margin: 0 0 32px 0;
+            flex: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .tag-danger { background: #FEEBEB; color: var(--danger); }
+        .tag-gray { background: #F3F4F6; color: var(--text-body); }
+
+        .read-time {
+            font-size: 12px;
+            color: var(--text-body);
+            font-weight: 500;
+        }
+
+        /* AI Prompt Card */
+        .ai-card {
+            background-color: var(--primary);
+            border-radius: 16px;
+            padding: 24px;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        .ai-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 12px 0;
+            z-index: 1;
+        }
+        .ai-card p {
+            font-size: 13px;
+            line-height: 1.5;
+            opacity: 0.9;
+            margin: 0 0 24px 0;
+            z-index: 1;
+            flex: 1;
+        }
+        .ai-card-btn {
+            background: white;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            width: fit-content;
+            z-index: 1;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .ai-card-btn:hover {
+            background: #F3F4F6;
+        }
+        .ai-card .bg-icon {
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            color: rgba(255,255,255,0.1);
+            z-index: 0;
+        }
+
+        /* Emergency Alert Banner */
+        .emergency-banner {
+            background-color: #FEEBEB;
+            border-radius: 16px;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+        .emergency-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex: 1;
+        }
+        .emergency-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--danger);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+        .emergency-text h3 {
+            color: var(--danger);
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+        }
+        .emergency-text p {
+            color: var(--text-dark);
+            font-size: 14px;
+            margin: 0;
+        }
+        .emergency-btn {
+            background: var(--danger);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        .emergency-btn:hover {
+            background: #B91C1C;
+        }
+    </style>
+</head>
+<body class="bg-gray">
+    <!-- Topbar -->
+    <header class="topbar" style="height: 72px; background-color: var(--white); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
+        <h1 class="page-title" style="font-size: 20px; font-weight: 600; color: var(--primary); margin: 0;">Hướng dẫn sơ cứu</h1>
+        <div class="user-menu flex items-center gap-4">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); cursor: pointer;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+        </div>
+    </header>
+
+    <main class="first-aid-container">
+        
+        <!-- Hero Banner -->
+        <div class="hero-banner">
+            <div class="badge">SỔ TAY THÚ Y</div>
+            <h2>Bạn cần hỗ trợ sơ cứu ngay lập tức?</h2>
+            <div class="search-bar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="text" placeholder="Tìm kiếm hướng dẫn sơ cứu...">
+            </div>
+            
+            <svg class="bg-icon" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+        </div>
+
+        <!-- Grid Cards -->
+        <div class="guide-grid">
+            
+            <!-- Card 1 -->
+            <a href="first-aid-detail.html?id=1" class="guide-card">
+                <div class="icon-box icon-danger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <h3 class="guide-title">Sơ cứu khi thú cưng bị ngộ độc</h3>
+                <p class="guide-desc">Các bước cần làm ngay khi nghi ngờ thú cưng nuốt phải chất độc hại hoặc...</p>
+                <div class="card-footer">
+                    <span class="tag tag-danger">CẤP CỨU</span>
+                    <span class="read-time">5 phút đọc</span>
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="first-aid-detail.html?id=2" class="guide-card">
+                <div class="icon-box icon-success">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <h3 class="guide-title">Xử lý hóc dị vật ở chó mèo</h3>
+                <p class="guide-desc">Hướng dẫn thực hiện nghiệm pháp Heimlich cho thú cưng và các dấu...</p>
+                <div class="card-footer">
+                    <span class="tag tag-gray">HÔ HẤP</span>
+                    <span class="read-time">8 phút đọc</span>
+                </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="first-aid-detail.html?id=3" class="guide-card">
+                <div class="icon-box icon-gray">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"></line><path d="M5 5h14"></path><path d="M5 19h14"></path><path d="M5 12h14"></path></svg>
+                </div>
+                <h3 class="guide-title">Sơ cứu gãy xương chi</h3>
+                <p class="guide-desc">Cách cố định vết thương và vận chuyển thú cưng bị chấn thương...</p>
+                <div class="card-footer">
+                    <span class="tag tag-gray">CHẤN THƯƠNG</span>
+                    <span class="read-time">6 phút đọc</span>
+                </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="first-aid-detail.html?id=4" class="guide-card">
+                <div class="icon-box icon-success">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>
+                </div>
+                <h3 class="guide-title">Sốc nhiệt và say nắng</h3>
+                <p class="guide-desc">Cách hạ thân nhiệt an toàn và nhận biết dấu hiệu sốc nhiệt trong những...</p>
+                <div class="card-footer">
+                    <span class="tag tag-gray">THỜI TIẾT</span>
+                    <span class="read-time">4 phút đọc</span>
+                </div>
+            </a>
+
+            <!-- Card 5 -->
+            <a href="first-aid-detail.html?id=5" class="guide-card">
+                <div class="icon-box icon-danger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path><path d="M12 18v-4"></path><path d="M10 16h4"></path></svg>
+                </div>
+                <h3 class="guide-title">Cầm máu vết thương hở</h3>
+                <p class="guide-desc">Kỹ thuật băng bó cơ bản và cách xử lý khi thú cưng bị chảy máu do va...</p>
+                <div class="card-footer">
+                    <span class="tag tag-danger">CHẢY MÁU</span>
+                    <span class="read-time">7 phút đọc</span>
+                </div>
+            </a>
+
+            <!-- AI Prompt Card -->
+            <div class="ai-card">
+                <h3>Cần tư vấn AI ngay?</h3>
+                <p>Mô tả tình trạng của thú cưng, AI sẽ cung cấp hướng dẫn sơ cứu từng bước dựa trên triệu chứng.</p>
+                <a href="ai-chat.html" class="ai-card-btn">Bắt đầu chat</a>
+                
+                <svg class="bg-icon" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path><line x1="8" y1="16" x2="8" y2="16"></line><line x1="16" y1="16" x2="16" y2="16"></line></svg>
+            </div>
+
+        </div>
+
+        <!-- Emergency Banner -->
+        <div class="emergency-banner">
+            <div class="emergency-content">
+                <div class="emergency-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"></path><path d="M17 12H7"></path><path d="M18.364 5.636l-12.728 12.728"></path><path d="M5.636 5.636l12.728 12.728"></path></svg>
+                </div>
+                <div class="emergency-text">
+                    <h3>Trường hợp khẩn cấp?</h3>
+                    <p>Nếu thú cưng bất tỉnh, co giật hoặc khó thở nặng, hãy đến ngay với phòng khám gần nhất.</p>
+                </div>
+            </div>
+            <a href="find-clinic.html" class="emergency-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                Tìm phòng khám
+            </a>
+        </div>
+
+    </main>
+
+</body>
+</html>

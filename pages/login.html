@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Vethic AI</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #006950;
+            --text-dark: #111827;
+            --text-body: #6B7280;
+            --bg-color: #F9FAFB;
+            --white: #FFFFFF;
+            --border-light: #E5E7EB;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Main Container */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Center Card */
+        .login-card {
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .logo-container img {
+            height: 72px;
+            margin-bottom: 12px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-body);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .login-card h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0 0 12px 0;
+            line-height: 1.3;
+        }
+
+        .login-card p.subtitle {
+            font-size: 15px;
+            color: var(--text-body);
+            line-height: 1.6;
+            margin: 0 0 40px 0;
+            padding: 0 10px;
+        }
+
+        /* Google Button */
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 16px;
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-google:hover {
+            background: #F3F4F6;
+            border-color: #D1D5DB;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 32px 0;
+            color: #9CA3AF;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .divider:not(:empty)::before {
+            margin-right: 16px;
+        }
+        .divider:not(:empty)::after {
+            margin-left: 16px;
+        }
+
+        /* Security Text */
+        .security-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #9CA3AF;
+            font-size: 13px;
+        }
+
+        /* Floating Cards */
+        .float-card {
+            position: absolute;
+            background: var(--white);
+            border-radius: 20px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0,0,0,0.02);
+            animation: float 6s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        .float-left {
+            left: 5%;
+            top: 35%;
+            animation-delay: 0s;
+        }
+
+        .float-right {
+            right: 5%;
+            top: 55%;
+            animation-delay: -3s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-circle.green {
+            background-color: #E6F3F0;
+            color: var(--primary);
+        }
+
+        .icon-circle.purple {
+            background-color: #F3E8FF;
+            color: #7C3AED;
+        }
+
+        .float-text h3 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .float-text p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--text-body);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 24px;
+            color: #9CA3AF;
+        }
+
+        .footer-links {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #6B7280;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0 16px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-dark);
+        }
+
+        .footer-copy {
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .float-card { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <!-- Left Floating Card -->
+        <div class="float-card float-left">
+            <div class="icon-circle green">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+            </div>
+            <div class="float-text">
+                <h3>Kiểm tra triệu chứng</h3>
+                <p>AI phân tích trong 30 giây</p>
+            </div>
+        </div>
+
+        <!-- Center Login Card -->
+        <div class="login-card">
+            <div class="logo-container">
+                <img src="../assets/logo/logo_ten.png" alt="Vethic Logo" style="height: 120px; object-fit: contain; margin-bottom: 0px;">
+                <div class="logo-sub" style="margin-top: 10px;">AI VETERINARY ASSISTANT</div>
+            </div>
+
+            <h1>Chào mừng bạn đến<br>với Vethic</h1>
+            <p class="subtitle">Giải pháp chăm sóc sức khỏe thú cưng<br>bằng trí tuệ nhân tạo</p>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <a href="google-login.html" class="btn-google">
+                <img src="../assets/logo/google-logo.png" alt="Google" style="width: 24px; height: 24px; object-fit: contain;">
+                Đăng nhập bằng Google
+            </a>
+</div>
+            <div class="divider"></div>
+
+            <div class="security-text">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                Dữ liệu y tế của bạn được mã hóa an toàn
+            </div>
+        </div>
+
+        <!-- Right Floating Card -->
+        <div class="float-card float-right">
+            <div class="icon-circle purple">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path><path d="M10 9H8"></path></svg>
+            </div>
+            <div class="float-text">
+                <h3>Lưu trữ hồ sơ</h3>
+                <p>Không bao giờ bỏ lỡ</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Điều khoản dịch vụ</a>
+            <a href="#">Chính sách bảo mật</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 Vethic Inc. All rights reserved.
+        </div>
+    </footer>
+
+</body>
+</html>

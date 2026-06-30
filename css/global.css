@@ -1,0 +1,253 @@
+/* Global CSS Reset & Base Styles */
+:root {
+  /* Colors */
+  --primary: #006950;
+  --primary-hover: #00513D;
+  --secondary: #7FF8CF;
+  --text-dark: #1C1B1B;
+  --text-body: #3D4A44;
+  --background-light: #FCF9F8;
+  --border-light: #BCCAC2;
+  --danger: #BA1A1A;
+  --white: #FFF;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
+  color: var(--text-body);
+  background-color: var(--background-light);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Utilities */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-4 { gap: 16px; }
+.gap-6 { gap: 24px; }
+.gap-8 { gap: 32px; }
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+  box-shadow: 0 10px 15px -3px rgba(0, 105, 80, 0.1), 0 4px 6px -4px rgba(0, 105, 80, 0.1);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-outline {
+  border: 1px solid var(--border-light);
+  background-color: #F0EDEC;
+  color: var(--text-dark);
+}
+
+.btn-outline:hover {
+  background-color: #E5E2E1;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  gap: 8px;
+}
+
+.badge-green {
+  background-color: rgba(127, 248, 207, 0.2);
+  color: var(--primary-hover);
+}
+
+/* Topbar and Avatars */
+.topbar {
+  height: 72px;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.topbar .page-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin: 0;
+}
+
+.avatar-small {
+  width: 32px;
+  height: 32px;
+  background-color: var(--secondary);
+  color: var(--primary-hover);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Footer */
+.footer {
+  padding: 64px 0;
+  background: #E5E2E1;
+  border-top: 1px solid var(--border-light);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.footer-logo {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-socials a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 24px;
+}
+
+.footer-col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-col a {
+  color: var(--text-body);
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.footer-col a:hover {
+  color: var(--primary);
+}
+
+@media (max-width: 1024px) {
+  .trust-container {
+    flex-direction: column;
+  }
+  
+  .cta-section {
+    padding: 96px 24px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .stat-card {
+    padding: 24px;
+  }
+  
+  .cta-container {
+    padding: 40px 24px;
+    border-radius: 24px;
+  }
+  
+  .cta-title {
+    font-size: 32px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}

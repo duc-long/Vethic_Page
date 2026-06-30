@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tìm phòng khám - Vethic AI</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/activity-history.css">
+    <link rel="stylesheet" href="../css/find-clinic.css">
+</head>
+<body class="dashboard-body" style="height: 100vh; overflow: hidden;">
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="topbar">
+            <h1 class="page-title">Tìm kiếm phòng khám</h1>
+            <div class="user-menu flex items-center gap-4">
+                <span class="font-medium">Nguyễn Văn A</span>
+                <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+            </div>
+        </header>
+
+        <div class="clinic-container">
+            <!-- Left Panel: Search & List -->
+            <div class="clinic-list-panel">
+                <div class="search-filters">
+                    <div class="search-input-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Tìm kiếm theo khu vực, tên phòng khám...">
+                    </div>
+                    <div class="flex gap-2" style="margin-top: 12px; overflow-x: auto;">
+                        <button class="filter-chip active">Gần nhất</button>
+                        <button class="filter-chip">Đang mở cửa</button>
+                        <button class="filter-chip">Đánh giá cao</button>
+                    </div>
+                </div>
+
+                <div class="clinic-cards">
+                    <!-- Clinic Card 1 -->
+                    <div class="clinic-card" style="background-color: var(--white); border: 1px solid var(--border-light); margin-bottom: 16px;">
+                        <div class="clinic-header">
+                            <div>
+                                <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px;">Phòng khám Thú y Vy Vet Cần Thơ</h3>
+                                <div class="clinic-rating">
+                                    <span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.7</span> (25 đánh giá)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clinic-details">
+                            <div class="detail-item" style="color: var(--text-body);">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span>Cần Thơ - Đã hoạt động hơn 3 năm</span>
+                            </div>
+                        </div>
+                        <div class="clinic-actions" style="margin-top: 16px;">
+                            <a href="https://maps.google.com/?q=Phòng+khám+Thú+y+Vy+Vet+Cần+Thơ" target="_blank" class="btn btn-primary btn-full" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">Chỉ đường</a>
+                            <a href="#" class="btn btn-outline btn-full" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">Trang web</a>
+                        </div>
+                    </div>
+
+                    <!-- Clinic Card 2 -->
+                    <div class="clinic-card" style="background-color: rgba(0, 105, 80, 0.03); border: 1px solid rgba(0, 105, 80, 0.15); margin-bottom: 16px;">
+                        <div class="clinic-header">
+                            <div>
+                                <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px;">TruongDung Pet - Phòng khám Thú y Cần Thơ</h3>
+                                <div class="clinic-rating">
+                                    <span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.7</span> (81 đánh giá)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clinic-details">
+                            <div class="detail-item" style="color: var(--text-body);">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span>Cần Thơ - Grooming, Pet Shop, Cấp cứu 24/24</span>
+                            </div>
+                        </div>
+                        <div class="clinic-actions" style="margin-top: 16px;">
+                            <a href="https://maps.google.com/?q=TruongDung+Pet+Phòng+khám+Thú+y+Cần+Thơ" target="_blank" class="btn btn-primary btn-full" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">Chỉ đường</a>
+                            <a href="#" class="btn btn-outline btn-full" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">Trang web</a>
+                        </div>
+                    </div>
+
+                    <!-- Clinic Card 3 -->
+                    <div class="clinic-card" style="background-color: var(--white); border: 1px solid var(--border-light); margin-bottom: 16px;">
+                        <div class="clinic-header">
+                            <div>
+                                <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px;">Phòng khám thú y Nguyễn Văn Cừ</h3>
+                                <div class="clinic-rating">
+                                    <span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.9</span> (64 đánh giá)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clinic-details">
+                            <div class="detail-item" style="color: var(--text-body);">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <span>Cần Thơ - Đã hoạt động hơn 3 năm</span>
+                            </div>
+                        </div>
+                        <div class="clinic-actions" style="margin-top: 16px;">
+                            <a href="https://maps.google.com/?q=Phòng+khám+thú+y+Nguyễn+Văn+Cừ+Cần+Thơ" target="_blank" class="btn btn-primary btn-full" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">Chỉ đường</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Map -->
+            <div class="clinic-map-panel" style="position: relative; padding: 0;">
+                <iframe id="googleMap" width="100%" height="100%" style="border:0; position: absolute; top: 0; left: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Phòng+khám+thú+y+Cần+Thơ&z=13&output=embed"></iframe>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mapIframe = document.getElementById('googleMap');
+            
+            // Lấy vị trí hiện tại để đưa vào map dò
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+                        // Map quanh vị trí hiện tại tìm phòng khám thú y
+                        mapIframe.src = `https://maps.google.com/maps?q=phòng+khám+thú+y&ll=${lat},${lng}&z=14&output=embed`;
+                    },
+                    (error) => {
+                        console.log("Không lấy được vị trí, dùng mặc định Cần Thơ.");
+                        mapIframe.src = "https://maps.google.com/maps?q=Phòng+khám+thú+y+Cần+Thơ&z=13&output=embed";
+                    }
+                );
+            }
+        });
+    </script>
+</body>
+</html>
+

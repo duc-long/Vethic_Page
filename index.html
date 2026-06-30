@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vethic AI - Chăm sóc thú cưng thông minh</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header style="position: sticky; top: 0; z-index: 100; background-color: var(--primary); border-bottom: 1px solid rgba(255, 255, 255, 0.15); height: 72px; display: flex; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <div class="container flex items-center justify-between" style="width: 100%;">
+            <a href="index.html" style="display: flex; align-items: center; text-decoration: none;">
+                <div style="background-color: #FFF; padding: 4px; border-radius: 8px; display: flex; justify-content: center; align-items: center;">
+                    <img src="assets/logo/logo_ten.png" style="height:32px; object-fit: contain;" alt="Vethic">
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center; margin-left: 12px;">
+                    <span style="color: #FFF; font-size: 22px; font-weight: 700; line-height: 1.2;">Vethic</span>
+                    <span style="font-size: 10px; color: rgba(255, 255, 255, 0.7); letter-spacing: 0.5px; text-transform: uppercase;">AI Veterinary Assistant</span>
+                </div>
+            </a>
+            <nav style="display: flex; gap: 32px;">
+                <a href="index.html" style="font-weight: 600; color: #FFF; border-bottom: 2px solid #FFF; padding-bottom: 4px;">Trang chủ</a>
+                <a href="pages/about.html" style="font-weight: 500; color: rgba(255, 255, 255, 0.8); transition: color 0.2s;" onmouseover="this.style.color='#FFF'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Về chúng tôi</a>
+                <a href="pages/news.html" style="font-weight: 500; color: rgba(255, 255, 255, 0.8); transition: color 0.2s;" onmouseover="this.style.color='#FFF'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">Tin tức</a>
+            </nav>
+            <div class="auth-buttons">
+                <a href="pages/login.html" class="btn" style="background-color: #FFF; color: var(--primary); padding: 8px 20px; font-size: 14px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">Đăng nhập</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container flex">
+                <div class="hero-content">
+                    <div class="badge badge-green">
+                        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5 4.66667L9.77083 3.0625L8.16667 2.33333L9.77083 1.60417L10.5 0L11.2292 1.60417L12.8333 2.33333L11.2292 3.0625L10.5 4.66667ZM10.5 12.8333L9.77083 11.2292L8.16667 10.5L9.77083 9.77083L10.5 8.16667L11.2292 9.77083L12.8333 10.5L11.2292 11.2292L10.5 12.8333ZM4.66667 11.0833L3.20833 7.875L0 6.41667L3.20833 4.95833L4.66667 1.75L6.125 4.95833L9.33333 6.41667L6.125 7.875L4.66667 11.0833ZM4.66667 8.25417L5.25 7L6.50417 6.41667L5.25 5.83333L4.66667 4.57917L4.08333 5.83333L2.82917 6.41667L4.08333 7L4.66667 8.25417Z" fill="#00513D"/>
+                        </svg>
+                        AI Veterinary Intelligence
+                    </div>
+                    <h1 class="hero-title">
+                        Chăm sóc thú cưng<br>
+                        <span class="text-primary">thông minh hơn</span> với<br>
+                        AI
+                    </h1>
+                    <p class="hero-desc">
+                        Hỗ trợ chẩn đoán 24/7, quản lý hồ sơ y tế tập trung và tìm
+                        kiếm phòng khám uy tín chỉ trong vài giây. Giải pháp công
+                        nghệ hàng đầu cho sức khỏe thú cưng của bạn.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="pages/login.html" class="btn btn-primary">
+                            Bắt đầu ngay
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 8px;">
+                                <path d="M12.175 9H0V7H12.175L6.575 1.4L8 0L16 8L8 16L6.575 14.6L12.175 9Z" fill="white"/>
+                            </svg>
+                        </a>
+                        <a href="pages/about.html" class="btn btn-outline">Tìm hiểu thêm</a>
+                    </div>
+                    <div class="hero-trust">
+                        <div class="trust-avatars">
+                            <!-- Placeholders for user avatars -->
+                            <img src="https://api.builder.io/api/v1/image/assets/TEMP/1f8a215ebe9d288fbd1fcb83530d6c404892c084" alt="User 1">
+                            <img src="https://api.builder.io/api/v1/image/assets/TEMP/50234e5207a0158e242f4eb7a8532f2e86b1d807" alt="User 2">
+                            <div class="trust-count">+15k</div>
+                        </div>
+                        <p style="color: var(--text-body); font-size: 16px;">Được tin dùng bởi hơn 15,000 chủ nuôi thú cưng</p>
+                    </div>
+                </div>
+                
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-blur"></div>
+                    <div class="hero-image">
+                        <img src="https://api.builder.io/api/v1/image/assets/TEMP/bf6736a7d487c4fdfe2e49db8d2ccf7e5ebcb136" alt="Hero AI Assistant for Pets">
+                    </div>
+                    <div class="floating-badge">
+                        <div class="floating-badge-icon">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6.9 18V12.05L1.75 15.025L0 12L5.15 9L0 6.025L1.75 3L6.9 5.975V0H10.4V5.975L15.55 3L17.3 6.025L12.15 9L17.3 12L15.55 15.025L10.4 12.05V18H6.9Z" fill="#BA1A1A"/>
+                            </svg>
+                        </div>
+                        <div class="floating-badge-content">
+                            <h4>Cấp cứu</h4>
+                            <p>Tìm phòng khám gần nhất</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Giải pháp toàn diện cho thú cưng</h2>
+                    <p class="section-desc">Vethic kết hợp trí tuệ nhân tạo tiên tiến với dữ liệu y tế chuyên sâu để mang đến sự chăm sóc tốt nhất.</p>
+                </div>
+                
+                <div class="features-grid">
+                    <!-- Feature 1 -->
+                    <div class="feature-card">
+                        <div class="feature-icon icon-green">
+                            <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M10 16.25H12.5L12.6875 14.6875C12.8542 14.625 13.0052 14.5521 13.1406 14.4688C13.276 14.3854 13.3958 14.2917 13.5 14.1875L14.9375 14.8125L16.1875 12.6875L14.9375 11.75C14.9792 11.5833 15 11.4167 15 11.25C15 11.0833 14.9792 10.9167 14.9375 10.75L16.1875 9.8125L14.9375 7.6875L13.5 8.3125C13.3958 8.20833 13.276 8.11458 13.1406 8.03125C13.0052 7.94792 12.8542 7.875 12.6875 7.8125L12.5 6.25H10L9.8125 7.8125C9.64583 7.875 9.49479 7.94792 9.35938 8.03125C9.22396 8.11458 9.10417 8.20833 9 8.3125L7.5625 7.6875L6.3125 9.8125L7.5625 10.75C7.52083 10.9167 7.5 11.0833 7.5 11.25C7.5 11.4167 7.52083 11.5833 7.5625 11.75L6.3125 12.6875L7.5625 14.8125L9 14.1875C9.10417 14.2917 9.22396 14.3854 9.35938 14.4688C9.49479 14.5521 9.64583 14.625 9.8125 14.6875L10 16.25ZM11.25 13.125C10.7292 13.125 10.2865 12.9427 9.92188 12.5781C9.55729 12.2135 9.375 11.7708 9.375 11.25C9.375 10.7292 9.55729 10.2865 9.92188 9.92188C10.2865 9.55729 10.7292 9.375 11.25 9.375C11.7708 9.375 12.2135 9.55729 12.5781 9.92188C12.9427 10.2865 13.125 10.7292 13.125 11.25C13.125 11.7708 12.9427 12.2135 12.5781 12.5781C12.2135 12.9427 11.7708 13.125 11.25 13.125ZM3.75 25V19.625C2.5625 18.5417 1.64062 17.276 0.984375 15.8281C0.328125 14.3802 0 12.8542 0 11.25C0 8.125 1.09375 5.46875 3.28125 3.28125C5.46875 1.09375 8.125 0 11.25 0C13.8542 0 16.1615 0.765625 18.1719 2.29688C20.1823 3.82812 21.4896 5.82292 22.0938 8.28125L23.7188 14.6875C23.8229 15.0833 23.75 15.4427 23.5 15.7656C23.25 16.0885 22.9167 16.25 22.5 16.25H20V20C20 20.6875 19.7552 21.276 19.2656 21.7656C18.776 22.2552 18.1875 22.5 17.5 22.5H15V25H3.75Z" fill="#006950"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Chẩn đoán AI tức thì</h3>
+                        <p class="feature-desc">Chỉ cần mô tả triệu chứng hoặc tải lên hình ảnh, AI của chúng tôi sẽ phân tích và đưa ra đánh giá sơ bộ ngay lập tức với độ chính xác cao.</p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="feature-card">
+                        <div class="feature-icon icon-gray">
+                            <svg width="25" height="20" viewBox="0 0 25 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.125 20C7.4375 20 6.84896 19.7552 6.35938 19.2656C5.86979 18.776 5.625 18.1875 5.625 17.5V13.75H9.375V10.9375C8.64583 10.8958 7.95312 10.7344 7.29688 10.4531C6.64062 10.1719 6.04167 9.75 5.5 9.1875V7.8125H4.0625L0 3.75C0.75 2.79167 1.67708 2.11458 2.78125 1.71875C3.88542 1.32292 5 1.125 6.125 1.125C6.6875 1.125 7.23438 1.16667 7.76562 1.25C8.29688 1.33333 8.83333 1.48958 9.375 1.71875V0H24.375V16.25C24.375 17.2917 24.0104 18.1771 23.2812 18.9062C22.5521 19.6354 21.6667 20 20.625 20H8.125ZM11.875 13.75H19.375V16.25C19.375 16.6042 19.4948 16.901 19.7344 17.1406C19.974 17.3802 20.2708 17.5 20.625 17.5C20.9792 17.5 21.276 17.3802 21.5156 17.1406C21.7552 16.901 21.875 16.6042 21.875 16.25V2.5H11.875V3.25L19.375 10.75V12.5H17.625L14.0625 8.9375L13.8125 9.1875C13.5208 9.47917 13.2135 9.73958 12.8906 9.96875C12.5677 10.1979 12.2292 10.375 11.875 10.5V13.75ZM5.125 5.3125H8V8C8.25 8.16667 8.51042 8.28125 8.78125 8.34375C9.05208 8.40625 9.33333 8.4375 9.625 8.4375C10.1042 8.4375 10.5365 8.36458 10.9219 8.21875C11.3073 8.07292 11.6875 7.8125 12.0625 7.4375L12.3125 7.1875L10.5625 5.4375C9.95833 4.83333 9.28125 4.38021 8.53125 4.07812C7.78125 3.77604 6.97917 3.625 6.125 3.625C5.70833 3.625 5.3125 3.65625 4.9375 3.71875C4.5625 3.78125 4.1875 3.875 3.8125 4L5.125 5.3125Z" fill="#5D5E60"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Quản lý hồ sơ y tế</h3>
+                        <p class="feature-desc">Lưu trữ tập trung lịch sử tiêm phòng, đơn thuốc và kết quả xét nghiệm. Nhận thông báo nhắc lịch định kỳ thông minh.</p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="feature-card">
+                        <div class="feature-icon icon-purple">
+                            <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.375 22.5L8.8125 13.6875L0 10.125V8.375L22.5 0L14.125 22.5H12.375Z" fill="#5A5A6C"/>
+                            </svg>
+                        </div>
+                        <h3 class="feature-title">Tìm phòng khám gần nhất</h3>
+                        <p class="feature-desc">Định vị và kết nối nhanh chóng với các phòng khám thú y uy tín xung quanh bạn, hỗ trợ cả trường hợp khẩn cấp ban đêm.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Trust Section -->
+        <section class="trust-section">
+            <div class="container trust-container">
+                <div class="trust-content">
+                    <div class="badge badge-green">
+                        <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.05417 7.90417L7.35 4.60833L6.51875 3.77708L4.05417 6.24167L2.82917 5.01667L1.99792 5.84792L4.05417 7.90417ZM4.66667 11.6667C3.31528 11.3264 2.19965 10.551 1.31979 9.34062C0.439931 8.13021 0 6.78611 0 5.30833V1.75L4.66667 0L9.33333 1.75V5.30833C9.33333 6.78611 8.8934 8.13021 8.01354 9.34062C7.13368 10.551 6.01806 11.3264 4.66667 11.6667Z" fill="#00513D"/>
+                        </svg>
+                        Bảo mật & Tin cậy
+                    </div>
+                    <h2 class="section-title" style="text-align: left; margin-bottom: 0;">An tâm tuyệt đối với dữ liệu của bạn</h2>
+                    <p style="color: var(--text-body); font-size: 16px; line-height: 1.5;">Vethic tuân thủ nghiêm ngặt các tiêu chuẩn bảo mật dữ liệu y tế toàn cầu (HIPAA). Hệ thống AI của chúng tôi được huấn luyện trên hàng triệu hồ sơ bệnh án thực tế từ các bác sĩ thú y chuyên môn cao.</p>
+                    <div class="trust-list">
+                        <div class="trust-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.6 14.6L15.65 7.55L14.25 6.15L8.6 11.8L5.75 8.95L4.35 10.35L8.6 14.6ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20Z" fill="#006950"/>
+                            </svg>
+                            Mã hóa dữ liệu cuối 256-bit
+                        </div>
+                        <div class="trust-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.6 14.6L15.65 7.55L14.25 6.15L8.6 11.8L5.75 8.95L4.35 10.35L8.6 14.6ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20Z" fill="#006950"/>
+                            </svg>
+                            Kiểm duyệt bởi chuyên gia thú y định kì
+                        </div>
+                        <div class="trust-item">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.6 14.6L15.65 7.55L14.25 6.15L8.6 11.8L5.75 8.95L4.35 10.35L8.6 14.6ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20Z" fill="#006950"/>
+                            </svg>
+                            Tuân thủ HIPAA và tiêu chuẩn bảo mật y tế
+                        </div>
+                    </div>
+                </div>
+                <div class="trust-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">99.9%</div>
+                        <div class="stat-label">Thời gian hoạt động</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">1K+</div>
+                        <div class="stat-label">Dữ liệu bệnh án</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">Hỗ trợ tức thì</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">#1</div>
+                        <div class="stat-label">AI Vet Assistant</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="container cta-container">
+                <h2 class="cta-title">Tham gia cộng đồng Vethic ngay hôm nay</h2>
+                <p class="cta-desc">Đừng để những lo lắng về sức khỏe thú cưng làm phiền bạn. Hãy để AI đồng hành cùng bạn chăm sóc người bạn nhỏ tốt nhất.</p>
+                <a href="#" class="btn btn-cta">Bắt đầu ngay</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <div style="display: flex; align-items: center;"><img src="assets/logo/logo_ten.png" style="height:60px" alt="Vethic"><div style="display: flex; flex-direction: column; justify-content: center; margin-left: 12px;"><span style="color: var(--primary); font-size: 28px; font-weight: 700; line-height: 1.2;">Vethic</span><span style="font-size: 12px; color: var(--text-body); letter-spacing: 0.5px; text-transform: uppercase;">AI Veterinary Assistant</span></div></div>
+                <p>Người bạn đồng hành thông minh cho mọi chủ nuôi thú cưng. Công nghệ AI hàng đầu vì hạnh phúc của thú cưng.</p>
+                <div class="footer-socials">
+                    <a href="#"><svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 18C5.76667 18 3.875 17.225 2.325 15.675C0.775 14.125 0 12.2333 0 10C0 7.76667 0.775 5.875 2.325 4.325C3.875 2.775 5.76667 2 8 2C10.2333 2 12.125 2.775 13.675 4.325C15.225 5.875 16 7.76667 16 10C16 12.2333 15.225 14.125 13.675 15.675C12.125 17.225 10.2333 18 8 18ZM8 16C9.66667 16 11.0833 15.4167 12.25 14.25C13.4167 13.0833 14 11.6667 14 10C14 9.81667 13.9917 9.64167 13.975 9.475C13.9583 9.30833 13.9333 9.13333 13.9 8.95C12.6667 9.08333 11.475 8.94583 10.325 8.5375C9.175 8.12917 8.16667 7.48333 7.3 6.6C6.66667 7.46667 5.8875 8.18333 4.9625 8.75C4.0375 9.31667 3.05 9.69167 2 9.875C1.96667 11.5583 2.53333 13 3.7 14.2C4.86667 15.4 6.3 16 8 16ZM5.5 12C5.21667 12 4.97917 11.9042 4.7875 11.7125C4.59583 11.5208 4.5 11.2833 4.5 11C4.5 10.7167 4.59583 10.4792 4.7875 10.2875C4.97917 10.0958 5.21667 10 5.5 10C5.78333 10 6.02083 10.0958 6.2125 10.2875C6.40417 10.4792 6.5 10.7167 6.5 11C6.5 11.2833 6.40417 11.5208 6.2125 11.7125C6.02083 11.9042 5.78333 12 5.5 12ZM10.5 12C10.2167 12 9.97917 11.9042 9.7875 11.7125C9.59583 11.5208 9.5 11.2833 9.5 11C9.5 10.7167 9.59583 10.4792 9.7875 10.2875C9.97917 10.0958 10.2167 10 10.5 10C10.7833 10 11.0208 10.0958 11.2125 10.2875C11.4042 10.4792 11.5 10.7167 11.5 11C11.5 11.2833 11.4042 11.5208 11.2125 11.7125C11.0208 11.9042 10.7833 12 10.5 12ZM6.4 4.225C5.5 4.475 4.70833 4.90417 4.025 5.5125C3.34167 6.12083 2.81667 6.85 2.45 7.7C3.33333 7.43333 4.11667 6.99583 4.8 6.3875C5.48333 5.77917 6.01667 5.05833 6.4 4.225ZM7.825 4C8.375 4.95 9.12917 5.69583 10.0875 6.2375C11.0458 6.77917 12.075 7.03333 13.175 7C12.625 6.05 11.8708 5.30417 10.9125 4.7625C9.95417 4.22083 8.925 3.96667 7.825 4ZM16 20V15H17.5V17.9C18.4667 16.8 19.2083 15.575 19.725 14.225C20.2417 12.875 20.5 11.4667 20.5 10C20.5 8.53333 20.2417 7.125 19.725 5.775C19.2083 4.425 18.4667 3.2 17.5 2.1V5H16V0H21V1.5H18.975C19.9583 2.7 20.7083 4.025 21.225 5.475C21.7417 6.925 22 8.43333 22 10C22 11.5667 21.7417 13.075 21.225 14.525C20.7083 15.975 19.9583 17.3 18.975 18.5H21V20H16Z" fill="#006950"/></svg></a>
+                    <a href="#"><svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12H12V11.45C12 10.7167 11.6333 10.125 10.9 9.675C10.1667 9.225 9.2 9 8 9C6.8 9 5.83333 9.225 5.1 9.675C4.36667 10.125 4 10.7167 4 11.45V12ZM8 8C8.55 8 9.02083 7.80417 9.4125 7.4125C9.80417 7.02083 10 6.55 10 6C10 5.45 9.80417 4.97917 9.4125 4.5875C9.02083 4.19583 8.55 4 8 4C7.45 4 6.97917 4.19583 6.5875 4.5875C6.19583 4.97917 6 5.45 6 6C6 6.55 6.19583 7.02083 6.5875 7.4125C6.97917 7.80417 7.45 8 8 8ZM2 16C1.45 16 0.979167 15.8042 0.5875 15.4125C0.195833 15.0208 0 14.55 0 14V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H14C14.55 0 15.0208 0.195833 15.4125 0.5875C15.8042 0.979167 16 1.45 16 2V6.5L20 2.5V13.5L16 9.5V14C16 14.55 15.8042 15.0208 15.4125 15.4125C15.0208 15.8042 14.55 16 14 16H2ZM2 14H14V2H2V14ZM2 14V2V14Z" fill="#006950"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Khám phá</h4>
+                <ul>
+                    <li><a href="#">Về Vethic</a></li>
+                    <li><a href="#">Bác sĩ tư vấn</a></li>
+                    <li><a href="#">Tìm phòng khám</a></li>
+                    <li><a href="#">Cộng đồng</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Hỗ trợ</h4>
+                <ul>
+                    <li><a href="#">Trung tâm trợ giúp</a></li>
+                    <li><a href="#">Điều khoản sử dụng</a></li>
+                    <li><a href="#">Chính sách bảo mật</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Liên hệ</h4>
+                <ul>
+                    <li><a href="mailto:support@vethic.vn">support@vethic.vn</a></li>
+                    <li><a href="tel:19001234">1900 1234</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

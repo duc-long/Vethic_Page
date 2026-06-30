@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý người dùng - Admin Vethic AI</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-body">
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Topbar -->
+        <header class="topbar">
+            <h1 class="page-title">Quản lý người dùng</h1>
+            <div class="user-profile">
+                <span class="user-name">Adminstrator</span>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+            <div class="recent-activity">
+                <div class="section-header-card" style="display: flex; gap: 16px; margin-bottom: 24px;">
+                    <div style="flex: 1; display: flex; align-items: center; background: var(--background-light); border: 1px solid var(--border-light); border-radius: 8px; padding: 0 16px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <input type="text" placeholder="Tìm kiếm người dùng theo tên, email..." style="flex: 1; padding: 12px 0; border: none; background: transparent; outline: none; font-family: inherit; font-size: 14px;">
+                    </div>
+                    <select style="padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-light); outline: none; font-family: inherit;">
+                        <option value="all">Tất cả vai trò</option>
+                        <option value="user">Người dùng (Pet Owner)</option>
+                        <option value="vet">Bác sĩ thú y</option>
+                        <option value="admin">Quản trị viên</option>
+                    </select>
+                    <button class="btn btn-primary">Xuất báo cáo</button>
+                </div>
+
+                <div class="activity-table-container">
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Họ Tên</th>
+                                <th>Email</th>
+                                <th>Vai trò</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tham gia</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#U001</td>
+                                <td><div style="display: flex; align-items: center; gap: 12px;"><div class="avatar-small">N</div> <span style="font-weight: 500;">Nguyễn Văn A</span></div></td>
+                                <td>nguyen.van.a@example.com</td>
+                                <td><span class="status info">Người dùng</span></td>
+                                <td><span class="status success">Hoạt động</span></td>
+                                <td>15/04/2026</td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chi tiết"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Khóa tài khoản"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#U002</td>
+                                <td><div style="display: flex; align-items: center; gap: 12px;"><div class="avatar-small" style="background: var(--primary);">T</div> <span style="font-weight: 500;">Trần Thị B</span></div></td>
+                                <td>tran.thi.b@vethic.vn</td>
+                                <td><span class="status warning" style="background: rgba(251, 188, 5, 0.2); color: #D99000;">Bác sĩ thú y</span></td>
+                                <td><span class="status success">Hoạt động</span></td>
+                                <td>20/04/2026</td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chi tiết"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Khóa tài khoản"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#U003</td>
+                                <td><div style="display: flex; align-items: center; gap: 12px;"><div class="avatar-small" style="background: #E5E2E1; color: var(--text-dark);">L</div> <span style="font-weight: 500;">Lê Minh C</span></div></td>
+                                <td>le.minh.c@example.com</td>
+                                <td><span class="status info">Người dùng</span></td>
+                                <td><span class="status" style="background: rgba(186, 26, 26, 0.1); color: var(--danger);">Bị khóa</span></td>
+                                <td>10/05/2026</td>
+                                <td>
+                                    <div style="display: flex; gap: 8px;">
+                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chi tiết"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Mở khóa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <style>
+        .avatar-small {
+            width: 32px;
+            height: 32px;
+            background-color: var(--secondary);
+            color: var(--primary-hover);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+    </style>
+</body>
+</html>
+
