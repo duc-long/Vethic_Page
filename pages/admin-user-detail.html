@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết người dùng - Admin Vethic AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <style>
+        .admin-detail-body .topbar {
+            align-items: flex-start;
+        }
+
+        .detail-topbar-left {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .back-link {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .detail-content {
+            gap: 24px;
+        }
+
+        .detail-hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .detail-hero-main {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .detail-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #E8F5E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .detail-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-kicker {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .detail-hero h2 {
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .detail-subtitle {
+            color: var(--text-body);
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .detail-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .info-card h3,
+        .pets-card h2,
+        .history-card h2 {
+            font-size: 18px;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .info-list div,
+        .activity-stats div {
+            padding: 14px 16px;
+            border-radius: 14px;
+            background: rgba(0, 105, 80, 0.04);
+            border: 1px solid rgba(188, 202, 194, 0.35);
+        }
+
+        .info-list span,
+        .activity-stats span,
+        .pet-meta span {
+            display: block;
+            font-size: 12px;
+            color: var(--text-body);
+            margin-bottom: 6px;
+        }
+
+        .info-list strong,
+        .activity-stats strong,
+        .pet-meta strong {
+            color: var(--text-dark);
+            font-size: 15px;
+        }
+
+        .activity-stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .activity-stats strong {
+            font-size: 24px;
+        }
+
+        .pets-card,
+        .history-card {
+            padding-bottom: 22px;
+        }
+
+        .pets-count {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .pet-card {
+            border: 1px solid rgba(188, 202, 194, 0.35);
+            border-radius: 18px;
+            padding: 18px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(248, 251, 249, 0.95));
+        }
+
+        .pet-card-top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 16px;
+        }
+
+        .pet-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .pet-card-top h3 {
+            font-size: 16px;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .pet-card-top p {
+            color: var(--text-body);
+            font-size: 13px;
+        }
+
+        .pet-meta {
+            display: grid;
+            gap: 10px;
+        }
+
+        .empty-pets {
+            padding: 20px;
+            border-radius: 14px;
+            background: rgba(0, 105, 80, 0.04);
+            color: var(--text-body);
+        }
+
+        .status.warning {
+            background: rgba(251, 188, 5, 0.2);
+            color: #D99000;
+        }
+
+        .status.danger {
+            background: rgba(186, 26, 26, 0.12);
+            color: var(--danger);
+        }
+
+        .btn-secondary {
+            background: rgba(186, 26, 26, 0.08);
+            color: var(--danger);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(186, 26, 26, 0.12);
+        }
+
+        .lock-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgb(0 0 0 / 63%);
+        }
+
+        .lock-modal[hidden] {
+            display: none !important;
+        }
+
+        .lock-modal-panel {
+            width: min(420px, 100%);
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(18, 53, 43, 0.26);
+            padding: 26px;
+        }
+
+        .lock-modal-title {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .lock-modal-message {
+            color: var(--text-body);
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .lock-modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-ghost {
+            background: rgba(0, 105, 80, 0.08);
+            color: var(--primary);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(0, 105, 80, 0.12);
+        }
+
+        @media (max-width: 1024px) {
+
+            .detail-hero,
+            .detail-grid,
+            .pets-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+            }
+
+            .detail-hero {
+                align-items: flex-start;
+            }
+
+            .activity-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .detail-hero-main {
+                align-items: flex-start;
+            }
+
+            .info-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="admin-body admin-detail-body">
+    <main class="main-content">
+        <header class="topbar">
+            <div class="detail-topbar-left">
+                <a class="back-link" href="admin-users.html">&larr; Quay lại danh sách</a>
+                <h1 class="page-title" id="detail-page-title">Chi tiết người dùng</h1>
+            </div>
+            <div class="user-profile">
+                <span class="user-name">Administrator</span>
+                <div class="avatar">A</div>
+            </div>
+        </header>
+
+        <div class="dashboard-content detail-content">
+            <section class="dashboard-card detail-hero">
+                <div class="detail-hero-main">
+                    <div class="detail-avatar" id="detail-avatar">N</div>
+                    <div>
+                        <p class="detail-kicker">Hồ sơ tài khoản</p>
+                        <h2 id="detail-name">Nguyễn Văn A</h2>
+                        <p class="detail-subtitle" id="detail-email">nguyen.van.a@example.com</p>
+                        <div class="detail-badges">
+                            <span class="status info" id="detail-role-badge">Người dùng</span>
+                            <span class="status success" id="detail-status-badge">Hoạt động</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-actions">
+                    <button id="toggle-lock-btn" class="btn btn-secondary" type="button">Khóa tài khoản</button>
+                    <button id="contact-btn" class="btn btn-primary" type="button">Gửi thông báo</button>
+                </div>
+            </section>
+
+            <section class="detail-grid">
+                <article class="dashboard-card info-card">
+                    <h3>Thông tin cơ bản</h3>
+                    <div class="info-list">
+                        <div><span>ID</span><strong id="detail-id">#U001</strong></div>
+                        <div><span>Họ tên</span><strong id="detail-fullname">Nguyễn Văn A</strong></div>
+                        <div><span>Vai trò</span><strong id="detail-role">Người dùng</strong></div>
+                        <div><span>Số điện thoại</span><strong id="detail-phone">0912 345 678</strong></div>
+                        <div><span>Ngày tham gia</span><strong id="detail-joined">15/04/2026</strong></div>
+                        <div><span>Đăng nhập gần nhất</span><strong id="detail-last-login">30 phút trước</strong></div>
+                    </div>
+                </article>
+
+                <article class="dashboard-card info-card">
+                    <h3>Hoạt động tài khoản</h3>
+                    <div class="activity-stats">
+                        <div>
+                            <span>Thú cưng</span>
+                            <strong id="detail-total-pets">3</strong>
+                        </div>
+                        <div>
+                            <span>Lần chẩn đoán</span>
+                            <strong id="detail-diagnosis-count">12</strong>
+                        </div>
+                        <div>
+                            <span>Cảnh báo đỏ</span>
+                            <strong id="detail-alert-count">1</strong>
+                        </div>
+                    </div>
+                </article>
+            </section>
+
+            <section class="dashboard-card pets-card">
+                <div class="section-header-card">
+                    <div>
+                        <h2>Thú cưng của user</h2>
+                        <p class="section-subtitle">Danh sách thú cưng đang được quản lý trong hệ thống</p>
+                    </div>
+                    <span class="pets-count" id="pets-count">3 thú cưng</span>
+                </div>
+                <div id="pets-grid" class="pets-grid"></div>
+            </section>
+
+            <section class="dashboard-card history-card">
+                <div class="section-header-card">
+                    <div>
+                        <h2>Lịch sử gần đây</h2>
+                        <p class="section-subtitle">Các hoạt động và chẩn đoán mới nhất của tài khoản này</p>
+                    </div>
+                </div>
+                <div class="activity-table-container">
+                    <table class="activity-table">
+                        <thead>
+                            <tr>
+                                <th>Thời gian</th>
+                                <th>Hoạt động</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="lock-confirm-modal" class="lock-modal" hidden>
+        <div class="lock-modal-panel" role="dialog" aria-modal="true" aria-labelledby="lock-modal-title">
+            <h3 id="lock-modal-title" class="lock-modal-title">Xác nhận thay đổi trạng thái</h3>
+            <p id="lock-modal-message" class="lock-modal-message"></p>
+            <div class="lock-modal-actions">
+                <button id="lock-modal-cancel" type="button" class="btn btn-ghost">Hủy</button>
+                <button id="lock-modal-confirm" type="button" class="btn btn-secondary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const users = {
+            U001: {
+                id: 'U001',
+                name: 'Nguyễn Văn A',
+                email: 'nguyen.van.a@example.com',
+                role: 'Người dùng',
+                status: 'active',
+                joined: '15/04/2026',
+                lastLogin: '30 phút trước',
+                phone: '0912 345 678',
+                totalPets: 3,
+                diagnosisCount: 12,
+                alertCount: 1,
+                avatar: "https://tse1.mm.bing.net/th?id=OIF.RvfrDE%2bsI9gMnJUMrSmShA&rs=1&pid=ImgDetMain&o=7&rm=3",
+                pets: [
+                    { name: 'Milo', species: 'Chó Poodle', age: '2 tuổi', gender: 'Đực', status: 'Ổn định', color: 'var(--primary)' },
+                    { name: 'Mimi', species: 'Mèo Anh lông ngắn', age: '3 tuổi', gender: 'Cái', status: 'Theo dõi', color: '#D99000' },
+                    { name: 'Bim', species: 'Chó Corgi', age: '1 tuổi', gender: 'Đực', status: 'Khám định kỳ', color: '#5A5A6C' }
+                ],
+                history: [
+                    { time: 'Hôm nay 08:30', action: 'Khám AI cho Milo - viêm tai ngoài', status: 'Thành công' },
+                    { time: 'Hôm qua 16:10', action: 'Cập nhật hồ sơ thú cưng Mimi', status: 'Đã cập nhật' },
+                    { time: '26/06/2026', action: 'Đặt lịch tư vấn với bác sĩ', status: 'Hoàn tất' }
+                ]
+            },
+            U002: {
+                id: 'U002',
+                name: 'Trần Thị B',
+                email: 'tran.thi.b@vethic.vn',
+                role: 'Bác sĩ thú y',
+                status: 'active',
+                joined: '20/04/2026',
+                lastLogin: '5 phút trước',
+                phone: '0909 222 111',
+                totalPets: 0,
+                diagnosisCount: 124,
+                alertCount: 6,
+                avatar: "https://cdn2.tuoitre.vn/471584752817336320/2025/5/15/jack-ve-que-lam-giau-2-17472863613111184785131.jpg",
+                pets: [],
+                history: [
+                    { time: 'Hôm nay 09:15', action: 'Phản hồi ca khẩn cấp', status: 'Thành công' },
+                    { time: 'Hôm qua 14:40', action: 'Duyệt nội dung kiến thức bệnh', status: 'Đã duyệt' },
+                    { time: '25/06/2026', action: 'Tư vấn chẩn đoán cho người dùng', status: 'Hoàn tất' }
+                ]
+            },
+            U003: {
+                id: 'U003',
+                name: 'Lê Minh C',
+                email: 'le.minh.c@example.com',
+                role: 'Người dùng',
+                status: 'locked',
+                joined: '10/05/2026',
+                lastLogin: '2 ngày trước',
+                phone: '0933 888 444',
+                totalPets: 1,
+                diagnosisCount: 4,
+                alertCount: 0,
+                avatar: "https://tse2.mm.bing.net/th/id/OIP.T8iXfbbvTdZzcJ92NkCFrwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3",
+                pets: [
+                    { name: 'Luna', species: 'Mèo tam thể', age: '2 tuổi', gender: 'Cái', status: 'Tạm khóa hồ sơ', color: '#B91C1C' }
+                ],
+                history: [
+                    { time: '01/07/2026', action: 'Tài khoản bị khóa tạm thời', status: 'Khóa' },
+                    { time: '29/06/2026', action: 'Xem kết quả chẩn đoán AI', status: 'Thành công' },
+                    { time: '28/06/2026', action: 'Cập nhật thông tin liên hệ', status: 'Đã cập nhật' }
+                ]
+            },
+            U004: {
+                id: 'U004',
+                name: 'Phạm Thu D',
+                email: 'pham.thu.d@example.com',
+                role: 'Quản trị viên',
+                status: 'active',
+                joined: '01/03/2026',
+                lastLogin: '1 giờ trước',
+                phone: '0977 101 202',
+                totalPets: 0,
+                diagnosisCount: 18,
+                alertCount: 0,
+                avatar: "https://i.vgt.vn/2023/12/6/do-mixi-danh-tieng-mua-gop-gao-vai-ngay-da-thu-ve-tram-trieu-xung-danh-bo-toc-mixigaming-c6d-7041760.png",
+                pets: [],
+                history: [
+                    { time: 'Hôm nay 07:20', action: 'Cập nhật quyền người dùng', status: 'Hoàn tất' },
+                    { time: '30/06/2026', action: 'Kiểm duyệt kiến thức bệnh', status: 'Đã duyệt' },
+                    { time: '29/06/2026', action: 'Xem báo cáo hệ thống', status: 'Thành công' }
+                ]
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const userId = params.get('uid') || 'U001';
+        const user = users[userId] || users.U001;
+        const statusStoreKey = 'vethic-admin-user-statuses';
+        const storedStatuses = JSON.parse(localStorage.getItem(statusStoreKey) || '{}');
+
+        const detailPageTitle = document.getElementById('detail-page-title');
+        const detailAvatar = document.getElementById('detail-avatar');
+        const detailName = document.getElementById('detail-name');
+        const detailEmail = document.getElementById('detail-email');
+        const detailRoleBadge = document.getElementById('detail-role-badge');
+        const detailStatusBadge = document.getElementById('detail-status-badge');
+        const detailId = document.getElementById('detail-id');
+        const detailFullname = document.getElementById('detail-fullname');
+        const detailRole = document.getElementById('detail-role');
+        const detailPhone = document.getElementById('detail-phone');
+        const detailJoined = document.getElementById('detail-joined');
+        const detailLastLogin = document.getElementById('detail-last-login');
+        const detailTotalPets = document.getElementById('detail-total-pets');
+        const detailDiagnosisCount = document.getElementById('detail-diagnosis-count');
+        const detailAlertCount = document.getElementById('detail-alert-count');
+        const petsGrid = document.getElementById('pets-grid');
+        const petsCount = document.getElementById('pets-count');
+        const historyTableBody = document.getElementById('history-table-body');
+        const toggleLockBtn = document.getElementById('toggle-lock-btn');
+        const lockConfirmModal = document.getElementById('lock-confirm-modal');
+        const lockModalMessage = document.getElementById('lock-modal-message');
+        const lockModalConfirm = document.getElementById('lock-modal-confirm');
+        const lockModalCancel = document.getElementById('lock-modal-cancel');
+        const lockModalTitle = document.getElementById('lock-modal-title');
+        let pendingLockStatus = null;
+
+        function getCurrentStatus() {
+            return storedStatuses[user.id] || user.status;
+        }
+
+        function isLocked(status) {
+            return status === 'locked';
+        }
+
+        function renderStatus() {
+            const locked = isLocked(getCurrentStatus());
+            detailStatusBadge.textContent = locked ? 'Bị khóa' : 'Hoạt động';
+            detailStatusBadge.className = locked ? 'status danger' : 'status success';
+            toggleLockBtn.textContent = locked ? 'Mở khóa tài khoản' : 'Khóa tài khoản';
+        }
+
+        function saveStatus(status) {
+            storedStatuses[user.id] = status;
+            localStorage.setItem(statusStoreKey, JSON.stringify(storedStatuses));
+            renderStatus();
+        }
+
+        function closeLockConfirmModal() {
+            lockConfirmModal.hidden = true;
+            pendingLockStatus = null;
+        }
+
+        function openLockConfirmModal(nextStatus) {
+            pendingLockStatus = nextStatus;
+            const isCurrentlyLocked = isLocked(getCurrentStatus());
+            lockModalTitle.textContent = isCurrentlyLocked ? 'Xác nhận mở khóa tài khoản' : 'Xác nhận khóa tài khoản';
+            lockModalMessage.textContent = isCurrentlyLocked
+                ? `Bạn có chắc chắn muốn mở khóa tài khoản của ${user.name}?`
+                : `Bạn có chắc chắn muốn khóa tài khoản của ${user.name}?`;
+            lockModalConfirm.textContent = isCurrentlyLocked ? 'Mở khóa' : 'Khóa tài khoản';
+            lockConfirmModal.hidden = false;
+        }
+
+        detailPageTitle.textContent = `Chi tiết người dùng - ${user.name}`;
+        if (user.avatar.startsWith("http")) {
+
+            detailAvatar.innerHTML = `
+        <img
+            src="${user.avatar}"
+            alt="${user.name}"
+            onerror="
+                this.remove();
+                this.parentNode.innerHTML='${user.name.charAt(0).toUpperCase()}';
+            ">
+    `;
+
+        } else {
+
+            detailAvatar.textContent = user.avatar;
+
+        }
+        detailName.textContent = user.name;
+        detailEmail.textContent = user.email;
+        detailRoleBadge.textContent = user.role;
+        detailRoleBadge.className = user.role === 'Bác sĩ thú y' ? 'status warning' : 'status info';
+        detailId.textContent = `#${user.id}`;
+        detailFullname.textContent = user.name;
+        detailRole.textContent = user.role;
+        detailPhone.textContent = user.phone;
+        detailJoined.textContent = user.joined;
+        detailLastLogin.textContent = user.lastLogin;
+        detailTotalPets.textContent = user.totalPets;
+        detailDiagnosisCount.textContent = user.diagnosisCount;
+        detailAlertCount.textContent = user.alertCount;
+        petsCount.textContent = `${user.pets.length} thú cưng`;
+
+        petsGrid.innerHTML = user.pets.length
+            ? user.pets.map((pet) => `
+                <article class="pet-card">
+                    <div class="pet-card-top">
+                        <div class="pet-avatar" style="background:${pet.color};">${pet.name.charAt(0)}</div>
+                        <div>
+                            <h3>${pet.name}</h3>
+                            <p>${pet.species}</p>
+                        </div>
+                    </div>
+                    <div class="pet-meta">
+                        <div><span>Tuổi</span><strong>${pet.age}</strong></div>
+                        <div><span>Giới tính</span><strong>${pet.gender}</strong></div>
+                        <div><span>Trạng thái</span><strong>${pet.status}</strong></div>
+                    </div>
+                </article>
+            `).join('')
+            : '<div class="empty-pets">Tài khoản này chưa có thú cưng được liên kết.</div>';
+
+        historyTableBody.innerHTML = user.history.map((item) => `
+            <tr>
+                <td>${item.time}</td>
+                <td>${item.action}</td>
+                <td><span class="status ${item.status === 'Khóa' ? 'danger' : item.status === 'Đã cập nhật' ? 'info' : 'success'}">${item.status}</span></td>
+            </tr>
+        `).join('');
+
+        renderStatus();
+
+        toggleLockBtn.addEventListener('click', () => {
+            const nextStatus = isLocked(getCurrentStatus()) ? 'active' : 'locked';
+            openLockConfirmModal(nextStatus);
+        });
+
+        lockModalConfirm.addEventListener('click', () => {
+            if (pendingLockStatus) {
+                saveStatus(pendingLockStatus);
+            }
+            closeLockConfirmModal();
+        });
+
+        lockModalCancel.addEventListener('click', closeLockConfirmModal);
+
+        lockConfirmModal.addEventListener('click', (event) => {
+            if (event.target === lockConfirmModal) {
+                closeLockConfirmModal();
+            }
+        });
+
+        document.getElementById('contact-btn').addEventListener('click', () => {
+            alert(`Đã gửi thông báo mẫu tới ${user.name}`);
+        });
+    </script>
+</body>
+
+</html>

@@ -27,71 +27,122 @@
 
         <!-- Dashboard Content -->
         <div class="dashboard-content">
-            <!-- Stats Row -->
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-icon" style="background: rgba(0, 105, 80, 0.1); color: var(--primary);">
+            <div class="stats-grid stats-grid--four">
+                <div class="stat-box stat-box--soft">
+                    <div class="stat-icon stat-icon--primary">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     </div>
                     <div class="stat-info">
-                        <h3>Tổng số người dùng</h3>
-                        <p class="stat-number">15,420</p>
+                        <div class="stat-meta">+12% tháng này</div>
+                        <h3>TỔNG SỐ USER</h3>
+                        <p class="stat-number">1,200</p>
                     </div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-icon" style="background: rgba(186, 26, 26, 0.1); color: var(--danger);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <div class="stat-box stat-box--soft">
+                    <div class="stat-icon stat-icon--neutral">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 9.5a4 4 0 0 1 5 0l.5.5.5-.5a4 4 0 0 1 5 0"></path><path d="M4 15c1.2-1.2 2.7-2 4.5-2s3.3.8 4.5 2"></path><path d="M20 8.5c0 3.5-3 6.5-7 9-4-2.5-7-5.5-7-9A4 4 0 0 1 10 5a4 4 0 0 1 3 1.4A4 4 0 0 1 20 8.5Z"></path></svg>
                     </div>
                     <div class="stat-info">
-                        <h3>Tổng số bệnh án</h3>
-                        <p class="stat-number">3,250</p>
+                        <div class="stat-meta stat-meta--muted">3.5 thú cưng/user</div>
+                        <h3>TỔNG SỐ THÚ CƯNG</h3>
+                        <p class="stat-number">3,500</p>
                     </div>
                 </div>
-                <div class="stat-box">
-                    <div class="stat-icon" style="background: rgba(90, 90, 108, 0.1); color: #5A5A6C;">
+                <div class="stat-box stat-box--soft">
+                    <div class="stat-icon stat-icon--primary">
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                     </div>
                     <div class="stat-info">
-                        <h3>Phiên chẩn đoán AI</h3>
-                        <p class="stat-number">45,100</p>
+                        <div class="stat-meta stat-meta--primary">● Đang xử lý</div>
+                        <h3>CHẨN ĐOÁN AI HÔM NAY</h3>
+                        <p class="stat-number">150</p>
+                    </div>
+                </div>
+                <div class="stat-box stat-box--alert">
+                    <div class="stat-icon stat-icon--danger">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-meta stat-meta--danger">CẤP CỨU</div>
+                        <h3>SỐ CA CẢNH BÁO ĐỎ</h3>
+                        <p class="stat-number stat-number--danger">12</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Activity Section -->
-            <div class="recent-activity">
+            <div class="dashboard-card trend-card">
+                <div class="section-header-card section-header-card--stacked">
+                    <div>
+                        <h2>Xu hướng Chẩn đoán AI</h2>
+                        <p class="section-subtitle">Dữ liệu phân tích hiệu suất chẩn đoán trong 7 ngày qua</p>
+                    </div>
+                    <div class="chart-tabs">
+                        <button class="chart-tab active" type="button" data-range="week">Tuần này</button>
+                        <button class="chart-tab" type="button" data-range="month">Tháng trước</button>
+                    </div>
+                </div>
+                <div class="chart-shell">
+                    <svg id="diagnosis-chart" class="trend-chart" viewBox="0 0 880 300" preserveAspectRatio="none" aria-label="Biểu đồ xu hướng chẩn đoán AI"></svg>
+                    <div id="chart-tooltip" class="chart-tooltip" hidden></div>
+                </div>
+                <div class="chart-metrics">
+                    <div class="chart-metric">
+                        <span class="metric-dot metric-dot--primary"></span>
+                        <div>
+                            <p>Tỷ lệ chính xác AI</p>
+                            <strong>98.4%</strong>
+                        </div>
+                    </div>
+                    <div class="chart-metric">
+                        <span class="metric-dot metric-dot--neutral"></span>
+                        <div>
+                            <p>Thời gian xử lý trung bình</p>
+                            <strong>1.2s</strong>
+                        </div>
+                    </div>
+                    <div class="chart-metric">
+                        <span class="metric-dot metric-dot--danger"></span>
+                        <div>
+                            <p>Phản hồi khẩn cấp (Hôm nay)</p>
+                            <strong>100%</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card recent-activity">
                 <div class="section-header-card">
-                    <h2>Hoạt động gần đây</h2>
+                    <h2>Ca chẩn đoán gần đây</h2>
                     <a href="#" class="view-all">Xem tất cả</a>
                 </div>
                 <div class="activity-table-container">
-                    <table class="activity-table">
+                    <table class="activity-table activity-table--compact">
                         <thead>
                             <tr>
-                                <th>Người dùng</th>
-                                <th>Hành động</th>
-                                <th>Thời gian</th>
-                                <th>Trạng thái</th>
+                                <th>PET</th>
+                                <th>CHỦ NUÔI</th>
+                                <th>LOẠI BỆNH</th>
+                                <th>TRẠNG THÁI</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>nguyen.van.a@example.com</td>
-                                <td>Thêm hồ sơ thú cưng "Milo"</td>
-                                <td>10 phút trước</td>
-                                <td><span class="status success">Thành công</span></td>
+                                <td>Milo</td>
+                                <td>nguyen.a@example.com</td>
+                                <td>Viêm tai ngoài</td>
+                                <td><span class="status success">Ổn định</span></td>
                             </tr>
                             <tr>
-                                <td>tran.thi.b@example.com</td>
-                                <td>Sử dụng Chẩn đoán AI</td>
-                                <td>25 phút trước</td>
-                                <td><span class="status success">Thành công</span></td>
+                                <td>Lucy</td>
+                                <td>tran.b@example.com</td>
+                                <td>Rối loạn tiêu hóa</td>
+                                <td><span class="status info">Đang theo dõi</span></td>
                             </tr>
                             <tr>
-                                <td>admin@vethic.vn</td>
-                                <td>Cập nhật kiến thức bệnh "Viêm ruột"</td>
-                                <td>1 giờ trước</td>
-                                <td><span class="status info">Đã cập nhật</span></td>
+                                <td>Max</td>
+                                <td>le.c@example.com</td>
+                                <td>Cảnh báo đỏ</td>
+                                <td><span class="status danger">Khẩn cấp</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -99,6 +150,205 @@
             </div>
         </div>
     </main>
+
+    <script>
+        const diagnosisDataSets = {
+            week: [
+                { label: 'THỨ 2', value: 32 },
+                { label: 'THỨ 3', value: 58 },
+                { label: 'THỨ 4', value: 81 },
+                { label: 'THỨ 5', value: 94 },
+                { label: 'THỨ 6', value: 184 },
+                { label: 'THỨ 7', value: 62 },
+                { label: 'CN', value: 74 }
+            ],
+            month: [
+                { label: 'W1', value: 122 },
+                { label: 'W2', value: 146 },
+                { label: 'W3', value: 139 },
+                { label: 'W4', value: 171 },
+                { label: 'W5', value: 158 },
+                { label: 'W6', value: 190 },
+                { label: 'W7', value: 176 },
+                { label: 'W8', value: 201 }
+            ]
+        };
+
+        const chart = document.getElementById('diagnosis-chart');
+        const tooltip = document.getElementById('chart-tooltip');
+        const chartShell = document.querySelector('.chart-shell');
+        const tabButtons = document.querySelectorAll('.chart-tab');
+        const width = 880;
+        const height = 300;
+        const padding = { top: 28, right: 24, bottom: 52, left: 24 };
+        const plotWidth = width - padding.left - padding.right;
+        const plotHeight = height - padding.top - padding.bottom;
+
+        let activeRange = 'week';
+        let pinnedPointIndex = null;
+
+        function formatValue(value) {
+            return new Intl.NumberFormat('vi-VN').format(value);
+        }
+
+        function getPoints(data) {
+            const maxValue = Math.max(...data.map((item) => item.value)) * 1.15;
+            const xStep = data.length === 1 ? 0 : plotWidth / (data.length - 1);
+
+            return data.map((item, index) => {
+                const x = padding.left + index * xStep;
+                const y = padding.top + plotHeight - (item.value / maxValue) * plotHeight;
+                return { ...item, x, y };
+            });
+        }
+
+        function buildPath(points) {
+            return points.reduce((path, point, index) => {
+                const command = index === 0 ? 'M' : 'L';
+                return `${path}${command}${point.x.toFixed(1)} ${point.y.toFixed(1)} `;
+            }, '').trim();
+        }
+
+        function showTooltip(point, index) {
+            const shellRect = chartShell.getBoundingClientRect();
+            const pointRect = chart.querySelector(`[data-point-index="${index}"]`)?.getBoundingClientRect();
+
+            if (!pointRect) {
+                return;
+            }
+
+            const offsetX = pointRect.left - shellRect.left + (pointRect.width / 2);
+            const offsetY = pointRect.top - shellRect.top;
+            const tooltipWidth = 118;
+            const tooltipHeight = 70;
+            const left = Math.min(Math.max(offsetX - tooltipWidth / 2, 12), shellRect.width - tooltipWidth - 12);
+            const top = Math.max(offsetY - tooltipHeight - 18, 10);
+
+            tooltip.innerHTML = `
+                <div class="chart-tooltip-label">${point.label}</div>
+                <div class="chart-tooltip-value">${formatValue(point.value)} Ca</div>
+            `;
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
+            tooltip.hidden = false;
+        }
+
+        function hideTooltip() {
+            if (pinnedPointIndex === null) {
+                tooltip.hidden = true;
+            }
+        }
+
+        function setActivePoint(index) {
+            const activeDot = chart.querySelector('.chart-point.is-active');
+            if (activeDot) {
+                activeDot.classList.remove('is-active');
+            }
+
+            const nextDot = chart.querySelector(`[data-point-index="${index}"]`);
+            if (nextDot) {
+                nextDot.classList.add('is-active');
+            }
+        }
+
+        function renderChart(range) {
+            const data = diagnosisDataSets[range];
+            const points = getPoints(data);
+            const linePath = buildPath(points);
+            const areaPath = `${linePath} L ${points[points.length - 1].x.toFixed(1)} ${padding.top + plotHeight} L ${points[0].x.toFixed(1)} ${padding.top + plotHeight} Z`;
+            const tooltipPoint = points[Math.min(points.length - 1, Math.floor(points.length / 2))];
+
+            chart.innerHTML = `
+                <defs>
+                    <linearGradient id="chartAreaFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(0, 105, 80, 0.26)" />
+                        <stop offset="100%" stop-color="rgba(0, 105, 80, 0.02)" />
+                    </linearGradient>
+                    <linearGradient id="chartLineGlow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(0, 105, 80, 0.22)" />
+                        <stop offset="100%" stop-color="rgba(0, 105, 80, 0.02)" />
+                    </linearGradient>
+                    <filter id="chartShadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0, 105, 80, 0.16)" />
+                    </filter>
+                </defs>
+                <path d="${areaPath}" fill="url(#chartAreaFill)"></path>
+                <path d="${linePath}" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#chartShadow)"></path>
+                ${points.map((point, index) => `
+                    <g class="chart-point-group" transform="translate(${point.x.toFixed(1)}, ${point.y.toFixed(1)})" data-point-index="${index}">
+                        <circle class="chart-point-hit" cx="0" cy="0" r="18" fill="transparent"></circle>
+                        <circle class="chart-point" cx="0" cy="0" r="4.8" fill="var(--primary)"></circle>
+                    </g>
+                `).join('')}
+                ${points.map((point) => `
+                    <text x="${point.x.toFixed(1)}" y="272" text-anchor="middle" class="chart-label">${point.label}</text>
+                `).join('')}
+                <g transform="translate(${tooltipPoint.x - 28}, ${tooltipPoint.y - 72})">
+                    <rect x="0" y="0" rx="12" ry="12" width="94" height="66" fill="var(--primary)" />
+                    <path d="M43 66 L50 78 L57 66" fill="var(--primary)"></path>
+                    <text x="47" y="22" text-anchor="middle" class="chart-tooltip-label">${tooltipPoint.label}</text>
+                    <text x="47" y="48" text-anchor="middle" class="chart-tooltip-value">${formatValue(tooltipPoint.value)} Ca</text>
+                </g>
+            `;
+
+            const pointGroups = chart.querySelectorAll('.chart-point-group');
+            pointGroups.forEach((group, index) => {
+                const point = points[index];
+
+                group.addEventListener('mouseenter', () => {
+                    pinnedPointIndex = index;
+                    setActivePoint(index);
+                    showTooltip(point, index);
+                });
+
+                group.addEventListener('mousemove', () => {
+                    if (pinnedPointIndex === index) {
+                        showTooltip(point, index);
+                    }
+                });
+
+                group.addEventListener('mouseleave', () => {
+                    if (pinnedPointIndex === index) {
+                        pinnedPointIndex = null;
+                    }
+                    hideTooltip();
+                });
+
+                group.addEventListener('click', () => {
+                    pinnedPointIndex = index;
+                    setActivePoint(index);
+                    showTooltip(point, index);
+                });
+            });
+
+            if (pinnedPointIndex !== null && points[pinnedPointIndex]) {
+                setActivePoint(pinnedPointIndex);
+                showTooltip(points[pinnedPointIndex], pinnedPointIndex);
+            } else {
+                pinnedPointIndex = null;
+                setActivePoint(Math.min(points.length - 1, Math.floor(points.length / 2)));
+                showTooltip(tooltipPoint, Math.min(points.length - 1, Math.floor(points.length / 2)));
+            }
+        }
+
+        tabButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach((item) => item.classList.remove('active'));
+                button.classList.add('active');
+                activeRange = button.dataset.range;
+                pinnedPointIndex = null;
+                renderChart(activeRange);
+            });
+        });
+
+        chartShell.addEventListener('mouseleave', () => {
+            if (pinnedPointIndex === null) {
+                tooltip.hidden = true;
+            }
+        });
+
+        renderChart(activeRange);
+    </script>
 </body>
 </html>
 

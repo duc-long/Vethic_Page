@@ -1,122 +1,762 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý kiến thức bệnh - Admin Vethic AI</title>
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/admin.css">
-</head>
-<body class="admin-body">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, Roboto, Helvetica, sans-serif;
+            color: var(--text-body);
+            background-color: var(--background-light);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    <!-- Main Content -->
+        .dashboard-content {
+            padding-top: 32px;
+        }
+
+        .recent-activity {
+            padding: 0;
+        }
+
+        .page-panel {
+            background: var(--white);
+            border: 1px solid rgba(219, 231, 224, 0.9);
+            border-radius: 24px;
+            box-shadow: 0 24px 70px rgba(18, 53, 43, 0.08);
+            padding: 24px;
+        }
+
+        .section-header-card {
+            margin-bottom: 20px;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .section-header-card h2 {
+            font-size: 24px;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .section-header-card .section-subtitle {
+            max-width: 760px;
+            line-height: 1.6;
+        }
+
+        .knowledge-toolbar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        .knowledge-search {
+            flex: 1 1 320px;
+            display: flex;
+            align-items: center;
+            background: rgba(0, 105, 80, 0.04);
+            border: 1px solid rgba(188, 202, 194, 0.55);
+            border-radius: 12px;
+            padding: 0 16px;
+            transition: all 0.2s ease;
+        }
+
+        .knowledge-search:focus-within {
+            border-color: rgba(0, 105, 80, 0.35);
+            box-shadow: 0 0 0 4px rgba(0, 105, 80, 0.08);
+        }
+
+        .knowledge-search input {
+            flex: 1;
+            padding: 12px 0;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .knowledge-select {
+            min-width: 160px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(188, 202, 194, 0.55);
+            outline: none;
+            font-family: inherit;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(18, 53, 43, 0.03);
+        }
+
+        .knowledge-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .knowledge-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .knowledge-table th,
+        .knowledge-table td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .knowledge-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .knowledge-table td {
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .knowledge-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .knowledge-icon-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .knowledge-icon-btn:hover {
+            transform: translateY(-1px);
+            border-color: rgba(0, 105, 80, 0.28);
+            color: var(--primary);
+            box-shadow: 0 8px 18px rgba(18, 53, 43, 0.08);
+        }
+
+        .knowledge-icon-btn.edit {
+            color: var(--primary);
+        }
+
+        .knowledge-icon-btn.delete {
+            color: var(--danger);
+        }
+
+        .knowledge-icon-btn.delete:hover {
+            border-color: rgba(186, 26, 26, 0.25);
+            color: var(--danger);
+        }
+
+        .knowledge-species-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .knowledge-species-dog {
+            background: rgba(0, 105, 80, 0.08);
+            color: var(--primary);
+        }
+
+        .knowledge-species-cat {
+            background: rgba(90, 90, 108, 0.1);
+            color: #5A5A6C;
+        }
+
+        .knowledge-empty {
+            padding: 28px 24px;
+            text-align: center;
+            color: var(--text-body);
+            background: rgba(0, 105, 80, 0.03);
+            border: 1px dashed rgba(188, 202, 194, 0.85);
+            border-radius: 16px;
+        }
+
+        .knowledge-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+
+        .knowledge-icon-btn,
+        .knowledge-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .knowledge-link-btn.btn {
+            box-shadow: 0 10px 22px rgba(0, 105, 80, 0.14);
+        }
+
+        .knowledge-link-btn.btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .activity-table-container {
+            background: var(--white);
+            border: 1px solid rgba(219, 231, 224, 0.9);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 18px 50px rgba(18, 53, 43, 0.06);
+        }
+
+        .activity-table {
+            min-width: 860px;
+        }
+
+        .activity-table thead th {
+            background: #fbfcfb;
+            color: #6b7280;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .activity-table tbody tr:hover {
+            background: rgba(0, 105, 80, 0.025);
+        }
+
+        .activity-table td {
+            vertical-align: middle;
+        }
+
+        .knowledge-actions .btn-primary {
+            min-height: 40px;
+            padding: 0 14px;
+            border-radius: 12px;
+        }
+
+        .knowledge-actions .btn-primary svg {
+            flex: 0 0 auto;
+        }
+
+        .knowledge-actions .btn-primary:hover {
+            transform: translateY(-1px);
+        }
+
+        .knowledge-icon-btn {
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            border-radius: 12px;
+            border: 1px solid rgba(188, 202, 194, 0.55);
+            background: var(--white);
+            color: var(--text-body);
+            transition: all 0.2s ease;
+            flex: 0 0 auto;
+        }
+
+        .knowledge-icon-btn:hover {
+            transform: translateY(-1px);
+            border-color: rgba(0, 105, 80, 0.28);
+            color: var(--primary);
+            box-shadow: 0 8px 18px rgba(18, 53, 43, 0.08);
+        }
+
+        .knowledge-icon-btn.edit {
+            color: var(--primary);
+        }
+
+        .knowledge-icon-btn.delete {
+            color: var(--danger);
+        }
+
+        .knowledge-icon-btn.delete:hover {
+            border-color: rgba(186, 26, 26, 0.25);
+            color: var(--danger);
+        }
+
+        .knowledge-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgb(0 0 0 / 63%);
+        }
+
+
+
+        .knowledge-modal[hidden] {
+            display: none !important;
+        }
+
+        .knowledge-modal-panel {
+            width: min(460px, 100%);
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 30px 80px rgba(18, 53, 43, 0.26);
+            padding: 24px;
+        }
+
+        .knowledge-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .knowledge-modal-kicker {
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .knowledge-modal-kicker.danger {
+            color: var(--danger);
+        }
+
+        .knowledge-modal-header h2 {
+            font-size: 22px;
+            color: var(--text-dark);
+        }
+
+        .knowledge-modal-message {
+            color: var(--text-body);
+            line-height: 1.6;
+            margin: 8px 0 24px;
+        }
+
+        .knowledge-modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .btn-ghost {
+            background: rgba(0, 105, 80, 0.08);
+            color: var(--primary);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(0, 105, 80, 0.12);
+        }
+
+        .btn-secondary {
+            background: rgba(186, 26, 26, 0.08);
+            color: var(--danger);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(186, 26, 26, 0.12);
+        }
+
+        .knowledge-toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 130;
+            background: rgba(0, 105, 80, 0.96);
+            color: var(--white);
+            border-radius: 14px;
+            padding: 14px 16px;
+            box-shadow: 0 18px 40px rgba(18, 53, 43, 0.20);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 280px;
+            max-width: min(420px, calc(100vw - 48px));
+            opacity: 0;
+            transform: translateY(10px);
+            pointer-events: none;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+
+        .knowledge-toast.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .knowledge-toast strong,
+        .knowledge-toast span {
+            display: block;
+        }
+
+        .knowledge-toast strong {
+            font-size: 14px;
+        }
+
+        .knowledge-toast span {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .knowledge-toast button {
+            width: 28px;
+            height: 28px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.14);
+            color: var(--white);
+            font-size: 20px;
+            line-height: 1;
+            cursor: pointer;
+            flex: 0 0 auto;
+        }
+
+        .knowledge-toast button:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .page-toolbar-note {
+            margin-top: 10px;
+            color: var(--text-body);
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .knowledge-toolbar {
+                flex-direction: column;
+            }
+
+            .page-panel {
+                padding: 18px;
+            }
+
+            .knowledge-actions {
+                gap: 6px;
+            }
+
+            .knowledge-icon-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .knowledge-modal-panel {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body class="admin-body">
     <main class="main-content">
-        <!-- Topbar -->
         <header class="topbar">
             <h1 class="page-title">Quản lý cơ sở dữ liệu y tế (AI)</h1>
             <div class="user-profile">
-                <span class="user-name">Adminstrator</span>
+                <span class="user-name">Administrator</span>
                 <div class="avatar">A</div>
             </div>
         </header>
 
-        <!-- Dashboard Content -->
         <div class="dashboard-content">
             <div class="recent-activity">
-                <div class="section-header-card" style="display: flex; gap: 16px; margin-bottom: 24px;">
-                    <div style="flex: 1; display: flex; align-items: center; background: var(--background-light); border: 1px solid var(--border-light); border-radius: 8px; padding: 0 16px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" placeholder="Tìm kiếm tên bệnh, triệu chứng..." style="flex: 1; padding: 12px 0; border: none; background: transparent; outline: none; font-family: inherit; font-size: 14px;">
+                <div class="page-panel">
+                    <div class="section-header-card">
+                        <div>
+                            <h2>Kiến thức bệnh</h2>
+                            <p class="section-subtitle">Quản lý danh sách bệnh, mở trang riêng để tạo mới hoặc cập nhật
+                                nội dung.</p>
+                        </div>
+                        <a class="btn btn-primary knowledge-link-btn" href="admin-knowledge-editor.html">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            Tạo kiến thức mới
+                        </a>
                     </div>
-                    <select style="padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-light); outline: none; font-family: inherit;">
-                        <option value="all">Tất cả loài</option>
-                        <option value="dog">Chó</option>
-                        <option value="cat">Mèo</option>
-                    </select>
-                    <button class="btn btn-primary" style="display: flex; align-items: center; gap: 8px;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                        Thêm bệnh mới
-                    </button>
-                </div>
 
-                <div class="activity-table-container">
-                    <table class="activity-table">
-                        <thead>
-                            <tr>
-                                <th>Mã bệnh</th>
-                                <th>Tên bệnh</th>
-                                <th>Loài mắc</th>
-                                <th>Mức độ nghiêm trọng</th>
-                                <th>Cập nhật lần cuối</th>
-                                <th>Thao tác</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#D001</td>
-                                <td><span style="font-weight: 500;">Viêm dạ dày - ruột</span></td>
-                                <td><span class="status" style="background: rgba(90, 90, 108, 0.1); color: #5A5A6C;">Chó, Mèo</span></td>
-                                <td><span class="status warning" style="background: rgba(251, 188, 5, 0.2); color: #D99000;">Trung bình</span></td>
-                                <td>Hôm nay, 09:30</td>
-                                <td>
-                                    <div style="display: flex; gap: 8px;">
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chỉnh sửa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Xóa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#D002</td>
-                                <td><span style="font-weight: 500;">Bệnh Care (Canine Distemper)</span></td>
-                                <td><span class="status" style="background: rgba(90, 90, 108, 0.1); color: #5A5A6C;">Chó</span></td>
-                                <td><span class="status" style="background: rgba(186, 26, 26, 0.1); color: var(--danger);">Nghiêm trọng (Khẩn cấp)</span></td>
-                                <td>15/05/2026</td>
-                                <td>
-                                    <div style="display: flex; gap: 8px;">
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chỉnh sửa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Xóa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#D003</td>
-                                <td><span style="font-weight: 500;">Viêm da dị ứng</span></td>
-                                <td><span class="status" style="background: rgba(90, 90, 108, 0.1); color: #5A5A6C;">Chó, Mèo</span></td>
-                                <td><span class="status success">Nhẹ</span></td>
-                                <td>10/05/2026</td>
-                                <td>
-                                    <div style="display: flex; gap: 8px;">
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chỉnh sửa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></button>
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Xóa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="knowledge-toolbar">
+                        <div class="knowledge-search">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="color: var(--text-body); margin-right: 8px;">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input id="knowledge-search-input" type="text"
+                                placeholder="Tìm kiếm tên bệnh, triệu chứng...">
+                        </div>
+                        <select id="species-filter" class="knowledge-select">
+                            <option value="all">Tất cả loài</option>
+                            <option value="dog">Chó</option>
+                            <option value="cat">Mèo</option>
+                        </select>
+                    </div>
+
+                    <div class="activity-table-container">
+                        <table class="activity-table activity-table--compact">
+                            <thead>
+                                <tr>
+                                    <th>Mã bệnh</th>
+                                    <th>Tên bệnh</th>
+                                    <th>Loài mắc</th>
+                                    <th>Mức độ nghiêm trọng</th>
+                                    <th>Cập nhật lần cuối</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="knowledge-table-body"></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-    
-    <style>
-        .avatar-small {
-            width: 32px;
-            height: 32px;
-            background-color: var(--secondary);
-            color: var(--primary-hover);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
-        }
-    </style>
-</body>
-</html>
 
+    <div id="knowledge-modal" class="knowledge-modal" hidden>
+        <div class="knowledge-modal-panel" role="dialog" aria-modal="true" aria-labelledby="knowledge-modal-title">
+            <div class="knowledge-modal-header">
+                <div>
+                    <p id="knowledge-modal-kicker" class="knowledge-modal-kicker danger">Xác nhận</p>
+                    <h2 id="knowledge-modal-title">Xác nhận hành động</h2>
+                </div>
+                <button id="knowledge-modal-close" type="button" class="knowledge-modal-close knowledge-icon-btn"
+                    aria-label="Đóng">&times;</button>
+            </div>
+            <p id="knowledge-modal-message" class="knowledge-modal-message"></p>
+            <div class="knowledge-modal-actions">
+                <button id="knowledge-modal-cancel" type="button" class="btn btn-ghost">Hủy</button>
+                <button id="knowledge-modal-confirm" type="button" class="btn btn-secondary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-toast" class="knowledge-toast" hidden>
+        <div>
+            <strong id="knowledge-toast-title">Lưu thành công</strong>
+            <span id="knowledge-toast-message">
+                Dữ liệu kiến thức bệnh đã được cập nhật.
+            </span>
+        </div>
+
+        <button id="knowledge-toast-close">&times;</button>
+    </div>
+
+    <script>
+        const knowledgeData = [
+            { id: 'D001', name: 'Viêm dạ dày - ruột', species: ['dog', 'cat'], severity: 'medium', updatedAt: 'Hôm nay, 09:30', symptoms: 'Nôn mửa, tiêu chảy, chán ăn.' },
+            { id: 'D002', name: 'Bệnh Care (Canine Distemper)', species: ['dog'], severity: 'high', updatedAt: '15/05/2026', symptoms: 'Sốt, ho, nôn, tiêu chảy.' },
+            { id: 'D003', name: 'Viêm da dị ứng', species: ['dog', 'cat'], severity: 'low', updatedAt: '10/05/2026', symptoms: 'Ngứa, đỏ da, rụng lông nhẹ.' }
+        ];
+
+        const knowledgeTableBody = document.getElementById('knowledge-table-body');
+        const knowledgeSearchInput = document.getElementById('knowledge-search-input');
+        const speciesFilter = document.getElementById('species-filter');
+        const knowledgeModal = document.getElementById('knowledge-modal');
+        const knowledgeModalKicker = document.getElementById('knowledge-modal-kicker');
+        const knowledgeModalTitle = document.getElementById('knowledge-modal-title');
+        const knowledgeModalMessage = document.getElementById('knowledge-modal-message');
+        const knowledgeModalClose = document.getElementById('knowledge-modal-close');
+        const knowledgeModalCancel = document.getElementById('knowledge-modal-cancel');
+        const knowledgeModalConfirm = document.getElementById('knowledge-modal-confirm');
+        const knowledgeToast = document.getElementById("success-toast");
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.get("saved") === "true") {
+            window.addEventListener("DOMContentLoaded", () => {
+
+                const id = params.get("id") || "";
+
+                showToast(
+                    "Cập nhật thành công",
+                    `Kiến thức ${id} đã được cập nhật thành công.`
+                );
+
+                // Xóa query trên URL để F5 không hiện lại toast
+                window.history.replaceState({}, document.title, "admin-knowledge.html");
+            });
+        }
+        const knowledgeToastTitle = document.getElementById('knowledge-toast-title');
+        const knowledgeToastMessage = document.getElementById('knowledge-toast-message');
+        const knowledgeToastClose = document.getElementById('knowledge-toast-close');
+
+        let pendingAction = null;
+        let pendingKnowledgeId = null;
+        let toastTimer = null;
+
+        function normalizeText(value) {
+            return value.trim().toLowerCase();
+        }
+
+        function getSeverityLabel(severity) {
+            if (severity === 'high') return 'Nghiêm trọng (Khẩn cấp)';
+            if (severity === 'medium') return 'Trung bình';
+            return 'Nhẹ';
+        }
+
+        function getSeverityClass(severity) {
+            if (severity === 'high') return 'status danger';
+            if (severity === 'medium') return 'status warning';
+            return 'status success';
+        }
+
+        function getSpeciesBadgeClass(species) {
+            return species === 'dog' ? 'knowledge-species-badge knowledge-species-dog' : 'knowledge-species-badge knowledge-species-cat';
+        }
+
+        function showToast(title, message) {
+            if (toastTimer) {
+                window.clearTimeout(toastTimer);
+            }
+
+            knowledgeToastTitle.textContent = title;
+            knowledgeToastMessage.textContent = message;
+            knowledgeToast.hidden = false;
+            requestAnimationFrame(() => knowledgeToast.classList.add('is-visible'));
+
+            toastTimer = window.setTimeout(() => {
+                hideToast();
+            }, 2400);
+        }
+
+        function hideToast() {
+            if (toastTimer) {
+                window.clearTimeout(toastTimer);
+                toastTimer = null;
+            }
+
+            knowledgeToast.classList.remove('is-visible');
+            window.setTimeout(() => {
+                knowledgeToast.hidden = true;
+            }, 220);
+        }
+
+        function openModal(action, knowledgeItem) {
+            pendingAction = action;
+            pendingKnowledgeId = knowledgeItem.id;
+
+            knowledgeModalKicker.className = 'knowledge-modal-kicker danger';
+            knowledgeModalKicker.textContent = 'Xóa kiến thức bệnh';
+            knowledgeModalTitle.textContent = 'Xác nhận xóa bệnh';
+            knowledgeModalMessage.textContent = `Bạn có chắc chắn muốn xóa kiến thức bệnh ${knowledgeItem.id} - ${knowledgeItem.name}?`;
+            knowledgeModalConfirm.textContent = 'Xóa bệnh';
+
+
+            knowledgeModal.hidden = false;
+        }
+
+        function closeModal() {
+            knowledgeModal.hidden = true;
+            pendingAction = null;
+            pendingKnowledgeId = null;
+        }
+
+        function renderKnowledgeTable() {
+            const searchValue = normalizeText(knowledgeSearchInput.value);
+            const selectedSpecies = speciesFilter.value;
+
+            const filteredItems = knowledgeData.filter((item) => {
+                const matchesSearch = !searchValue || [item.id, item.name, item.symptoms].some((field) => normalizeText(field).includes(searchValue));
+                const matchesSpecies = selectedSpecies === 'all' || item.species.includes(selectedSpecies);
+                return matchesSearch && matchesSpecies;
+            });
+
+            knowledgeTableBody.innerHTML = filteredItems.length
+                ? filteredItems.map((item) => `
+                    <tr>
+                        <td>#${item.id}</td>
+                        <td><span style="font-weight: 500;">${item.name}</span></td>
+                        <td>${item.species.map((species) => `<span class="${getSpeciesBadgeClass(species)}">${species === 'dog' ? 'Chó' : 'Mèo'}</span>`).join('')}</td>
+                        <td><span class="${getSeverityClass(item.severity)}">${getSeverityLabel(item.severity)}</span></td>
+                        <td>${item.updatedAt}</td>
+                        <td>
+                            <div class="knowledge-actions">
+                                <button type="button" class="knowledge-icon-btn edit" data-action="edit" data-id="${item.id}" aria-label="Chỉnh sửa">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg>
+                                </button>
+                                <button type="button" class="knowledge-icon-btn delete" data-action="delete" data-id="${item.id}" aria-label="Xóa">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('')
+                : `
+                    <tr>
+                        <td colspan="6">
+                            <div class="knowledge-empty">Không tìm thấy kiến thức bệnh phù hợp.</div>
+                        </td>
+                    </tr>
+                `;
+        }
+
+        knowledgeSearchInput.addEventListener('input', renderKnowledgeTable);
+        speciesFilter.addEventListener('change', renderKnowledgeTable);
+
+        knowledgeTableBody.addEventListener('click', (event) => {
+            const button = event.target.closest('button[data-action]');
+            if (!button) return;
+
+            const action = button.dataset.action;
+            const knowledgeItem = knowledgeData.find(item => item.id === button.dataset.id);
+
+            if (!knowledgeItem) return;
+
+            if (action === "edit") {
+                // Chuyển sang trang chỉnh sửa
+                window.location.href = `admin-knowledge-editor.html?id=${knowledgeItem.id}`;
+                return;
+            }
+
+            if (action === "delete") {
+                openModal(action, knowledgeItem);
+            }
+        });
+
+        knowledgeModalClose.addEventListener('click', closeModal);
+        knowledgeModalCancel.addEventListener('click', closeModal);
+        knowledgeModal.addEventListener('click', (event) => {
+            if (event.target === knowledgeModal) {
+                closeModal();
+            }
+        });
+
+        knowledgeModalConfirm.addEventListener('click', () => {
+            if (!pendingKnowledgeId || !pendingAction) {
+                closeModal();
+                return;
+            }
+
+            const knowledgeItem = knowledgeData.find((item) => item.id === pendingKnowledgeId);
+            if (!knowledgeItem) {
+                closeModal();
+                return;
+            }
+
+            const deleteIndex = knowledgeData.findIndex((item) => item.id === pendingKnowledgeId);
+            if (deleteIndex >= 0) {
+                knowledgeData.splice(deleteIndex, 1);
+                renderKnowledgeTable();
+                showToast('Đã xóa kiến thức bệnh', `Kiến thức ${knowledgeItem.id} - ${knowledgeItem.name} đã được xóa.`);
+            }
+
+            closeModal();
+        });
+
+        knowledgeToastClose.addEventListener('click', hideToast);
+
+        renderKnowledgeTable();
+    </script>
+</body>
+
+</html>

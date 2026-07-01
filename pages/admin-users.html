@@ -1,43 +1,53 @@
 ﻿<!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý người dùng - Admin Vethic AI</title>
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- CSS -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/admin.css">
 </head>
-<body class="admin-body">
 
-    <!-- Main Content -->
+<body class="admin-body">
     <main class="main-content">
-        <!-- Topbar -->
         <header class="topbar">
             <h1 class="page-title">Quản lý người dùng</h1>
             <div class="user-profile">
-                <span class="user-name">Adminstrator</span>
+                <span class="user-name">Administrator</span>
                 <div class="avatar">A</div>
             </div>
         </header>
 
-        <!-- Dashboard Content -->
         <div class="dashboard-content">
             <div class="recent-activity">
                 <div class="section-header-card" style="display: flex; gap: 16px; margin-bottom: 24px;">
-                    <div style="flex: 1; display: flex; align-items: center; background: var(--background-light); border: 1px solid var(--border-light); border-radius: 8px; padding: 0 16px;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <input type="text" placeholder="Tìm kiếm người dùng theo tên, email..." style="flex: 1; padding: 12px 0; border: none; background: transparent; outline: none; font-family: inherit; font-size: 14px;">
+                    <div
+                        style="flex: 1; display: flex; align-items: center; background: var(--background-light); border: 1px solid var(--border-light); border-radius: 8px; padding: 0 16px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="color: var(--text-body); margin-right: 8px;">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input id="user-search-input" type="text" placeholder="Tìm kiếm người dùng theo tên, email..."
+                            style="flex: 1; padding: 12px 0; border: none; background: transparent; outline: none; font-family: inherit; font-size: 14px;">
                     </div>
-                    <select style="padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-light); outline: none; font-family: inherit;">
+                    <select id="role-filter"
+                        style="padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-light); outline: none; font-family: inherit;">
                         <option value="all">Tất cả vai trò</option>
                         <option value="user">Người dùng (Pet Owner)</option>
                         <option value="vet">Bác sĩ thú y</option>
                         <option value="admin">Quản trị viên</option>
+                    </select>
+                    <select id="status-filter"
+                        style="padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border-light); outline: none; font-family: inherit;">
+                        <option value="all">Tất cả trạng thái</option>
+                        <option value="active">Hoạt động</option>
+                        <option value="locked">Bị khóa</option>
                     </select>
                     <button class="btn btn-primary">Xuất báo cáo</button>
                 </div>
@@ -55,70 +65,487 @@
                                 <th>Thao tác</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>#U001</td>
-                                <td><div style="display: flex; align-items: center; gap: 12px;"><div class="avatar-small">N</div> <span style="font-weight: 500;">Nguyễn Văn A</span></div></td>
-                                <td>nguyen.van.a@example.com</td>
-                                <td><span class="status info">Người dùng</span></td>
-                                <td><span class="status success">Hoạt động</span></td>
-                                <td>15/04/2026</td>
-                                <td>
-                                    <div style="display: flex; gap: 8px;">
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chi tiết"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Khóa tài khoản"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#U002</td>
-                                <td><div style="display: flex; align-items: center; gap: 12px;"><div class="avatar-small" style="background: var(--primary);">T</div> <span style="font-weight: 500;">Trần Thị B</span></div></td>
-                                <td>tran.thi.b@vethic.vn</td>
-                                <td><span class="status warning" style="background: rgba(251, 188, 5, 0.2); color: #D99000;">Bác sĩ thú y</span></td>
-                                <td><span class="status success">Hoạt động</span></td>
-                                <td>20/04/2026</td>
-                                <td>
-                                    <div style="display: flex; gap: 8px;">
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chi tiết"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Khóa tài khoản"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>#U003</td>
-                                <td><div style="display: flex; align-items: center; gap: 12px;"><div class="avatar-small" style="background: #E5E2E1; color: var(--text-dark);">L</div> <span style="font-weight: 500;">Lê Minh C</span></div></td>
-                                <td>le.minh.c@example.com</td>
-                                <td><span class="status info">Người dùng</span></td>
-                                <td><span class="status" style="background: rgba(186, 26, 26, 0.1); color: var(--danger);">Bị khóa</span></td>
-                                <td>10/05/2026</td>
-                                <td>
-                                    <div style="display: flex; gap: 8px;">
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Chi tiết"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                                        <button style="border: none; background: transparent; cursor: pointer; color: var(--primary);" title="Mở khóa"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
+                        <tbody id="users-table-body"></tbody>
                     </table>
                 </div>
             </div>
         </div>
     </main>
-    
+
+    <div id="lock-modal" class="lock-modal" hidden>
+        <div class="lock-modal-card" role="dialog" aria-modal="true" aria-labelledby="lock-modal-title">
+            <div class="lock-modal-icon">!</div>
+            <h2 id="lock-modal-title">Xác nhận xóa tài khoản</h2>
+            <p id="lock-modal-message">Bạn có chắc muốn xóa tài khoản này không?</p>
+            <div class="lock-modal-actions">
+                <button id="lock-modal-cancel" type="button" class="btn btn-secondary">Hủy</button>
+                <button id="lock-modal-confirm" type="button" class="btn btn-primary">Xóa tài khoản</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="success-toast" class="success-toast" hidden>
+        <span id="success-toast-message"></span>
+        <button id="success-toast-close" type="button" class="success-toast-close"
+            aria-label="Đóng thông báo">&times;</button>
+    </div>
+
     <style>
         .avatar-small {
-            width: 32px;
-            height: 32px;
-            background-color: var(--secondary);
-            color: var(--primary-hover);
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
+            overflow: hidden;
+            background: #E8F5E9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            font-weight: 600;
+            font-size: 15px;
+            color: #2E7D32;
+        }
+
+        .avatar-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .table-empty-state {
+            text-align: center;
+            padding: 24px 16px;
+            color: var(--text-body);
+        }
+
+        .lock-modal {
+            position: fixed;
+            inset: 0;
+            background: rgb(0 0 0 / 63%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 14px;
+            padding: 24px;
+            z-index: 100;
+        }
+
+        .lock-modal[hidden] {
+            display: none !important;
+        }
+
+        .lock-modal-card {
+            width: min(420px, 100%);
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid rgba(188, 202, 194, 0.45);
+            box-shadow: 0 20px 60px rgba(18, 53, 43, 0.24);
+            padding: 28px;
+            text-align: center;
+        }
+
+        .lock-modal-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: rgba(186, 26, 26, 0.12);
+            color: var(--danger);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .lock-modal-card h2 {
+            font-size: 22px;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .lock-modal-card p {
+            color: var(--text-body);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .lock-modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn-secondary {
+            background: rgba(90, 90, 108, 0.1);
+            color: var(--text-dark);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(90, 90, 108, 0.16);
+        }
+
+        .success-toast {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 110;
+            background: rgba(0, 105, 80, 0.96);
+            color: var(--white);
+            padding: 14px 18px;
+            border-radius: 14px;
+            box-shadow: 0 18px 40px rgba(18, 53, 43, 0.24);
+            font-weight: 600;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: auto;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            min-width: 280px;
+            max-width: min(420px, calc(100vw - 48px));
+        }
+
+        .success-toast.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .success-toast-message {
+            flex: 1;
+        }
+
+        .success-toast-close {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            color: var(--white);
+            background: rgba(255, 255, 255, 0.14);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            line-height: 1;
+            flex: 0 0 auto;
+        }
+
+        .success-toast-close:hover {
+            background: rgba(255, 255, 255, 0.22);
         }
     </style>
-</body>
-</html>
 
+    <script>
+        const users = [
+            {
+                id: 'U001',
+                name: 'Nguyễn Văn A',
+                email: 'nguyen.van.a@example.com',
+                role: 'user',
+                roleLabel: 'Người dùng',
+                status: 'active',
+                statusLabel: 'Hoạt động',
+                joined: '15/04/2026',
+                avatar: "https://tse1.mm.bing.net/th?id=OIF.RvfrDE%2bsI9gMnJUMrSmShA&rs=1&pid=ImgDetMain&o=7&rm=3"
+            },
+            {
+                id: 'U002',
+                name: 'Trần Thị B',
+                email: 'tran.thi.b@vethic.vn',
+                role: 'vet',
+                roleLabel: 'Bác sĩ thú y',
+                status: 'active',
+                statusLabel: 'Hoạt động',
+                joined: '20/04/2026',
+                avatar: "https://cdn2.tuoitre.vn/471584752817336320/2025/5/15/jack-ve-que-lam-giau-2-17472863613111184785131.jpg"
+            },
+            {
+                id: 'U003',
+                name: 'Lê Minh C',
+                email: 'le.minh.c@example.com',
+                role: 'user',
+                roleLabel: 'Người dùng',
+                status: 'locked',
+                statusLabel: 'Bị khóa',
+                joined: '10/05/2026',
+                avatar: "https://tse2.mm.bing.net/th/id/OIP.T8iXfbbvTdZzcJ92NkCFrwHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
+            },
+            {
+                id: 'U004',
+                name: 'Phạm Thu D',
+                email: 'pham.thu.d@example.com',
+                role: 'admin',
+                roleLabel: 'Quản trị viên',
+                status: 'active',
+                statusLabel: 'Hoạt động',
+                joined: '01/03/2026',
+                avatar: "https://i.vgt.vn/2023/12/6/do-mixi-danh-tieng-mua-gop-gao-vai-ngay-da-thu-ve-tram-trieu-xung-danh-bo-toc-mixigaming-c6d-7041760.png"
+            }
+        ];
+
+        const usersTableBody = document.getElementById('users-table-body');
+        const searchInput = document.getElementById('user-search-input');
+        const roleFilter = document.getElementById('role-filter');
+        const statusFilter = document.getElementById('status-filter');
+        const lockModal = document.getElementById('lock-modal');
+        const lockModalTitle = document.getElementById('lock-modal-title');
+        const lockModalMessage = document.getElementById('lock-modal-message');
+        const lockModalConfirm = document.getElementById('lock-modal-confirm');
+        const lockModalCancel = document.getElementById('lock-modal-cancel');
+        const successToast = document.getElementById('success-toast');
+        const successToastMessage = document.getElementById('success-toast-message');
+        const successToastClose = document.getElementById('success-toast-close');
+        let pendingDeleteUserId = null;
+        let pendingAction = null;
+        let toastTimer = null;
+
+        function roleBadgeClass(role) {
+            switch (role) {
+                case "admin":
+                    return "danger";
+
+                case "vet":
+                    return "warning";
+
+                default:
+                    return "success";
+            }
+        }
+
+        function statusBadgeStyle(status) {
+            return status === 'locked'
+                ? 'background: rgba(186, 26, 26, 0.1); color: var(--danger);'
+                : 'background: rgba(127, 248, 207, 0.2); color: var(--primary-hover);';
+        }
+
+        function hideDeleteModal() {
+            pendingDeleteUserId = null;
+            pendingAction = null;
+            lockModal.hidden = true;
+            lockModal.style.display = 'none';
+        }
+
+        function showConfirmModal(options) {
+            pendingAction = options.action;
+            pendingDeleteUserId = options.userId;
+            lockModalTitle.textContent = options.title;
+            lockModalMessage.textContent = options.message;
+            lockModalConfirm.textContent = options.confirmLabel;
+            lockModal.hidden = false;
+            lockModal.style.display = 'flex';
+        }
+
+        function showSuccessToast(message) {
+            if (toastTimer) {
+                window.clearTimeout(toastTimer);
+                toastTimer = null;
+            }
+
+            successToastMessage.textContent = message;
+            successToast.hidden = false;
+            requestAnimationFrame(() => {
+                successToast.classList.add('is-visible');
+            });
+
+            toastTimer = window.setTimeout(() => {
+                successToast.classList.remove('is-visible');
+                window.setTimeout(() => {
+                    successToast.hidden = true;
+                }, 250);
+            }, 2200);
+        }
+
+        function hideSuccessToast() {
+            if (toastTimer) {
+                window.clearTimeout(toastTimer);
+                toastTimer = null;
+            }
+
+            successToast.classList.remove('is-visible');
+            window.setTimeout(() => {
+                successToast.hidden = true;
+            }, 250);
+        }
+
+        function renderUsers() {
+            const query = searchInput.value.trim().toLowerCase();
+            const role = roleFilter.value;
+            const status = statusFilter.value;
+
+            const filteredUsers = users.filter((user) => {
+                const matchesQuery = !query
+                    || user.name.toLowerCase().includes(query)
+                    || user.email.toLowerCase().includes(query)
+                    || user.id.toLowerCase().includes(query);
+                const matchesRole = role === 'all' || user.role === role;
+                const matchesStatus = status === 'all' || user.status === status;
+                return matchesQuery && matchesRole && matchesStatus;
+            });
+
+            if (!filteredUsers.length) {
+                usersTableBody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="table-empty-state">Không tìm thấy user phù hợp với bộ lọc hiện tại.</td>
+                    </tr>
+                `;
+                return;
+            }
+
+            usersTableBody.innerHTML = filteredUsers.map((user) => `
+                <tr>
+                    <td>#${user.id}</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div class="avatar-small" style="${user.status === 'locked' ? 'background: #E5E2E1; color: var(--text-dark);' : ''}">
+                                <div
+                                    class="avatar-small"
+                                    style="${user.status === 'locked'
+                    ? 'background:#E5E7EB;color:#666;'
+                    : ''}">
+
+                                                    ${user.avatar.startsWith("http")
+                    ? `
+                                                                <img
+                                                                    src="${user.avatar}"
+                                                                    alt="${user.name}"
+                                                                    onerror="
+                                                                        this.remove();
+                                                                        this.parentNode.innerHTML='${user.name.charAt(0).toUpperCase()}';
+                                                                    ">
+                                                            `
+                    : user.avatar
+                }
+
+                                 </div>
+                            </div>
+                            <span style="font-weight: 500;">${user.name}</span>
+                        </div>
+                    </td>
+                    <td>${user.email}</td>
+                    <td>
+                        <span
+                            class="status ${roleBadgeClass(user.role)}"
+                            style="
+                            ${user.role === 'admin'
+                    ? 'background:#FEE2E2;color:#B91C1C;'
+
+                    : user.role === 'vet'
+                        ? 'background:#FEF3C7;color:#D97706;'
+
+                        : 'background:#DCFCE7;color:#15803D;'
+                }">
+
+                            ${user.roleLabel}
+
+                        </span>
+                    </td>
+                    <td><span class="status" style="${statusBadgeStyle(user.status)}">${user.statusLabel}</span></td>
+                    <td>${user.joined}</td>
+                    <td>
+                        <div style="display: flex; gap: 8px;">
+                            <a href="admin-user-detail.html?uid=${user.id}" title="Chi tiết" style="border: none; background: transparent; cursor: pointer; color: var(--primary); display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; text-decoration: none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></a>
+                            <button type="button" class="lock-toggle-btn" data-action="toggle-lock" data-user-id="${user.id}" style="border: none; background: transparent; cursor: pointer; color: ${user.status === 'locked' ? 'var(--primary)' : 'var(--danger)'};" title="${user.status === 'locked' ? 'Mở khóa' : 'Khóa tài khoản'}" aria-label="${user.status === 'locked' ? 'Mở khóa' : 'Khóa tài khoản'} ${user.name}">
+                                ${user.status === 'locked'
+                    ? '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>'
+                    : '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>'}
+                            </button>
+                            <button type="button" class="delete-user-btn" data-action="delete-user" data-user-id="${user.id}" style="border: none; background: transparent; cursor: pointer; color: var(--danger);" title="Xóa tài khoản" aria-label="Xóa tài khoản ${user.name}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14H6L5 6"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M9 6V4h6v2"></path></svg></button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        usersTableBody.addEventListener('click', (event) => {
+            const detailLink = event.target.closest('a[href^="admin-user-detail.html"]');
+            if (detailLink) return;
+
+            const deleteButton = event.target.closest('button.delete-user-btn');
+            if (deleteButton) {
+                const userId = deleteButton.dataset.userId;
+                const user = users.find((item) => item.id === userId);
+                if (!user) return;
+
+                showConfirmModal({
+                    action: 'delete',
+                    userId,
+                    title: 'Xác nhận xóa tài khoản',
+                    message: `Bạn có chắc muốn xóa tài khoản ${user.name}? Hành động này không thể hoàn tác.`,
+                    confirmLabel: 'Xóa tài khoản',
+                });
+                return;
+            }
+
+            const lockButton = event.target.closest('button.lock-toggle-btn');
+            if (!lockButton) return;
+
+            const userId = lockButton.dataset.userId;
+            const user = users.find((item) => item.id === userId);
+            if (!user) return;
+
+            const nextStatus = user.status === 'locked' ? 'active' : 'locked';
+            showConfirmModal({
+                action: 'toggle-lock',
+                userId,
+                title: nextStatus === 'locked' ? 'Xác nhận khóa tài khoản' : 'Xác nhận mở khóa tài khoản',
+                message: nextStatus === 'locked'
+                    ? `Bạn có chắc muốn khóa tài khoản ${user.name}? Sau khi khóa, user sẽ không thể truy cập tài khoản.`
+                    : `Bạn có chắc muốn mở khóa tài khoản ${user.name}? Tài khoản sẽ hoạt động trở lại ngay sau khi xác nhận.`,
+                confirmLabel: nextStatus === 'locked' ? 'Khóa tài khoản' : 'Mở khóa tài khoản',
+            });
+        });
+
+        lockModalConfirm.addEventListener('click', () => {
+            if (!pendingDeleteUserId || !pendingAction) return;
+
+            const userIndex = users.findIndex((item) => item.id === pendingDeleteUserId);
+            if (userIndex === -1) return;
+
+            const user = users[userIndex];
+
+            if (pendingAction === 'delete') {
+                users.splice(userIndex, 1);
+                showSuccessToast(`Đã xóa tài khoản ${user.name} thành công.`);
+            }
+
+            if (pendingAction === 'toggle-lock') {
+                user.status = user.status === 'locked' ? 'active' : 'locked';
+                user.statusLabel = user.status === 'locked' ? 'Bị khóa' : 'Hoạt động';
+                showSuccessToast(
+                    user.status === 'locked'
+                        ? `Đã khóa tài khoản ${user.name} thành công.`
+                        : `Đã mở khóa tài khoản ${user.name} thành công.`
+                );
+            }
+
+            pendingDeleteUserId = null;
+            pendingAction = null;
+            lockModal.hidden = true;
+            lockModal.style.display = 'none';
+            renderUsers();
+        });
+
+        lockModalCancel.addEventListener('click', () => {
+            hideDeleteModal();
+        });
+
+        lockModal.addEventListener('click', (event) => {
+            if (event.target === lockModal) {
+                hideDeleteModal();
+            }
+        });
+
+        successToastClose.addEventListener('click', hideSuccessToast);
+
+        window.addEventListener('pageshow', hideDeleteModal);
+        document.addEventListener('DOMContentLoaded', hideDeleteModal);
+
+        searchInput.addEventListener('input', renderUsers);
+        roleFilter.addEventListener('change', renderUsers);
+        statusFilter.addEventListener('change', renderUsers);
+
+        renderUsers();
+    </script>
+</body>
+
+</html>
