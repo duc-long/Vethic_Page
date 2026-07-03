@@ -352,4 +352,12 @@
   .pet-grid {
     grid-template-columns: 1fr;
   }
+  
+  .page-content {
+    padding: 24px 16px;
+  }
+  
+  .topbar {
+    padding: 0 16px !important;
+  }
 }

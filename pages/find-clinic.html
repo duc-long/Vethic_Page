@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
+    <link rel="icon" type="image/png" href="../assets/logo/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tìm phòng khám - Vethic AI</title>
@@ -20,7 +21,7 @@
         <header class="topbar">
             <h1 class="page-title">Tìm kiếm phòng khám</h1>
             <div class="user-menu flex items-center gap-4">
-                <span class="font-medium">Nguyễn Văn A</span>
+                <span class="user-name font-medium">Nguyễn Văn A</span>
                 <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
             </div>
         </header>
@@ -33,21 +34,29 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); margin-right: 8px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                         <input type="text" placeholder="Tìm kiếm theo khu vực, tên phòng khám...">
                     </div>
-                    <div class="flex gap-2" style="margin-top: 12px; overflow-x: auto;">
-                        <button class="filter-chip active">Gần nhất</button>
-                        <button class="filter-chip">Đang mở cửa</button>
-                        <button class="filter-chip">Đánh giá cao</button>
+                    <div class="flex gap-2" style="margin-top: 12px; overflow-x: auto;" id="filterContainer">
+                        <button class="filter-chip active" data-filter="nearest">Gần nhất</button>
+                        <button class="filter-chip" data-filter="open">Đang mở cửa</button>
+                        <button class="filter-chip" data-filter="top-rated">Đánh giá cao</button>
                     </div>
                 </div>
 
-                <div class="clinic-cards">
+                <div class="clinic-cards" id="clinicCardsContainer">
                     <!-- Clinic Card 1 -->
-                    <div class="clinic-card" style="background-color: var(--white); border: 1px solid var(--border-light); margin-bottom: 16px;">
+                    <div class="clinic-card" data-distance="1.2" data-status="open" data-rating="4.7">
                         <div class="clinic-header">
-                            <div>
-                                <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px;">Phòng khám Thú y Vy Vet Cần Thơ</h3>
-                                <div class="clinic-rating">
-                                    <span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.7</span> (25 đánh giá)
+                            <div style="width: 100%;">
+                                <div class="flex items-start justify-between" style="width: 100%; margin-bottom: 4px;">
+                                    <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px; flex: 1;">Phòng khám Thú y Vy Vet Cần Thơ</h3>
+                                    <div style="display: flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(16, 185, 129, 0.08); border-radius: 20px; font-size: 11px; font-weight: 600; color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2); white-space: nowrap; margin-left: 8px;">
+                                        <div style="width: 6px; height: 6px; border-radius: 50%; background-color: #10B981;"></div>
+                                        Đang mở cửa
+                                    </div>
+                                </div>
+                                <div class="clinic-rating flex items-center gap-2">
+                                    <span><span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.7</span> (25 đánh giá)</span>
+                                    <span style="color: var(--border-light);">•</span>
+                                    <span style="color: var(--primary); font-size: 13px; font-weight: 600;">1.2 km</span>
                                 </div>
                             </div>
                         </div>
@@ -64,12 +73,20 @@
                     </div>
 
                     <!-- Clinic Card 2 -->
-                    <div class="clinic-card" style="background-color: rgba(0, 105, 80, 0.03); border: 1px solid rgba(0, 105, 80, 0.15); margin-bottom: 16px;">
+                    <div class="clinic-card" data-distance="3.5" data-status="open" data-rating="4.7">
                         <div class="clinic-header">
-                            <div>
-                                <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px;">TruongDung Pet - Phòng khám Thú y Cần Thơ</h3>
-                                <div class="clinic-rating">
-                                    <span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.7</span> (81 đánh giá)
+                            <div style="width: 100%;">
+                                <div class="flex items-start justify-between" style="width: 100%; margin-bottom: 4px;">
+                                    <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px; flex: 1;">TruongDung Pet - Phòng khám Thú y Cần Thơ</h3>
+                                    <div style="display: flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(16, 185, 129, 0.08); border-radius: 20px; font-size: 11px; font-weight: 600; color: #10B981; border: 1px solid rgba(16, 185, 129, 0.2); white-space: nowrap; margin-left: 8px;">
+                                        <div style="width: 6px; height: 6px; border-radius: 50%; background-color: #10B981;"></div>
+                                        Đang mở cửa
+                                    </div>
+                                </div>
+                                <div class="clinic-rating flex items-center gap-2">
+                                    <span><span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.7</span> (81 đánh giá)</span>
+                                    <span style="color: var(--border-light);">•</span>
+                                    <span style="color: var(--primary); font-size: 13px; font-weight: 600;">3.5 km</span>
                                 </div>
                             </div>
                         </div>
@@ -86,23 +103,32 @@
                     </div>
 
                     <!-- Clinic Card 3 -->
-                    <div class="clinic-card" style="background-color: var(--white); border: 1px solid var(--border-light); margin-bottom: 16px;">
+                    <div class="clinic-card" data-distance="2.1" data-status="closed" data-rating="4.9">
                         <div class="clinic-header">
-                            <div>
-                                <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px;">Phòng khám thú y Nguyễn Văn Cừ</h3>
-                                <div class="clinic-rating">
-                                    <span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.9</span> (64 đánh giá)
+                            <div style="width: 100%;">
+                                <div class="flex items-start justify-between" style="width: 100%; margin-bottom: 4px;">
+                                    <h3 class="clinic-name" style="color: var(--text-dark); font-weight: 700; font-size: 16px; flex: 1;">Phòng khám thú y Nguyễn Văn Cừ</h3>
+                                    <div style="display: flex; align-items: center; gap: 4px; padding: 4px 10px; background: rgba(220, 38, 38, 0.08); border-radius: 20px; font-size: 11px; font-weight: 600; color: var(--danger); border: 1px solid rgba(220, 38, 38, 0.2); white-space: nowrap; margin-left: 8px;">
+                                        <div style="width: 6px; height: 6px; border-radius: 50%; background-color: var(--danger);"></div>
+                                        Đóng cửa
+                                    </div>
+                                </div>
+                                <div class="clinic-rating flex items-center gap-2">
+                                    <span><span class="star" style="color: #F59E0B;">★</span> <span style="font-weight: 600;">4.9</span> (64 đánh giá)</span>
+                                    <span style="color: var(--border-light);">•</span>
+                                    <span style="color: var(--primary); font-size: 13px; font-weight: 600;">2.1 km</span>
                                 </div>
                             </div>
                         </div>
                         <div class="clinic-details">
                             <div class="detail-item" style="color: var(--text-body);">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                <span>Cần Thơ - Đã hoạt động hơn 3 năm</span>
+                                <span>Cần Thơ - Chuyên khoa nội ngoại, Xét nghiệm</span>
                             </div>
                         </div>
                         <div class="clinic-actions" style="margin-top: 16px;">
                             <a href="https://maps.google.com/?q=Phòng+khám+thú+y+Nguyễn+Văn+Cừ+Cần+Thơ" target="_blank" class="btn btn-primary btn-full" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">Chỉ đường</a>
+                            <a href="#" class="btn btn-outline btn-full" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">Trang web</a>
                         </div>
                     </div>
                 </div>
@@ -134,8 +160,54 @@
                     }
                 );
             }
+
+            // Xử lý Filter Logic
+            const filterContainer = document.getElementById('filterContainer');
+            const clinicCardsContainer = document.getElementById('clinicCardsContainer');
+            let cards = Array.from(clinicCardsContainer.querySelectorAll('.clinic-card'));
+            
+            filterContainer.addEventListener('click', (e) => {
+                if(e.target.classList.contains('filter-chip')) {
+                    // Update active state visually
+                    filterContainer.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                    e.target.classList.add('active');
+                    
+                    const filterType = e.target.getAttribute('data-filter');
+                    applyFilter(filterType);
+                }
+            });
+
+            function applyFilter(filterType) {
+                // Xoá toàn bộ card hiện tại trong DOM để render lại theo thứ tự
+                cards.forEach(card => card.style.display = 'block'); // reset display
+                
+                let sortedCards = [...cards];
+                
+                if (filterType === 'nearest') {
+                    // Sắp xếp theo khoảng cách tăng dần
+                    sortedCards.sort((a, b) => parseFloat(a.dataset.distance) - parseFloat(b.dataset.distance));
+                } 
+                else if (filterType === 'open') {
+                    // Lọc những chỗ đang mở cửa, giữ nguyên thứ tự (hoặc có thể sort theo khoảng cách)
+                    sortedCards.forEach(card => {
+                        if (card.dataset.status !== 'open') {
+                            card.style.display = 'none';
+                        }
+                    });
+                } 
+                else if (filterType === 'top-rated') {
+                    // Sắp xếp theo rating giảm dần
+                    sortedCards.sort((a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating));
+                }
+                
+                // Gắn lại vào container để đổi thứ tự
+                sortedCards.forEach(card => {
+                    clinicCardsContainer.appendChild(card);
+                });
+            }
         });
     </script>
 </body>
 </html>
+
 

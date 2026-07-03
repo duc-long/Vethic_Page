@@ -75,23 +75,31 @@
 }
 
 .clinic-card {
-  background: var(--white);
   border-radius: 12px;
   padding: 20px;
-  border: 1px solid var(--border-light);
   transition: all 0.2s;
   cursor: pointer;
 }
 
+.clinic-card:nth-child(odd) {
+  background: #E0F7FA;
+  border: 2px solid #00BCD4;
+}
+
+.clinic-card:nth-child(even) {
+  background: #FFF3E0;
+  border: 2px solid #FF9800;
+}
+
 .clinic-card:hover {
-  border-color: var(--primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .clinic-card.active {
   border-color: var(--primary);
-  box-shadow: 0 4px 20px rgba(0, 105, 80, 0.1);
-  background: rgba(0, 105, 80, 0.02);
+  box-shadow: 0 4px 20px rgba(0, 105, 80, 0.2);
+  background: #E8F5E9;
 }
 
 .clinic-header {

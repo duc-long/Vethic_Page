@@ -1,6 +1,7 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
+    <link rel="icon" type="image/png" href="../assets/logo/logo.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hướng dẫn sơ cứu - Vethic AI</title>
@@ -248,7 +249,7 @@
             width: 48px;
             height: 48px;
             background: var(--danger);
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -285,14 +286,36 @@
         .emergency-btn:hover {
             background: #B91C1C;
         }
+        
+        @media (max-width: 768px) {
+            .hero-banner {
+                padding: 24px;
+            }
+            .hero-banner .bg-icon {
+                display: none;
+            }
+            .guide-grid {
+                grid-template-columns: 1fr;
+            }
+            .emergency-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 16px;
+            }
+            .emergency-banner .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray">
     <!-- Topbar -->
-    <header class="topbar" style="height: 72px; background-color: var(--white); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; padding: 0 40px;">
-        <h1 class="page-title" style="font-size: 20px; font-weight: 600; color: var(--primary); margin: 0;">Hướng dẫn sơ cứu</h1>
+    <header class="topbar">
+        <h1 class="page-title">Hướng dẫn sơ cứu</h1>
         <div class="user-menu flex items-center gap-4">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-body); cursor: pointer;"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            <span class="user-name font-medium">Nguyễn Văn A</span>
             <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
         </div>
     </header>
@@ -411,3 +434,4 @@
 
 </body>
 </html>
+

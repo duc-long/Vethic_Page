@@ -9,7 +9,7 @@ const initialPets = [
         age: 24, // in months
         weight: '25kg',
         type: 'DOG',
-        image: 'https://api.builder.io/api/v1/image/assets/TEMP/8d674e6037662ac61603d42d30ea38471dc57438',
+        image: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80',
         status: 'Tiêm phòng đủ',
         statusClass: 'success'
     },
@@ -20,7 +20,7 @@ const initialPets = [
         age: 12,
         weight: '4kg',
         type: 'CAT',
-        image: 'https://cdn.pixabay.com/photo/2014/11/30/14/11/cat-551554_1280.jpg',
+        image: 'https://images.unsplash.com/photo-1573865526739-10659fec78a5?auto=format&fit=crop&w=800&q=80',
         status: 'Cần tái khám',
         statusClass: 'danger'
     },
@@ -31,7 +31,7 @@ const initialPets = [
         age: 12,
         weight: '4kg',
         type: 'CAT',
-        image: 'https://cdn.pixabay.com/photo/2016/01/20/13/05/cat-1151519_1280.jpg',
+        image: 'https://images.unsplash.com/photo-1513245543132-31f507417b26?auto=format&fit=crop&w=800&q=80',
         status: 'Cần tái khám',
         statusClass: 'danger'
     }

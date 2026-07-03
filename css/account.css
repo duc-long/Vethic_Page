@@ -215,3 +215,25 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(20px);
 }
+
+@media (max-width: 768px) {
+    .form-row, .pref-row {
+        flex-direction: column;
+        gap: 16px;
+    }
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    .form-actions {
+        flex-direction: column;
+    }
+    .form-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+    .page-content {
+        padding: 24px 16px;
+    }
+}
