@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -283,12 +283,6 @@
                 ${points.map((point) => `
                     <text x="${point.x.toFixed(1)}" y="272" text-anchor="middle" class="chart-label">${point.label}</text>
                 `).join('')}
-                <g transform="translate(${tooltipPoint.x - 28}, ${tooltipPoint.y - 72})">
-                    <rect x="0" y="0" rx="12" ry="12" width="94" height="66" fill="var(--primary)" />
-                    <path d="M43 66 L50 78 L57 66" fill="var(--primary)"></path>
-                    <text x="47" y="22" text-anchor="middle" class="chart-tooltip-label">${tooltipPoint.label}</text>
-                    <text x="47" y="48" text-anchor="middle" class="chart-tooltip-value">${formatValue(tooltipPoint.value)} Ca</text>
-                </g>
             `;
 
             const pointGroups = chart.querySelectorAll('.chart-point-group');

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -128,6 +128,12 @@
             justify-content: center;
             padding: 24px;
             z-index: 100;
+        }
+
+        @media (min-width: 769px) {
+            .lock-modal {
+                padding-right: 304px;
+            }
         }
 
         .lock-modal[hidden] {
@@ -323,6 +329,9 @@
             pendingAction = null;
             lockModal.hidden = true;
             lockModal.style.display = 'none';
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'HIDE_SIDEBAR_OVERLAY' }, '*');
+            }
         }
 
         function showConfirmModal(options) {
@@ -333,6 +342,9 @@
             lockModalConfirm.textContent = options.confirmLabel;
             lockModal.hidden = false;
             lockModal.style.display = 'flex';
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'SHOW_SIDEBAR_OVERLAY', color: 'rgba(0, 0, 0, 0.63)' }, '*');
+            }
         }
 
         function showSuccessToast(message) {

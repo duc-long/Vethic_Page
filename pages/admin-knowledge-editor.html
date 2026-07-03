@@ -325,6 +325,12 @@
             background: rgba(11, 24, 20, 0.46);
         }
 
+        @media (min-width: 769px) {
+            .knowledge-modal {
+                padding-right: 304px;
+            }
+        }
+
         .knowledge-modal[hidden] {
             display: none !important;
         }
@@ -741,28 +747,15 @@
         const saveModalConfirm = document.getElementById('save-modal-confirm');
         const saveModalMessage = document.getElementById('save-modal-message');
 
-        const knowledgeStore = {
-            D001: {
-                name: 'Viêm dạ dày - ruột',
-                category: 'Bệnh truyền nhiễm',
-                species: 'both',
-                symptoms: 'Nôn mửa, tiêu chảy ra máu, bỏ ăn, sốt cao, mất nước nghiêm trọng.',
-                treatment: '1. Cách ly ngay lập tức.\n2. Bù dịch và điện giải.\n3. Theo dõi dấu hiệu sốc và đưa đến thú y.',
-                notes: 'Theo dõi liên tục 24 giờ đầu.',
-                severity: 'emergency',
-                keywords: ['Vomiting', 'Bloody Stool', 'Lethargy', 'Dehydration', 'High Fever']
-            },
-            D004: {
-                name: 'Parvovirus (CPV)',
-                category: 'Bệnh truyền nhiễm',
-                species: 'dog',
-                symptoms: 'Khó thở, tiêu chảy ra máu, nôn ói, sốt cao, mắt đỏ, mất nước nghiêm trọng.',
-                treatment: '1. CÁCH LY NGAY LẬP TỨC: Ngăn chặn lây lan cho vật nuôi khác.\n2. NHẬP VIỆN KHẨN CẤP: Truyền dịch nhằm bù nước và điện giải.\n3. KHÁNG SINH PHÒNG NGỪA: Phòng ngừa nhiễm trùng kế phát.\n4. THUỐC CHỐNG NÔN: Maropitant hoặc Metoclopramide.\n5. HỖ TRỢ DINH DƯỠNG: Nuôi dưỡng qua ống thông nếu cần thiết sau khi ngừng nôn.',
-                notes: 'Là bệnh lây lan nhanh, cần xử lý khẩn cấp.',
-                severity: 'emergency',
-                keywords: ['Vomiting', 'Bloody Stool', 'Lethargy', 'Dehydration', 'High Fever']
-            }
-        };
+        let knowledgeData = JSON.parse(localStorage.getItem('knowledgeData'));
+        if (!knowledgeData) {
+            knowledgeData = [
+                { id: 'D001', name: 'Viêm dạ dày - ruột', category: 'Bệnh truyền nhiễm', species: ['dog', 'cat'], severity: 'medium', updatedAt: 'Hôm nay, 09:30', symptoms: 'Nôn mửa, tiêu chảy, chán ăn.', treatment: '1. Cách ly ngay lập tức.\n2. Bù dịch và điện giải.\n3. Theo dõi dấu hiệu sốc và đưa đến thú y.', notes: 'Theo dõi liên tục 24 giờ đầu.', keywords: ['Vomiting', 'Bloody Stool', 'Lethargy', 'Dehydration', 'High Fever'] },
+                { id: 'D002', name: 'Bệnh Care (Canine Distemper)', category: 'Bệnh truyền nhiễm', species: ['dog'], severity: 'high', updatedAt: '15/05/2026', symptoms: 'Sốt, ho, nôn, tiêu chảy.', treatment: '', notes: '', keywords: [] },
+                { id: 'D003', name: 'Viêm da dị ứng', category: 'Da liễu', species: ['dog', 'cat'], severity: 'low', updatedAt: '10/05/2026', symptoms: 'Ngứa, đỏ da, rụng lông nhẹ.', treatment: '', notes: '', keywords: [] }
+            ];
+            localStorage.setItem('knowledgeData', JSON.stringify(knowledgeData));
+        }
 
         let toastTimer = null;
         let saveTimer = null;
@@ -771,10 +764,16 @@
             const title = knowledgeIdInput.value ? 'cập nhật' : 'tạo mới';
             saveModalMessage.textContent = `Bạn có chắc chắn muốn ${title} kiến thức bệnh ${knowledgeIdInput.value || ''}?`;
             saveModal.hidden = false;
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'SHOW_SIDEBAR_OVERLAY', color: 'rgba(11, 24, 20, 0.46)' }, '*');
+            }
         }
 
         function closeSaveModal() {
             saveModal.hidden = true;
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'HIDE_SIDEBAR_OVERLAY' }, '*');
+            }
         }
 
         function showToast(title, message) {
@@ -828,7 +827,7 @@
             if (!knowledgeId) {
                 editorTitle.textContent = 'Tạo mới kiến thức bệnh';
                 editorSubtitle.textContent = 'Tạo một hồ sơ bệnh mới để thêm vào hệ thống quản trị.';
-                knowledgeIdInput.value = 'D004';
+                knowledgeIdInput.value = '';
                 knowledgeNameInput.value = '';
                 knowledgeCategoryInput.value = 'Bệnh truyền nhiễm';
                 knowledgeSpeciesInput.value = 'dog';
@@ -840,20 +839,35 @@
                 return;
             }
 
-            const record = knowledgeStore[knowledgeId] || knowledgeStore.D001;
+            const record = knowledgeData.find(item => item.id === knowledgeId);
+            if (!record) return;
+
             editorTitle.textContent = `Chỉnh sửa kiến thức bệnh: ${record.name}`;
             editorSubtitle.textContent = 'Cập nhật hồ sơ lâm sàng và cấu hình AI nhận dạng cho bệnh lý này.';
             knowledgeIdInput.value = knowledgeId;
+            knowledgeIdInput.disabled = true;
             knowledgeNameInput.value = record.name;
-            knowledgeCategoryInput.value = record.category;
-            knowledgeSpeciesInput.value = record.species;
-            knowledgeSymptomsInput.value = record.symptoms;
-            knowledgeTreatmentInput.value = record.treatment;
-            knowledgeNotesInput.value = record.notes;
-            document.querySelector(`input[name="severity"][value="${record.severity}"]`).checked = true;
+            knowledgeCategoryInput.value = record.category || 'Bệnh truyền nhiễm';
+            if (record.species && Array.isArray(record.species)) {
+                if (record.species.includes('dog') && record.species.includes('cat')) {
+                    knowledgeSpeciesInput.value = 'both';
+                } else if (record.species.includes('cat')) {
+                    knowledgeSpeciesInput.value = 'cat';
+                } else {
+                    knowledgeSpeciesInput.value = 'dog';
+                }
+            } else {
+                knowledgeSpeciesInput.value = 'dog';
+            }
+            knowledgeSymptomsInput.value = record.symptoms || '';
+            knowledgeTreatmentInput.value = record.treatment || '';
+            knowledgeNotesInput.value = record.notes || '';
+            
+            const severityRadio = document.querySelector(`input[name="severity"][value="${record.severity}"]`);
+            if (severityRadio) severityRadio.checked = true;
             setStatusStyle(record.severity);
 
-            keywordList.innerHTML = record.keywords.map((keyword) => `<span class="chip">${keyword} <button type="button" aria-label="Xóa ${keyword}">×</button></span>`).join('');
+            keywordList.innerHTML = (record.keywords || []).map((keyword) => `<span class="chip">${keyword} <button type="button" aria-label="Xóa ${keyword}">×</button></span>`).join('');
             attachKeywordEvents();
         }
 
@@ -911,18 +925,47 @@
 
         saveModalConfirm.addEventListener("click", () => {
 
-            const selectedSeverity =
-                document.querySelector('input[name="severity"]:checked')?.value || "emergency";
+            const selectedSeverity = document.querySelector('input[name="severity"]:checked')?.value || "emergency";
+            
+            const speciesVal = knowledgeSpeciesInput.value;
+            let speciesArr = ['dog', 'cat'];
+            if (speciesVal === 'dog') speciesArr = ['dog'];
+            if (speciesVal === 'cat') speciesArr = ['cat'];
+
+            const keywords = Array.from(keywordList.querySelectorAll('.chip')).map(chip => chip.firstChild.textContent.trim());
+
+            const newRecord = {
+                id: knowledgeIdInput.value,
+                name: knowledgeNameInput.value,
+                category: knowledgeCategoryInput.value,
+                species: speciesArr,
+                symptoms: knowledgeSymptomsInput.value,
+                treatment: knowledgeTreatmentInput.value,
+                notes: knowledgeNotesInput.value,
+                severity: selectedSeverity,
+                keywords: keywords,
+                updatedAt: new Date().toLocaleDateString('vi-VN')
+            };
+
+            if (!newRecord.id) {
+                alert("Vui lòng nhập Mã bệnh.");
+                return;
+            }
+
+            const existingIndex = knowledgeData.findIndex(item => item.id === newRecord.id);
+            if (existingIndex >= 0) {
+                knowledgeData[existingIndex] = newRecord;
+            } else {
+                knowledgeData.push(newRecord);
+            }
+            localStorage.setItem('knowledgeData', JSON.stringify(knowledgeData));
 
             closeSaveModal();
-
             setStatusStyle(selectedSeverity);
 
             setTimeout(() => {
-                const id = encodeURIComponent(knowledgeIdInput.value);
-
-                window.location.href =
-                    `admin-knowledge.html?saved=true&id=${id}`;
+                const id = encodeURIComponent(newRecord.id);
+                window.location.href = `admin-knowledge.html?saved=true&id=${id}`;
             }, 800);
 
         });

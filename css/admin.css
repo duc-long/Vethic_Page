@@ -20,6 +20,33 @@
 
     background: #006950;
     border-right: 1px solid rgba(255,255,255,.08);
+    transition: width 0.3s ease;
+}
+
+/* Collapsed Sidebar */
+.sidebar.collapsed {
+    width: 80px;
+}
+.sidebar.collapsed .logo-text,
+.sidebar.collapsed .nav-text,
+.sidebar.collapsed .logout-btn span {
+    display: none;
+}
+.sidebar.collapsed .sidebar-header {
+    padding: 18px 10px;
+}
+.sidebar.collapsed .sidebar-logo {
+    justify-content: center;
+}
+.sidebar.collapsed .logo-box {
+    margin: 0 auto;
+}
+.sidebar.collapsed .nav-item {
+    justify-content: center;
+    padding: 12px 0;
+}
+.sidebar.collapsed .nav-item svg {
+    margin-right: 0;
 }
 
 /* Sidebar Header */
@@ -170,6 +197,9 @@
 
 /* Topbar */
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
   height: 80px;
   background-color: var(--white);
   border-bottom: 1px solid var(--border-light);

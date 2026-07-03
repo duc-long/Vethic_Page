@@ -295,6 +295,12 @@
             background: rgb(0 0 0 / 63%);
         }
 
+        @media (min-width: 769px) {
+            .knowledge-modal {
+                padding-right: 304px;
+            }
+        }
+
 
 
         .knowledge-modal[hidden] {
@@ -553,11 +559,15 @@
     </div>
 
     <script>
-        const knowledgeData = [
-            { id: 'D001', name: 'Viêm dạ dày - ruột', species: ['dog', 'cat'], severity: 'medium', updatedAt: 'Hôm nay, 09:30', symptoms: 'Nôn mửa, tiêu chảy, chán ăn.' },
-            { id: 'D002', name: 'Bệnh Care (Canine Distemper)', species: ['dog'], severity: 'high', updatedAt: '15/05/2026', symptoms: 'Sốt, ho, nôn, tiêu chảy.' },
-            { id: 'D003', name: 'Viêm da dị ứng', species: ['dog', 'cat'], severity: 'low', updatedAt: '10/05/2026', symptoms: 'Ngứa, đỏ da, rụng lông nhẹ.' }
-        ];
+        let knowledgeData = JSON.parse(localStorage.getItem('knowledgeData'));
+        if (!knowledgeData) {
+            knowledgeData = [
+                { id: 'D001', name: 'Viêm dạ dày - ruột', species: ['dog', 'cat'], severity: 'medium', updatedAt: 'Hôm nay, 09:30', symptoms: 'Nôn mửa, tiêu chảy, chán ăn.' },
+                { id: 'D002', name: 'Bệnh Care (Canine Distemper)', species: ['dog'], severity: 'high', updatedAt: '15/05/2026', symptoms: 'Sốt, ho, nôn, tiêu chảy.' },
+                { id: 'D003', name: 'Viêm da dị ứng', species: ['dog', 'cat'], severity: 'low', updatedAt: '10/05/2026', symptoms: 'Ngứa, đỏ da, rụng lông nhẹ.' }
+            ];
+            localStorage.setItem('knowledgeData', JSON.stringify(knowledgeData));
+        }
 
         const knowledgeTableBody = document.getElementById('knowledge-table-body');
         const knowledgeSearchInput = document.getElementById('knowledge-search-input');
@@ -653,12 +663,18 @@
 
 
             knowledgeModal.hidden = false;
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'SHOW_SIDEBAR_OVERLAY', color: 'rgba(0, 0, 0, 0.63)' }, '*');
+            }
         }
 
         function closeModal() {
             knowledgeModal.hidden = true;
             pendingAction = null;
             pendingKnowledgeId = null;
+            if (window.parent !== window) {
+                window.parent.postMessage({ type: 'HIDE_SIDEBAR_OVERLAY' }, '*');
+            }
         }
 
         function renderKnowledgeTable() {
@@ -746,6 +762,7 @@
             const deleteIndex = knowledgeData.findIndex((item) => item.id === pendingKnowledgeId);
             if (deleteIndex >= 0) {
                 knowledgeData.splice(deleteIndex, 1);
+                localStorage.setItem('knowledgeData', JSON.stringify(knowledgeData));
                 renderKnowledgeTable();
                 showToast('Đã xóa kiến thức bệnh', `Kiến thức ${knowledgeItem.id} - ${knowledgeItem.name} đã được xóa.`);
             }

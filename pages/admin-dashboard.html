@@ -40,7 +40,7 @@
     <div class="layout-wrapper">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header">
+            <div class="sidebar-header" style="position: relative;">
                 <a href="../index.html" class="sidebar-logo">
                     <div class="logo-box">
                         <img src="../assets/logo/logo_ten.png" alt="Vethic">
@@ -51,6 +51,13 @@
                         <span class="logo-subtitle">AI Veterinary Assistant</span>
                     </div>
                 </a>
+                <button id="sidebar-toggle"
+                    style="position: absolute; right: -26px; top: 50%; transform: translateY(-50%); opacity: 90%; background: #fff; border: 1px solid var(--border-light); border-radius: 10px; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; color: var(--primary);">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" id="sidebar-toggle-icon">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
             </div>
             <nav class="sidebar-nav">
                 <a href="admin.html" target="content-frame" class="nav-item active">
@@ -61,7 +68,7 @@
                         <rect x="14" y="14" width="7" height="7"></rect>
                         <rect x="3" y="14" width="7" height="7"></rect>
                     </svg>
-                    Tổng quan
+                    <span class="nav-text">Tổng quan</span>
                 </a>
                 <a href="admin-users.html" target="content-frame" class="nav-item">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -71,7 +78,7 @@
                         <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
                         <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                     </svg>
-                    Quản lý người dùng
+                    <span class="nav-text">Quản lý người dùng</span>
                 </a>
                 <a href="admin-knowledge.html" target="content-frame" class="nav-item">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -82,7 +89,7 @@
                         <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                         <line x1="12" y1="22.08" x2="12" y2="12"></line>
                     </svg>
-                    Quản lý kiến thức bệnh
+                    <span class="nav-text">Quản lý kiến thức bệnh</span>
                 </a>
                 <a href="admin-settings.html" target="content-frame" class="nav-item">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -92,7 +99,15 @@
                             d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
                         </path>
                     </svg>
-                    Cài đặt hệ thống
+                    <span class="nav-text">Cài đặt hệ thống</span>
+                </a>
+                <a href="admin-profile.html" target="content-frame" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="nav-text">Hồ sơ cá nhân</span>
                 </a>
             </nav>
 
@@ -126,6 +141,47 @@
                     navItems.forEach(nav => nav.classList.remove('active'));
                     this.classList.add('active');
                 });
+            });
+
+            window.addEventListener('message', function (event) {
+                if (event.data && event.data.type === 'SHOW_SIDEBAR_OVERLAY') {
+                    let overlay = document.getElementById('sidebar-overlay');
+                    if (!overlay) {
+                        overlay = document.createElement('div');
+                        overlay.id = 'sidebar-overlay';
+                        document.querySelector('.sidebar').style.position = 'relative';
+                        document.querySelector('.sidebar').appendChild(overlay);
+                    }
+                    overlay.style.cssText = `position: absolute; inset: 0; background: ${event.data.color || 'rgba(0,0,0,0.63)'}; z-index: 1000;`;
+                    overlay.style.display = 'block';
+                }
+                if (event.data && event.data.type === 'HIDE_SIDEBAR_OVERLAY') {
+                    const overlay = document.getElementById('sidebar-overlay');
+                    if (overlay) overlay.style.display = 'none';
+                }
+            });
+
+            // Sidebar toggle logic
+            const sidebar = document.querySelector('.sidebar');
+            const toggleBtn = document.getElementById('sidebar-toggle');
+            const toggleIcon = document.getElementById('sidebar-toggle-icon');
+
+            toggleBtn.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                if (sidebar.classList.contains('collapsed')) {
+                    toggleIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16'); // Hamburger icon
+                    // Send message to iframes that sidebar collapsed so they can adjust padding if needed
+                    const iframe = document.getElementById('content-frame');
+                    if (iframe && iframe.contentWindow) {
+                        iframe.contentWindow.postMessage({ type: 'SIDEBAR_COLLAPSED' }, '*');
+                    }
+                } else {
+                    toggleIcon.setAttribute('d', 'M15 18l-6-6 6-6'); // Left arrow
+                    const iframe = document.getElementById('content-frame');
+                    if (iframe && iframe.contentWindow) {
+                        iframe.contentWindow.postMessage({ type: 'SIDEBAR_EXPANDED' }, '*');
+                    }
+                }
             });
         });
     </script>
