@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -285,153 +285,6 @@
             color: var(--danger);
         }
 
-        .knowledge-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 120;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgb(0 0 0 / 63%);
-        }
-
-        @media (min-width: 769px) {
-            .knowledge-modal {
-                padding-right: 304px;
-            }
-        }
-
-
-
-        .knowledge-modal[hidden] {
-            display: none !important;
-        }
-
-        .knowledge-modal-panel {
-            width: min(460px, 100%);
-            background: var(--white);
-            border-radius: 24px;
-            box-shadow: 0 30px 80px rgba(18, 53, 43, 0.26);
-            padding: 24px;
-        }
-
-        .knowledge-modal-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .knowledge-modal-kicker {
-            color: var(--primary);
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .knowledge-modal-kicker.danger {
-            color: var(--danger);
-        }
-
-        .knowledge-modal-header h2 {
-            font-size: 22px;
-            color: var(--text-dark);
-        }
-
-        .knowledge-modal-message {
-            color: var(--text-body);
-            line-height: 1.6;
-            margin: 8px 0 24px;
-        }
-
-        .knowledge-modal-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
-
-        .btn-ghost {
-            background: rgba(0, 105, 80, 0.08);
-            color: var(--primary);
-        }
-
-        .btn-ghost:hover {
-            background: rgba(0, 105, 80, 0.12);
-        }
-
-        .btn-secondary {
-            background: rgba(186, 26, 26, 0.08);
-            color: var(--danger);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(186, 26, 26, 0.12);
-        }
-
-        .knowledge-toast {
-            position: fixed;
-            right: 24px;
-            bottom: 24px;
-            z-index: 130;
-            background: rgba(0, 105, 80, 0.96);
-            color: var(--white);
-            border-radius: 14px;
-            padding: 14px 16px;
-            box-shadow: 0 18px 40px rgba(18, 53, 43, 0.20);
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 280px;
-            max-width: min(420px, calc(100vw - 48px));
-            opacity: 0;
-            transform: translateY(10px);
-            pointer-events: none;
-            transition: opacity 0.22s ease, transform 0.22s ease;
-        }
-
-        .knowledge-toast.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .knowledge-toast strong,
-        .knowledge-toast span {
-            display: block;
-        }
-
-        .knowledge-toast strong {
-            font-size: 14px;
-        }
-
-        .knowledge-toast span {
-            font-size: 12px;
-            opacity: 0.9;
-            margin-top: 2px;
-        }
-
-        .knowledge-toast button {
-            width: 28px;
-            height: 28px;
-            border: none;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.14);
-            color: var(--white);
-            font-size: 20px;
-            line-height: 1;
-            cursor: pointer;
-            flex: 0 0 auto;
-        }
-
-        .knowledge-toast button:hover {
-            background: rgba(255, 255, 255, 0.22);
-        }
-
         .page-toolbar-note {
             margin-top: 10px;
             color: var(--text-body);
@@ -530,35 +383,6 @@
         </div>
     </main>
 
-    <div id="knowledge-modal" class="knowledge-modal" hidden>
-        <div class="knowledge-modal-panel" role="dialog" aria-modal="true" aria-labelledby="knowledge-modal-title">
-            <div class="knowledge-modal-header">
-                <div>
-                    <p id="knowledge-modal-kicker" class="knowledge-modal-kicker danger">Xác nhận</p>
-                    <h2 id="knowledge-modal-title">Xác nhận hành động</h2>
-                </div>
-                <button id="knowledge-modal-close" type="button" class="knowledge-modal-close knowledge-icon-btn"
-                    aria-label="Đóng">&times;</button>
-            </div>
-            <p id="knowledge-modal-message" class="knowledge-modal-message"></p>
-            <div class="knowledge-modal-actions">
-                <button id="knowledge-modal-cancel" type="button" class="btn btn-ghost">Hủy</button>
-                <button id="knowledge-modal-confirm" type="button" class="btn btn-secondary">Xác nhận</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="success-toast" class="knowledge-toast" hidden>
-        <div>
-            <strong id="knowledge-toast-title">Lưu thành công</strong>
-            <span id="knowledge-toast-message">
-                Dữ liệu kiến thức bệnh đã được cập nhật.
-            </span>
-        </div>
-
-        <button id="knowledge-toast-close">&times;</button>
-    </div>
-
     <script>
         let knowledgeData = JSON.parse(localStorage.getItem('knowledgeData'));
         if (!knowledgeData) {
@@ -573,14 +397,6 @@
         const knowledgeTableBody = document.getElementById('knowledge-table-body');
         const knowledgeSearchInput = document.getElementById('knowledge-search-input');
         const speciesFilter = document.getElementById('species-filter');
-        const knowledgeModal = document.getElementById('knowledge-modal');
-        const knowledgeModalKicker = document.getElementById('knowledge-modal-kicker');
-        const knowledgeModalTitle = document.getElementById('knowledge-modal-title');
-        const knowledgeModalMessage = document.getElementById('knowledge-modal-message');
-        const knowledgeModalClose = document.getElementById('knowledge-modal-close');
-        const knowledgeModalCancel = document.getElementById('knowledge-modal-cancel');
-        const knowledgeModalConfirm = document.getElementById('knowledge-modal-confirm');
-        const knowledgeToast = document.getElementById("success-toast");
         const params = new URLSearchParams(window.location.search);
 
         if (params.get("saved") === "true") {
@@ -588,22 +404,17 @@
 
                 const id = params.get("id") || "";
 
-                showToast(
-                    "Cập nhật thành công",
-                    `Kiến thức ${id} đã được cập nhật thành công.`
-                );
+                if (window.parent && window.parent.showAdminToast) {
+                    window.parent.showAdminToast(
+                        "Cập nhật thành công",
+                        `Kiến thức ${id} đã được cập nhật thành công.`
+                    );
+                }
 
                 // Xóa query trên URL để F5 không hiện lại toast
                 window.history.replaceState({}, document.title, "admin-knowledge.html");
             });
         }
-        const knowledgeToastTitle = document.getElementById('knowledge-toast-title');
-        const knowledgeToastMessage = document.getElementById('knowledge-toast-message');
-        const knowledgeToastClose = document.getElementById('knowledge-toast-close');
-
-        let pendingAction = null;
-        let pendingKnowledgeId = null;
-        let toastTimer = null;
 
         function normalizeText(value) {
             return value.trim().toLowerCase();
@@ -625,58 +436,6 @@
             return species === 'dog' ? 'knowledge-species-badge knowledge-species-dog' : 'knowledge-species-badge knowledge-species-cat';
         }
 
-        function showToast(title, message) {
-            if (toastTimer) {
-                window.clearTimeout(toastTimer);
-            }
-
-            knowledgeToastTitle.textContent = title;
-            knowledgeToastMessage.textContent = message;
-            knowledgeToast.hidden = false;
-            requestAnimationFrame(() => knowledgeToast.classList.add('is-visible'));
-
-            toastTimer = window.setTimeout(() => {
-                hideToast();
-            }, 2400);
-        }
-
-        function hideToast() {
-            if (toastTimer) {
-                window.clearTimeout(toastTimer);
-                toastTimer = null;
-            }
-
-            knowledgeToast.classList.remove('is-visible');
-            window.setTimeout(() => {
-                knowledgeToast.hidden = true;
-            }, 220);
-        }
-
-        function openModal(action, knowledgeItem) {
-            pendingAction = action;
-            pendingKnowledgeId = knowledgeItem.id;
-
-            knowledgeModalKicker.className = 'knowledge-modal-kicker danger';
-            knowledgeModalKicker.textContent = 'Xóa kiến thức bệnh';
-            knowledgeModalTitle.textContent = 'Xác nhận xóa bệnh';
-            knowledgeModalMessage.textContent = `Bạn có chắc chắn muốn xóa kiến thức bệnh ${knowledgeItem.id} - ${knowledgeItem.name}?`;
-            knowledgeModalConfirm.textContent = 'Xóa bệnh';
-
-
-            knowledgeModal.hidden = false;
-            if (window.parent !== window) {
-                window.parent.postMessage({ type: 'SHOW_SIDEBAR_OVERLAY', color: 'rgba(0, 0, 0, 0.63)' }, '*');
-            }
-        }
-
-        function closeModal() {
-            knowledgeModal.hidden = true;
-            pendingAction = null;
-            pendingKnowledgeId = null;
-            if (window.parent !== window) {
-                window.parent.postMessage({ type: 'HIDE_SIDEBAR_OVERLAY' }, '*');
-            }
-        }
 
         function renderKnowledgeTable() {
             const searchValue = normalizeText(knowledgeSearchInput.value);
@@ -736,42 +495,37 @@
             }
 
             if (action === "delete") {
-                openModal(action, knowledgeItem);
+                const messageText = `Bạn có chắc chắn muốn xóa kiến thức bệnh ${knowledgeItem.id} - ${knowledgeItem.name}?`;
+                
+                const doDelete = () => {
+                    const deleteIndex = knowledgeData.findIndex((item) => item.id === knowledgeItem.id);
+                    if (deleteIndex >= 0) {
+                        knowledgeData.splice(deleteIndex, 1);
+                        localStorage.setItem('knowledgeData', JSON.stringify(knowledgeData));
+                        renderKnowledgeTable();
+                        if (window.parent && window.parent.showAdminToast) {
+                            window.parent.showAdminToast('Đã xóa kiến thức bệnh', `Kiến thức ${knowledgeItem.id} - ${knowledgeItem.name} đã được xóa.`);
+                        } else {
+                            alert(`Kiến thức ${knowledgeItem.id} - ${knowledgeItem.name} đã được xóa.`);
+                        }
+                    }
+                };
+
+                if (window.parent && window.parent.showAdminModal) {
+                    window.parent.showAdminModal({
+                        type: 'danger',
+                        title: 'Xác nhận xóa bệnh',
+                        message: messageText,
+                        confirmText: 'Xóa bệnh',
+                        onConfirm: doDelete
+                    });
+                } else {
+                    if (confirm(messageText)) {
+                        doDelete();
+                    }
+                }
             }
         });
-
-        knowledgeModalClose.addEventListener('click', closeModal);
-        knowledgeModalCancel.addEventListener('click', closeModal);
-        knowledgeModal.addEventListener('click', (event) => {
-            if (event.target === knowledgeModal) {
-                closeModal();
-            }
-        });
-
-        knowledgeModalConfirm.addEventListener('click', () => {
-            if (!pendingKnowledgeId || !pendingAction) {
-                closeModal();
-                return;
-            }
-
-            const knowledgeItem = knowledgeData.find((item) => item.id === pendingKnowledgeId);
-            if (!knowledgeItem) {
-                closeModal();
-                return;
-            }
-
-            const deleteIndex = knowledgeData.findIndex((item) => item.id === pendingKnowledgeId);
-            if (deleteIndex >= 0) {
-                knowledgeData.splice(deleteIndex, 1);
-                localStorage.setItem('knowledgeData', JSON.stringify(knowledgeData));
-                renderKnowledgeTable();
-                showToast('Đã xóa kiến thức bệnh', `Kiến thức ${knowledgeItem.id} - ${knowledgeItem.name} đã được xóa.`);
-            }
-
-            closeModal();
-        });
-
-        knowledgeToastClose.addEventListener('click', hideToast);
 
         renderKnowledgeTable();
     </script>

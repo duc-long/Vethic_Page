@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -241,47 +241,7 @@
             background: rgba(186, 26, 26, 0.12);
         }
 
-        .lock-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 120;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            background: rgb(0 0 0 / 63%);
-        }
 
-        .lock-modal[hidden] {
-            display: none !important;
-        }
-
-        .lock-modal-panel {
-            width: min(420px, 100%);
-            background: var(--white);
-            border-radius: 24px;
-            box-shadow: 0 30px 80px rgba(18, 53, 43, 0.26);
-            padding: 26px;
-        }
-
-        .lock-modal-title {
-            font-size: 20px;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .lock-modal-message {
-            color: var(--text-body);
-            line-height: 1.6;
-            margin-bottom: 22px;
-        }
-
-        .lock-modal-actions {
-            display: flex;
-            gap: 12px;
-            justify-content: flex-end;
-            flex-wrap: wrap;
-        }
 
         .btn-ghost {
             background: rgba(0, 105, 80, 0.08);
@@ -421,16 +381,7 @@
         </div>
     </main>
 
-    <div id="lock-confirm-modal" class="lock-modal" hidden>
-        <div class="lock-modal-panel" role="dialog" aria-modal="true" aria-labelledby="lock-modal-title">
-            <h3 id="lock-modal-title" class="lock-modal-title">Xác nhận thay đổi trạng thái</h3>
-            <p id="lock-modal-message" class="lock-modal-message"></p>
-            <div class="lock-modal-actions">
-                <button id="lock-modal-cancel" type="button" class="btn btn-ghost">Hủy</button>
-                <button id="lock-modal-confirm" type="button" class="btn btn-secondary">Xác nhận</button>
-            </div>
-        </div>
-    </div>
+
 
     <script>
         const users = {
@@ -547,12 +498,7 @@
         const petsCount = document.getElementById('pets-count');
         const historyTableBody = document.getElementById('history-table-body');
         const toggleLockBtn = document.getElementById('toggle-lock-btn');
-        const lockConfirmModal = document.getElementById('lock-confirm-modal');
-        const lockModalMessage = document.getElementById('lock-modal-message');
-        const lockModalConfirm = document.getElementById('lock-modal-confirm');
-        const lockModalCancel = document.getElementById('lock-modal-cancel');
-        const lockModalTitle = document.getElementById('lock-modal-title');
-        let pendingLockStatus = null;
+
 
         function getCurrentStatus() {
             return storedStatuses[user.id] || user.status;
@@ -575,21 +521,6 @@
             renderStatus();
         }
 
-        function closeLockConfirmModal() {
-            lockConfirmModal.hidden = true;
-            pendingLockStatus = null;
-        }
-
-        function openLockConfirmModal(nextStatus) {
-            pendingLockStatus = nextStatus;
-            const isCurrentlyLocked = isLocked(getCurrentStatus());
-            lockModalTitle.textContent = isCurrentlyLocked ? 'Xác nhận mở khóa tài khoản' : 'Xác nhận khóa tài khoản';
-            lockModalMessage.textContent = isCurrentlyLocked
-                ? `Bạn có chắc chắn muốn mở khóa tài khoản của ${user.name}?`
-                : `Bạn có chắc chắn muốn khóa tài khoản của ${user.name}?`;
-            lockModalConfirm.textContent = isCurrentlyLocked ? 'Mở khóa' : 'Khóa tài khoản';
-            lockConfirmModal.hidden = false;
-        }
 
         detailPageTitle.textContent = `Chi tiết người dùng - ${user.name}`;
         if (user.avatar.startsWith("http")) {
@@ -654,22 +585,39 @@
         renderStatus();
 
         toggleLockBtn.addEventListener('click', () => {
-            const nextStatus = isLocked(getCurrentStatus()) ? 'active' : 'locked';
-            openLockConfirmModal(nextStatus);
-        });
+            const isCurrentlyLocked = isLocked(getCurrentStatus());
+            const nextStatus = isCurrentlyLocked ? 'active' : 'locked';
 
-        lockModalConfirm.addEventListener('click', () => {
-            if (pendingLockStatus) {
-                saveStatus(pendingLockStatus);
-            }
-            closeLockConfirmModal();
-        });
+            const titleText = isCurrentlyLocked ? 'Xác nhận mở khóa tài khoản' : 'Xác nhận khóa tài khoản';
+            const messageText = isCurrentlyLocked
+                        ? `Bạn có chắc chắn muốn mở khóa tài khoản của ${user.name}?`
+                        : `Bạn có chắc chắn muốn khóa tài khoản của ${user.name}?`;
+            const confirmText = isCurrentlyLocked ? 'Mở khóa' : 'Khóa tài khoản';
 
-        lockModalCancel.addEventListener('click', closeLockConfirmModal);
+            const doToggleLock = () => {
+                saveStatus(nextStatus);
+                const successMsg = isCurrentlyLocked 
+                    ? `Đã mở khóa tài khoản ${user.name}.`
+                    : `Đã khóa tài khoản ${user.name}.`;
+                if (window.parent && window.parent.showAdminToast) {
+                    window.parent.showAdminToast('Thành công', successMsg, 'success');
+                } else {
+                    alert(successMsg);
+                }
+            };
 
-        lockConfirmModal.addEventListener('click', (event) => {
-            if (event.target === lockConfirmModal) {
-                closeLockConfirmModal();
+            if (window.parent && window.parent.showAdminModal) {
+                window.parent.showAdminModal({
+                    type: 'warning',
+                    title: titleText,
+                    message: messageText,
+                    confirmText: confirmText,
+                    onConfirm: doToggleLock
+                });
+            } else {
+                if (confirm(messageText)) {
+                    doToggleLock();
+                }
             }
         });
 

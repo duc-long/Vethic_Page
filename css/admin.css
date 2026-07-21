@@ -629,3 +629,164 @@
     justify-content: space-between;
   }
 }
+/* --- Admin Generic Modals --- */
+.admin-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    z-index: 1000;
+}
+
+@media (min-width: 769px) {
+    .admin-modal {
+        padding-left: 280px; /* offset for sidebar */
+    }
+}
+
+.admin-modal[hidden] {
+    display: none !important;
+}
+
+.admin-modal-card {
+    width: min(420px, 100%);
+    background: var(--white);
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    padding: 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    animation: modalShow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.admin-modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(240, 68, 56, 0.1);
+    color: var(--danger);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.admin-modal-icon.warning {
+    background: rgba(251, 188, 5, 0.1);
+    color: #FBBC05;
+}
+
+.admin-modal-icon.success {
+    background: rgba(18, 183, 106, 0.1);
+    color: var(--primary);
+}
+
+.admin-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.admin-modal-message {
+    color: var(--text-body);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 8px 0;
+}
+
+.admin-modal-actions {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.admin-modal-actions .btn {
+    flex: 1;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+@keyframes modalShow {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Global Toast Styles */
+.knowledge-toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1001;
+    background: rgba(0, 105, 80, 0.96);
+    color: var(--white);
+    border-radius: 14px;
+    padding: 14px 16px;
+    box-shadow: 0 18px 40px rgba(18, 53, 43, 0.20);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 280px;
+    max-width: min(420px, calc(100vw - 48px));
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.knowledge-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.knowledge-toast strong,
+.knowledge-toast span {
+    display: block;
+}
+
+.knowledge-toast strong {
+    font-size: 14px;
+}
+
+.knowledge-toast span {
+    font-size: 12px;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+.knowledge-toast button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--white);
+    font-size: 20px;
+    line-height: 1;
+    cursor: pointer;
+    flex: 0 0 auto;
+}
+
+.knowledge-toast button:hover {
+    background: rgba(255, 255, 255, 0.22);
+}

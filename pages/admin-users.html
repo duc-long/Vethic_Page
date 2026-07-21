@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -73,24 +73,6 @@
         </div>
     </main>
 
-    <div id="lock-modal" class="lock-modal" hidden>
-        <div class="lock-modal-card" role="dialog" aria-modal="true" aria-labelledby="lock-modal-title">
-            <div class="lock-modal-icon">!</div>
-            <h2 id="lock-modal-title">Xác nhận xóa tài khoản</h2>
-            <p id="lock-modal-message">Bạn có chắc muốn xóa tài khoản này không?</p>
-            <div class="lock-modal-actions">
-                <button id="lock-modal-cancel" type="button" class="btn btn-secondary">Hủy</button>
-                <button id="lock-modal-confirm" type="button" class="btn btn-primary">Xóa tài khoản</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="success-toast" class="success-toast" hidden>
-        <span id="success-toast-message"></span>
-        <button id="success-toast-close" type="button" class="success-toast-close"
-            aria-label="Đóng thông báo">&times;</button>
-    </div>
-
     <style>
         .avatar-small {
             width: 42px;
@@ -120,69 +102,6 @@
             color: var(--text-body);
         }
 
-        .lock-modal {
-            position: fixed;
-            inset: 0;
-            background: rgb(0 0 0 / 63%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            z-index: 100;
-        }
-
-        @media (min-width: 769px) {
-            .lock-modal {
-                padding-right: 304px;
-            }
-        }
-
-        .lock-modal[hidden] {
-            display: none !important;
-        }
-
-        .lock-modal-card {
-            width: min(420px, 100%);
-            background: var(--white);
-            border-radius: 20px;
-            border: 1px solid rgba(188, 202, 194, 0.45);
-            box-shadow: 0 20px 60px rgba(18, 53, 43, 0.24);
-            padding: 28px;
-            text-align: center;
-        }
-
-        .lock-modal-icon {
-            width: 56px;
-            height: 56px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            background: rgba(186, 26, 26, 0.12);
-            color: var(--danger);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            font-weight: 800;
-        }
-
-        .lock-modal-card h2 {
-            font-size: 22px;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .lock-modal-card p {
-            color: var(--text-body);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .lock-modal-actions {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-        }
-
         .btn-secondary {
             background: rgba(90, 90, 108, 0.1);
             color: var(--text-dark);
@@ -192,54 +111,6 @@
             background: rgba(90, 90, 108, 0.16);
         }
 
-        .success-toast {
-            position: fixed;
-            right: 24px;
-            bottom: 24px;
-            z-index: 110;
-            background: rgba(0, 105, 80, 0.96);
-            color: var(--white);
-            padding: 14px 18px;
-            border-radius: 14px;
-            box-shadow: 0 18px 40px rgba(18, 53, 43, 0.24);
-            font-weight: 600;
-            opacity: 0;
-            transform: translateY(12px);
-            transition: opacity 0.25s ease, transform 0.25s ease;
-            pointer-events: auto;
-            display: inline-flex;
-            align-items: center;
-            gap: 14px;
-            min-width: 280px;
-            max-width: min(420px, calc(100vw - 48px));
-        }
-
-        .success-toast.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .success-toast-message {
-            flex: 1;
-        }
-
-        .success-toast-close {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            color: var(--white);
-            background: rgba(255, 255, 255, 0.14);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            line-height: 1;
-            flex: 0 0 auto;
-        }
-
-        .success-toast-close:hover {
-            background: rgba(255, 255, 255, 0.22);
-        }
     </style>
 
     <script>
@@ -294,17 +165,6 @@
         const searchInput = document.getElementById('user-search-input');
         const roleFilter = document.getElementById('role-filter');
         const statusFilter = document.getElementById('status-filter');
-        const lockModal = document.getElementById('lock-modal');
-        const lockModalTitle = document.getElementById('lock-modal-title');
-        const lockModalMessage = document.getElementById('lock-modal-message');
-        const lockModalConfirm = document.getElementById('lock-modal-confirm');
-        const lockModalCancel = document.getElementById('lock-modal-cancel');
-        const successToast = document.getElementById('success-toast');
-        const successToastMessage = document.getElementById('success-toast-message');
-        const successToastClose = document.getElementById('success-toast-close');
-        let pendingDeleteUserId = null;
-        let pendingAction = null;
-        let toastTimer = null;
 
         function roleBadgeClass(role) {
             switch (role) {
@@ -325,60 +185,6 @@
                 : 'background: rgba(127, 248, 207, 0.2); color: var(--primary-hover);';
         }
 
-        function hideDeleteModal() {
-            pendingDeleteUserId = null;
-            pendingAction = null;
-            lockModal.hidden = true;
-            lockModal.style.display = 'none';
-            if (window.parent !== window) {
-                window.parent.postMessage({ type: 'HIDE_SIDEBAR_OVERLAY' }, '*');
-            }
-        }
-
-        function showConfirmModal(options) {
-            pendingAction = options.action;
-            pendingDeleteUserId = options.userId;
-            lockModalTitle.textContent = options.title;
-            lockModalMessage.textContent = options.message;
-            lockModalConfirm.textContent = options.confirmLabel;
-            lockModal.hidden = false;
-            lockModal.style.display = 'flex';
-            if (window.parent !== window) {
-                window.parent.postMessage({ type: 'SHOW_SIDEBAR_OVERLAY', color: 'rgba(0, 0, 0, 0.63)' }, '*');
-            }
-        }
-
-        function showSuccessToast(message) {
-            if (toastTimer) {
-                window.clearTimeout(toastTimer);
-                toastTimer = null;
-            }
-
-            successToastMessage.textContent = message;
-            successToast.hidden = false;
-            requestAnimationFrame(() => {
-                successToast.classList.add('is-visible');
-            });
-
-            toastTimer = window.setTimeout(() => {
-                successToast.classList.remove('is-visible');
-                window.setTimeout(() => {
-                    successToast.hidden = true;
-                }, 250);
-            }, 2200);
-        }
-
-        function hideSuccessToast() {
-            if (toastTimer) {
-                window.clearTimeout(toastTimer);
-                toastTimer = null;
-            }
-
-            successToast.classList.remove('is-visible');
-            window.setTimeout(() => {
-                successToast.hidden = true;
-            }, 250);
-        }
 
         function renderUsers() {
             const query = searchInput.value.trim().toLowerCase();
@@ -479,13 +285,33 @@
                 const user = users.find((item) => item.id === userId);
                 if (!user) return;
 
-                showConfirmModal({
-                    action: 'delete',
-                    userId,
-                    title: 'Xác nhận xóa tài khoản',
-                    message: `Bạn có chắc muốn xóa tài khoản ${user.name}? Hành động này không thể hoàn tác.`,
-                    confirmLabel: 'Xóa tài khoản',
-                });
+                const messageText = `Bạn có chắc muốn xóa tài khoản ${user.name}? Hành động này không thể hoàn tác.`;
+                const doDelete = () => {
+                    const userIndex = users.findIndex((item) => item.id === userId);
+                    if (userIndex !== -1) {
+                        users.splice(userIndex, 1);
+                        if (window.parent && window.parent.showAdminToast) {
+                            window.parent.showAdminToast('Thành công', `Đã xóa tài khoản ${user.name} thành công.`, 'success');
+                        } else {
+                            alert(`Đã xóa tài khoản ${user.name} thành công.`);
+                        }
+                        renderUsers();
+                    }
+                };
+
+                if (window.parent && window.parent.showAdminModal) {
+                    window.parent.showAdminModal({
+                        type: 'danger',
+                        title: 'Xác nhận xóa tài khoản',
+                        message: messageText,
+                        confirmText: 'Xóa tài khoản',
+                        onConfirm: doDelete
+                    });
+                } else {
+                    if (confirm(messageText)) {
+                        doDelete();
+                    }
+                }
                 return;
             }
 
@@ -497,61 +323,44 @@
             if (!user) return;
 
             const nextStatus = user.status === 'locked' ? 'active' : 'locked';
-            showConfirmModal({
-                action: 'toggle-lock',
-                userId,
-                title: nextStatus === 'locked' ? 'Xác nhận khóa tài khoản' : 'Xác nhận mở khóa tài khoản',
-                message: nextStatus === 'locked'
-                    ? `Bạn có chắc muốn khóa tài khoản ${user.name}? Sau khi khóa, user sẽ không thể truy cập tài khoản.`
-                    : `Bạn có chắc muốn mở khóa tài khoản ${user.name}? Tài khoản sẽ hoạt động trở lại ngay sau khi xác nhận.`,
-                confirmLabel: nextStatus === 'locked' ? 'Khóa tài khoản' : 'Mở khóa tài khoản',
-            });
-        });
+            
+            const titleText = nextStatus === 'locked' ? 'Xác nhận khóa tài khoản' : 'Xác nhận mở khóa tài khoản';
+            const messageText = nextStatus === 'locked'
+                        ? `Bạn có chắc muốn khóa tài khoản ${user.name}? Sau khi khóa, user sẽ không thể truy cập tài khoản.`
+                        : `Bạn có chắc muốn mở khóa tài khoản ${user.name}? Tài khoản sẽ hoạt động trở lại ngay sau khi xác nhận.`;
+            const confirmText = nextStatus === 'locked' ? 'Khóa tài khoản' : 'Mở khóa tài khoản';
 
-        lockModalConfirm.addEventListener('click', () => {
-            if (!pendingDeleteUserId || !pendingAction) return;
-
-            const userIndex = users.findIndex((item) => item.id === pendingDeleteUserId);
-            if (userIndex === -1) return;
-
-            const user = users[userIndex];
-
-            if (pendingAction === 'delete') {
-                users.splice(userIndex, 1);
-                showSuccessToast(`Đã xóa tài khoản ${user.name} thành công.`);
-            }
-
-            if (pendingAction === 'toggle-lock') {
+            const doToggleLock = () => {
                 user.status = user.status === 'locked' ? 'active' : 'locked';
                 user.statusLabel = user.status === 'locked' ? 'Bị khóa' : 'Hoạt động';
-                showSuccessToast(
-                    user.status === 'locked'
-                        ? `Đã khóa tài khoản ${user.name} thành công.`
-                        : `Đã mở khóa tài khoản ${user.name} thành công.`
-                );
+                const successMsg = user.status === 'locked'
+                    ? `Đã khóa tài khoản ${user.name} thành công.`
+                    : `Đã mở khóa tài khoản ${user.name} thành công.`;
+                
+                if (window.parent && window.parent.showAdminToast) {
+                    window.parent.showAdminToast('Thành công', successMsg, 'success');
+                } else {
+                    alert(successMsg);
+                }
+                renderUsers();
+            };
+
+            if (window.parent && window.parent.showAdminModal) {
+                window.parent.showAdminModal({
+                    type: 'warning',
+                    title: titleText,
+                    message: messageText,
+                    confirmText: confirmText,
+                    onConfirm: doToggleLock
+                });
+            } else {
+                if (confirm(messageText)) {
+                    doToggleLock();
+                }
             }
-
-            pendingDeleteUserId = null;
-            pendingAction = null;
-            lockModal.hidden = true;
-            lockModal.style.display = 'none';
-            renderUsers();
         });
 
-        lockModalCancel.addEventListener('click', () => {
-            hideDeleteModal();
-        });
 
-        lockModal.addEventListener('click', (event) => {
-            if (event.target === lockModal) {
-                hideDeleteModal();
-            }
-        });
-
-        successToastClose.addEventListener('click', hideSuccessToast);
-
-        window.addEventListener('pageshow', hideDeleteModal);
-        document.addEventListener('DOMContentLoaded', hideDeleteModal);
 
         searchInput.addEventListener('input', renderUsers);
         roleFilter.addEventListener('change', renderUsers);

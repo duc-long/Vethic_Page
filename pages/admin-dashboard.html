@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 
 <head>
@@ -53,7 +53,7 @@
                     </div>
                 </a>
                 <button id="sidebar-toggle"
-                    style="position: absolute; right: -26px; top: 50%; transform: translateY(-50%); opacity: 90%; background: #fff; border: 1px solid var(--border-light); border-radius: 10px; width: 30px; height: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; color: var(--primary);">
+                    style="position: absolute; right: -12px; top: 45px; transform: translateY(-50%); background: var(--white); border: 1px solid var(--border-light); border-radius: 50%; width: 24px; height: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; color: var(--text-body); box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-body)'">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round" id="sidebar-toggle-icon">
                         <path d="M15 18l-6-6 6-6" />
@@ -131,7 +131,96 @@
         <iframe name="content-frame" id="content-frame" class="content-frame" src="admin.html"></iframe>
     </div>
 
+    <!-- Global Admin Modal -->
+    <div id="global-admin-modal" class="admin-modal" hidden>
+        <div class="admin-modal-card" role="dialog" aria-modal="true" aria-labelledby="global-modal-title">
+            <div id="global-modal-icon" class="admin-modal-icon warning">!</div>
+            <h2 id="global-modal-title" class="admin-modal-title">Xác nhận</h2>
+            <p id="global-modal-message" class="admin-modal-message"></p>
+            <div class="admin-modal-actions">
+                <button id="global-modal-cancel" type="button" class="btn btn-secondary">Hủy</button>
+                <button id="global-modal-confirm" type="button" class="btn btn-primary">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Global Admin Toast -->
+    <div id="global-admin-toast" class="knowledge-toast" hidden style="z-index: 1001;">
+        <div>
+            <strong id="global-toast-title">Thông báo</strong>
+            <span id="global-toast-message"></span>
+        </div>
+        <button id="global-toast-close" type="button">&times;</button>
+    </div>
+
     <script>
+        // Global Modal API
+        let currentModalCallback = null;
+
+        window.showAdminModal = function(options) {
+            const modal = document.getElementById('global-admin-modal');
+            const titleEl = document.getElementById('global-modal-title');
+            const messageEl = document.getElementById('global-modal-message');
+            const iconEl = document.getElementById('global-modal-icon');
+            const confirmBtn = document.getElementById('global-modal-confirm');
+            const cancelBtn = document.getElementById('global-modal-cancel');
+
+            titleEl.textContent = options.title || 'Xác nhận';
+            messageEl.textContent = options.message || '';
+            
+            // Icon handling
+            iconEl.className = 'admin-modal-icon ' + (options.type || 'warning');
+            if (options.type === 'success') {
+                iconEl.textContent = '✓';
+            } else if (options.type === 'danger') {
+                iconEl.textContent = '!';
+            } else {
+                iconEl.textContent = '!';
+            }
+
+            confirmBtn.textContent = options.confirmText || 'Xác nhận';
+            cancelBtn.textContent = options.cancelText || 'Hủy';
+
+            currentModalCallback = options.onConfirm || null;
+            
+            modal.hidden = false;
+        };
+
+        window.hideAdminModal = function() {
+            const modal = document.getElementById('global-admin-modal');
+            modal.hidden = true;
+            currentModalCallback = null;
+        };
+
+        document.getElementById('global-modal-cancel').addEventListener('click', window.hideAdminModal);
+        document.getElementById('global-modal-confirm').addEventListener('click', () => {
+            if (currentModalCallback) {
+                currentModalCallback();
+            }
+            window.hideAdminModal();
+        });
+
+        // Global Toast API
+        window.showAdminToast = function(title, message, type = 'success') {
+            const toast = document.getElementById('global-admin-toast');
+            document.getElementById('global-toast-title').textContent = title;
+            document.getElementById('global-toast-message').textContent = message;
+            
+            toast.hidden = false;
+            toast.classList.add('is-visible');
+
+            setTimeout(() => {
+                toast.classList.remove('is-visible');
+                setTimeout(() => toast.hidden = true, 300);
+            }, 3000);
+        };
+
+        document.getElementById('global-toast-close').addEventListener('click', () => {
+            const toast = document.getElementById('global-admin-toast');
+            toast.classList.remove('is-visible');
+            setTimeout(() => toast.hidden = true, 300);
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             const navItems = document.querySelectorAll('.sidebar-nav .nav-item');
 

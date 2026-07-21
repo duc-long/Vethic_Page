@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <link rel="icon" type="image/png" href="../assets/logo/logo.png">
@@ -148,31 +148,7 @@
             border-top: 1px solid var(--border-light);
         }
 
-        /* Success Toast */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: rgba(0, 105, 80, 0.95);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            font-weight: 500;
-            box-shadow: 0 10px 30px rgba(0, 105, 80, 0.2);
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            pointer-events: none;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
 
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
     </style>
 </head>
 <body class="admin-body">
@@ -253,32 +229,21 @@
         </div>
     </main>
 
-    <div id="toast" class="toast">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-        <span id="toast-message">Cập nhật thành công!</span>
-    </div>
-
     <script>
-        const toast = document.getElementById('toast');
-        const toastMessage = document.getElementById('toast-message');
-        let toastTimer;
-
-        function showToast(message) {
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
         document.getElementById('save-profile-btn').addEventListener('click', () => {
-            showToast('Thông tin cá nhân đã được lưu!');
+            if (window.parent && window.parent.showAdminToast) {
+                window.parent.showAdminToast('Thành công', 'Thông tin cá nhân đã được lưu!', 'success');
+            } else {
+                alert('Thông tin cá nhân đã được lưu!');
+            }
         });
 
         document.getElementById('save-password-btn').addEventListener('click', () => {
-            showToast('Mật khẩu đã được cập nhật thành công!');
+            if (window.parent && window.parent.showAdminToast) {
+                window.parent.showAdminToast('Thành công', 'Mật khẩu đã được cập nhật thành công!', 'success');
+            } else {
+                alert('Mật khẩu đã được cập nhật thành công!');
+            }
         });
     </script>
 </body>

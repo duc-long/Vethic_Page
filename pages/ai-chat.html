@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <link rel="icon" type="image/png" href="../assets/logo/logo.png">
     <meta charset="UTF-8">
@@ -13,25 +14,73 @@
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/activity-history.css">
     <link rel="stylesheet" href="../css/ai-chat.css">
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .markdown-body ul,
+        .markdown-body ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .markdown-body p {
+            margin-bottom: 12px;
+        }
+
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4 {
+            color: var(--primary);
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .markdown-body strong {
+            font-weight: 700;
+        }
+        /* Toggle Switch CSS */
+        .switch { position: relative; display: inline-block; width: 36px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary); }
+        input:checked + .slider:before { transform: translateX(16px); }
+    </style>
     <style>
         @keyframes typing {
-            0%, 100% { transform: translateY(0); opacity: 0.3; }
-            50% { transform: translateY(-4px); opacity: 1; }
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: translateY(-4px);
+                opacity: 1;
+            }
         }
-        
+
         @media (max-width: 768px) {
-            .chat-message.ai > div:nth-child(2) > div {
+            .chat-message.ai>div:nth-child(2)>div {
                 padding: 16px !important;
             }
-            .chat-message.ai p, .chat-message.ai ul, .chat-message.ai ol {
+
+            .chat-message.ai p,
+            .chat-message.ai ul,
+            .chat-message.ai ol {
                 font-size: 14px !important;
             }
+
             .chat-message.ai h4 {
                 font-size: 14px !important;
             }
         }
     </style>
 </head>
+
 <body class="dashboard-body" style="height: 100vh; overflow: hidden;">
 
     <!-- Main Content -->
@@ -40,42 +89,70 @@
             <h1 class="page-title">Trợ lý y tế AI</h1>
             <div class="user-menu flex items-center gap-4">
                 <span class="user-name font-medium">Nguyễn Văn A</span>
-                <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+                <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User"
+                        style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
             </div>
         </header>
 
         <div class="chat-container">
             <div class="chat-history" id="chatHistory">
                 <!-- Initial Empty State -->
-                <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-body); flex-direction: column; gap: 16px;">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                <div
+                    style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-body); flex-direction: column; gap: 16px;">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                        stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                    </svg>
                     <p>Hãy mô tả triệu chứng của thú cưng để bắt đầu chẩn đoán.</p>
                 </div>
             </div>
 
-            <!-- Chat Input -->
-            <div style="background: var(--white); border-top: 1px solid var(--border-light); display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: column;">
                 <div id="imagePreviewContainer" style="display: none; padding: 16px 40px 0 40px;">
                     <div style="position: relative; display: inline-block;">
-                        <img id="imagePreview" src="" style="height: 60px; border-radius: 8px; border: 1px solid var(--border-light); object-fit: cover;">
-                        <button id="removeImageBtn" style="position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">×</button>
+                        <img id="imagePreview" src=""
+                            style="height: 60px; border-radius: 8px; border: 1px solid var(--border-light); object-fit: cover;">
+                        <button id="removeImageBtn"
+                            style="position: absolute; top: -8px; right: -8px; background: var(--danger); color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px;">×</button>
                     </div>
+                </div>
+                <div style="padding: 0 40px; display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <span style="font-size: 12px; color: var(--text-body); font-weight: 500;">Dùng AI thật (Gemini API)</span>
+                    <label class="switch">
+                        <input type="checkbox" id="useRealAIToggle">
+                        <span class="slider"></span>
+                    </label>
                 </div>
                 <div class="chat-input-area" style="border-top: none;">
                     <button class="attach-btn" id="attachBtn" title="Đính kèm hình ảnh/video">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48">
+                            </path>
+                        </svg>
                     </button>
-                    <input type="text" class="chat-input" id="chatInput" placeholder="Nhập triệu chứng hoặc câu hỏi của bạn...">
+                    <input type="text" class="chat-input" id="chatInput"
+                        placeholder="Nhập triệu chứng hoặc câu hỏi của bạn...">
                     <button class="send-btn" id="sendBtn">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
                     </button>
                 </div>
-                <div style="text-align: center; font-size: 11px; color: var(--text-body); padding: 8px 0; border-top: 1px solid var(--border-light);">Vethic AI có thể mắc sai lầm. Luôn ưu tiên tham vấn trực tiếp với bác sĩ thú y.</div>
+                <div
+                    style="text-align: center; font-size: 11px; color: var(--text-body); padding: 8px 0; border-top: 1px solid var(--border-light);">
+                    Vethic AI có thể mắc sai lầm. Luôn ưu tiên tham vấn trực tiếp với bác sĩ thú y.</div>
             </div>
         </div>
     </main>
 
     <script>
+        // TODO: Nhập API Key của Google Gemini vào đây
+        const GEMINI_API_KEY = 'AIzaSyB9ttPZJMRT1V5NEgBPfazCqpTlaMI9eZw';
+
         document.addEventListener('DOMContentLoaded', () => {
             // Thông báo cho parent dashboard biết trang này đang active để đổi màu sidebar
             if (window.parent) {
@@ -85,7 +162,7 @@
             const chatInput = document.getElementById('chatInput');
             const sendBtn = document.getElementById('sendBtn');
             const chatHistory = document.getElementById('chatHistory');
-            
+
             const attachBtn = document.getElementById('attachBtn');
             const imagePreviewContainer = document.getElementById('imagePreviewContainer');
             const imagePreview = document.getElementById('imagePreview');
@@ -95,20 +172,38 @@
             const fakeQuestion2 = "Bác sĩ ơi, chó nhà em dạo này rụng lông nhiều, da nổi mẩn đỏ và ngứa ngáy lở loét như trong ảnh. Đây là bệnh gì ạ?";
             let uploadedImage = null;
 
-            // Handle image upload mock
+            // Xử lý upload ảnh thật
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = 'image/*';
+            fileInput.style.display = 'none';
+            document.body.appendChild(fileInput);
+
             attachBtn.addEventListener('click', () => {
-                uploadedImage = "../assets/picture/mangy_dog_chat.jpeg";
-                imagePreview.src = uploadedImage;
-                imagePreviewContainer.style.display = 'block';
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        uploadedImage = event.target.result; // Base64 data URL
+                        imagePreview.src = uploadedImage;
+                        imagePreviewContainer.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
             });
 
             removeImageBtn.addEventListener('click', () => {
                 uploadedImage = null;
                 imagePreviewContainer.style.display = 'none';
+                fileInput.value = '';
             });
 
             // Handle fake typing
-            chatInput.addEventListener('keydown', function(e) {
+            chatInput.addEventListener('keydown', function (e) {
                 if (chatInput.value === '') {
                     if (e.key === 'a' || e.key === 'A') {
                         e.preventDefault();
@@ -118,7 +213,7 @@
                         chatInput.value = fakeQuestion2;
                     }
                 }
-                
+
                 if (e.key === 'Enter' && (chatInput.value.trim() !== '' || uploadedImage)) {
                     sendMessage();
                 }
@@ -130,14 +225,21 @@
                 }
             });
 
-            function sendMessage() {
+            let lastMessageText = "";
+            let lastImageContext = null;
+            let currentTypingId = null;
+
+            async function sendMessage() {
                 const messageText = chatInput.value;
                 const currentImage = uploadedImage;
-                
+
+                lastMessageText = messageText;
+                lastImageContext = currentImage;
+
                 chatInput.value = '';
                 uploadedImage = null;
                 imagePreviewContainer.style.display = 'none';
-                
+
                 if (chatHistory.querySelector('svg[width="48"]')) {
                     chatHistory.innerHTML = '';
                 }
@@ -150,7 +252,7 @@
 
                 const userMsg = `
                     <div class="chat-message user" style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
-                        <div class="chat-bubble" style="background-color: #F3F4F6; color: var(--text-dark); border-radius: 16px 16px 0 16px; padding: 16px 20px; font-size: 14px;">
+                        <div class="chat-bubble">
                             ${userContent}
                         </div>
                     </div>
@@ -166,7 +268,7 @@
                             <img src="../assets/logo/logo.png" alt="AI" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div style="flex: 1;">
-                            <div style="background-color: white; border: 1px solid var(--border-light); border-radius: 0 16px 16px 16px; padding: 16px 20px; width: fit-content; height: 42px; display: flex; align-items: center;">
+                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 16px 20px; width: fit-content; height: 42px; display: flex; align-items: center;">
                                 <div style="display: flex; gap: 6px; align-items: center;">
                                     <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0s;"></span>
                                     <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0.2s;"></span>
@@ -179,72 +281,171 @@
                 chatHistory.insertAdjacentHTML('beforeend', typingIndicator);
                 chatHistory.scrollTop = chatHistory.scrollHeight;
 
-                // Simulate AI response delay
-                setTimeout(() => {
+                if (!document.getElementById('useRealAIToggle').checked) {
+                    currentTypingId = typingId;
+                    return;
+                }
+
+                // Call Gemini API
+                if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
                     const typingEl = document.getElementById(typingId);
                     if (typingEl) typingEl.remove();
+                    alert("Vui lòng nhập GEMINI_API_KEY trong file ai-chat.html để sử dụng chức năng này.");
+                    return;
+                }
 
-                    let aiResponseHtml = '';
+            }
 
-                    if (messageText.toLowerCase().includes('rụng lông') || messageText.toLowerCase().includes('mẩn đỏ') || currentImage) {
-                        aiResponseHtml = `
-                            <div style="background-color: white; border: 1px solid var(--border-light); border-radius: 0 16px 16px 16px; padding: 24px;">
-                                <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, qua hình ảnh và triệu chứng bạn mô tả, Vethic AI phân tích như sau:</p>
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key.toLowerCase() === 'b') {
+                    e.preventDefault();
+                    if (!document.getElementById('useRealAIToggle').checked && currentTypingId) {
+                        triggerDemoReply();
+                    }
+                }
+            });
+
+            function triggerDemoReply() {
+                const typingEl = document.getElementById(currentTypingId);
+                if (typingEl) typingEl.remove();
+                currentTypingId = null;
+
+                let aiResponseHtml = '';
+
+                if (lastMessageText.toLowerCase().includes('rụng lông') || lastMessageText.toLowerCase().includes('mẩn đỏ') || lastImageContext) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, qua hình ảnh và triệu chứng bạn mô tả, Vethic AI phân tích như sau:</p>
+                            
+                            <div style="background-color: #FFF8E1; color: #F57C00; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                CẦN LƯU Ý - NGUY CƠ VIÊM DA DO KÝ SINH TRÙNG (GHẺ)
+                            </div>
+                            
+                            <div style="border: 1px solid rgba(0, 105, 80, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px;">Phân tích triệu chứng:</h4>
+                                <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                    <li><strong>Rụng lông từng mảng:</strong> Dấu hiệu nang lông bị tổn thương do ký sinh trùng (Demodex hoặc Sarcoptes).</li>
+                                    <li><strong>Da mẩn đỏ, lở loét:</strong> Phản ứng viêm và nhiễm trùng thứ phát do cắn/gãi nhiều.</li>
+                                </ul>
+                                <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-top: 16px; margin-bottom: 16px;">Khuyến nghị từ AI:</h4>
+                                <ol style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                    <li><strong>Cách ly:</strong> Nếu nuôi nhiều bé, hãy cách ly bé để tránh lây chéo.</li>
+                                    <li><strong>Sử dụng loa chống liếm:</strong> Đeo vòng cổ để bé không gãi làm vết thương nặng thêm.</li>
+                                    <li><strong>Đi khám thú y:</strong> Cần soi da dưới kính hiển vi để xác định chính xác loại rận/ghẻ và có phác đồ thuốc bôi/tiêm phù hợp. Tuyệt đối không tự bôi các loại dầu nhớt, thuốc dân gian.</li>
+                                </ol>
+                            </div>
+                            
+                            <div style="display: flex; gap: 12px;">
+                                <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Tìm bác sĩ da liễu</a>
+                                <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;">Lưu vào hồ sơ</button>
+                            </div>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('nôn mửa') || lastMessageText.toLowerCase().includes('nôn')) {
+                    aiResponseHtml = `
+                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                                <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, dựa trên triệu chứng nôn mửa, đây là phân tích từ Vethic AI:</p>
                                 
-                                <div style="background-color: #FFF8E1; color: #F57C00; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                                    CẦN LƯU Ý - NGUY CƠ VIÊM DA DO KÝ SINH TRÙNG (GHẺ)
+                                <div style="background-color: #FEEBEB; color: var(--danger); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                    NGUY HIỂM - CẦN ĐI KHÁM NGAY
                                 </div>
                                 
                                 <div style="border: 1px solid rgba(0, 105, 80, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-                                    <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px;">Phân tích triệu chứng:</h4>
-                                    <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
-                                        <li><strong>Rụng lông từng mảng:</strong> Dấu hiệu nang lông bị tổn thương do ký sinh trùng (Demodex hoặc Sarcoptes).</li>
-                                        <li><strong>Da mẩn đỏ, lở loét:</strong> Phản ứng viêm và nhiễm trùng thứ phát do cắn/gãi nhiều.</li>
-                                    </ul>
-                                    <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-top: 16px; margin-bottom: 16px;">Khuyến nghị từ AI:</h4>
+                                    <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px;">Khuyến nghị quan trọng:</h4>
                                     <ol style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
-                                        <li><strong>Cách ly:</strong> Nếu nuôi nhiều bé, hãy cách ly bé để tránh lây chéo.</li>
-                                        <li><strong>Sử dụng loa chống liếm:</strong> Đeo vòng cổ để bé không gãi làm vết thương nặng thêm.</li>
-                                        <li><strong>Đi khám thú y:</strong> Cần soi da dưới kính hiển vi để xác định chính xác loại rận/ghẻ và có phác đồ thuốc bôi/tiêm phù hợp. Tuyệt đối không tự bôi các loại dầu nhớt, thuốc dân gian.</li>
+                                        <li style="padding-left: 8px;"><strong>Ngừng cho ăn</strong> hoàn toàn trong vòng 12 giờ tới để hệ tiêu hóa được nghỉ ngơi.</li>
+                                        <li style="padding-left: 8px;"><strong>Theo dõi sát sao</strong> tần suất nôn (bao nhiêu lần/giờ) và màu sắc chất nôn.</li>
+                                        <li style="padding-left: 8px;"><span style="color: var(--danger); font-weight: 700;">Đưa đến thú y ngay lập tức</span> nếu thấy bé có dấu hiệu lờ đờ, tiêu chảy kèm máu hoặc nôn liên tục không ngừng.</li>
                                     </ol>
                                 </div>
                                 
                                 <div style="display: flex; gap: 12px;">
-                                    <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Tìm bác sĩ da liễu</a>
+                                    <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Tìm bác sĩ gần nhất</a>
+                                    <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;">Lưu vào hồ sơ</button>
+                                </div>
+                            </div>
+                    `;
+                } else {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark);">Vethic AI đã tiếp nhận thông tin. Vui lòng cung cấp thêm hình ảnh hoặc mô tả chi tiết hơn để tôi có thể phân tích chính xác nhất.</p>
+                        </div>
+                    `;
+                }
+
+                const aiResponse = `
+                    <div class="chat-message ai" style="display: flex; gap: 16px; margin-bottom: 32px; align-items: flex-start;">
+                        <div class="chat-avatar" style="width: 32px; height: 32px; background-color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;">
+                            <img src="../assets/logo/logo.png" alt="AI" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="flex: 1;">
+                            ${aiResponseHtml}
+                            <div style="font-size: 10px; color: var(--text-body); margin-top: 8px;">Vethic AI • Just now</div>
+                        </div>
+                    </div>
+                `;
+                chatHistory.insertAdjacentHTML('beforeend', aiResponse);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
+
+                try {
+                    let parts = [];
+                    // Add text prompt
+                    const promptText = "Bạn là Vethic AI, một trợ lý y tế thú y thông minh. Hãy phân tích các triệu chứng và hình ảnh được cung cấp, sau đó đưa ra lời khuyên hữu ích, chuyên môn bằng tiếng Việt. Sử dụng định dạng danh sách (bullet points) và in đậm những phần quan trọng. Luôn nhắc nhở người dùng cần đưa thú cưng đến phòng khám nếu có dấu hiệu nguy hiểm.\n\nCâu hỏi của người dùng: " + messageText;
+                    parts.push({ text: promptText });
+
+                    // Add image if any
+                    if (currentImage) {
+                        const base64Data = currentImage.split(',')[1];
+                        const mimeType = currentImage.split(';')[0].split(':')[1];
+                        parts.unshift({
+                            inlineData: {
+                                data: base64Data,
+                                mimeType: mimeType
+                            }
+                        });
+                    }
+
+                    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`;
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: parts }]
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    const typingEl = document.getElementById(typingId);
+                    if (typingEl) typingEl.remove();
+
+                    let aiResponseHtml = '';
+                    if (data.error) {
+                        aiResponseHtml = `
+                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px; color: var(--danger);">
+                                Lỗi API: ${data.error.message}
+                            </div>
+                        `;
+                    } else if (data.candidates && data.candidates.length > 0) {
+                        const text = data.candidates[0].content.parts[0].text;
+                        aiResponseHtml = `
+                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                                <div class="markdown-body" style="font-size: 14px; color: var(--text-dark); line-height: 1.6;">
+                                    ${marked.parse(text)}
+                                </div>
+                                <div style="display: flex; gap: 12px; margin-top: 16px;">
+                                    <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Tìm bác sĩ gần nhất</a>
                                     <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;">Lưu vào hồ sơ</button>
                                 </div>
                             </div>
                         `;
-                    } else if (messageText.toLowerCase().includes('nôn mửa') || messageText.toLowerCase().includes('nôn')) {
-                        aiResponseHtml = `
-                                <div style="background-color: white; border: 1px solid var(--border-light); border-radius: 0 16px 16px 16px; padding: 24px;">
-                                    <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, dựa trên triệu chứng nôn mửa, đây là phân tích từ Vethic AI:</p>
-                                    
-                                    <div style="background-color: #FEEBEB; color: var(--danger); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                        NGUY HIỂM - CẦN ĐI KHÁM NGAY
-                                    </div>
-                                    
-                                    <div style="border: 1px solid rgba(0, 105, 80, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-                                        <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px;">Khuyến nghị quan trọng:</h4>
-                                        <ol style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
-                                            <li style="padding-left: 8px;"><strong>Ngừng cho ăn</strong> hoàn toàn trong vòng 12 giờ tới để hệ tiêu hóa được nghỉ ngơi.</li>
-                                            <li style="padding-left: 8px;"><strong>Theo dõi sát sao</strong> tần suất nôn (bao nhiêu lần/giờ) và màu sắc chất nôn.</li>
-                                            <li style="padding-left: 8px;"><span style="color: var(--danger); font-weight: 700;">Đưa đến thú y ngay lập tức</span> nếu thấy bé có dấu hiệu lờ đờ, tiêu chảy kèm máu hoặc nôn liên tục không ngừng.</li>
-                                        </ol>
-                                    </div>
-                                    
-                                    <div style="display: flex; gap: 12px;">
-                                        <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Tìm bác sĩ gần nhất</a>
-                                        <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;">Lưu vào hồ sơ</button>
-                                    </div>
-                                </div>
-                        `;
                     } else {
                         aiResponseHtml = `
-                            <div style="background-color: white; border: 1px solid var(--border-light); border-radius: 0 16px 16px 16px; padding: 24px;">
-                                <p style="font-size: 15px; color: var(--text-dark);">Vethic AI đã tiếp nhận thông tin. Vui lòng cung cấp thêm hình ảnh hoặc mô tả chi tiết hơn để tôi có thể phân tích chính xác nhất.</p>
+                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                                Không nhận được phản hồi từ AI.
                             </div>
                         `;
                     }
@@ -262,11 +463,29 @@
                     `;
                     chatHistory.insertAdjacentHTML('beforeend', aiResponse);
                     chatHistory.scrollTop = chatHistory.scrollHeight;
-                }, 1500);
+
+                } catch (error) {
+                    const typingEl = document.getElementById(typingId);
+                    if (typingEl) typingEl.remove();
+
+                    const errorMsg = `
+                        <div class="chat-message ai" style="display: flex; gap: 16px; margin-bottom: 32px; align-items: flex-start;">
+                            <div class="chat-avatar" style="width: 32px; height: 32px; background-color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;">
+                                <img src="../assets/logo/logo.png" alt="AI" style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div style="flex: 1;">
+                                <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px; color: var(--danger);">
+                                    Đã xảy ra lỗi kết nối: ${error.message}. Vui lòng thử lại.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    chatHistory.insertAdjacentHTML('beforeend', errorMsg);
+                    chatHistory.scrollTop = chatHistory.scrollHeight;
+                }
             }
         });
     </script>
 </body>
+
 </html>
-
-

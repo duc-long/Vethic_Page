@@ -1,15 +1,19 @@
 /* Global CSS Reset & Base Styles */
 :root {
   /* Colors */
-  --primary: #006950;
-  --primary-hover: #00513D;
-  --secondary: #7FF8CF;
-  --text-dark: #1C1B1B;
-  --text-body: #3D4A44;
-  --background-light: #FCF9F8;
-  --border-light: #BCCAC2;
-  --danger: #BA1A1A;
+  --primary: #12B76A;
+  --primary-hover: #027A48;
+  --secondary: #D1FADF;
+  --sidebar-bg: #0A2219;
+  --sidebar-hover: rgba(255, 255, 255, 0.08);
+  --text-dark: #101828;
+  --text-body: #475467;
+  --background-light: #F4F7F6;
+  --border-light: #EAECF0;
+  --danger: #F04438;
   --white: #FFF;
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-hover: 0 10px 24px rgba(0, 0, 0, 0.08);
 }
 
 * {
@@ -79,31 +83,35 @@ button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 16px;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 15px;
   transition: all 0.3s ease;
 }
 
 .btn-primary {
   background-color: var(--primary);
   color: var(--white);
-  box-shadow: 0 10px 15px -3px rgba(0, 105, 80, 0.1), 0 4px 6px -4px rgba(0, 105, 80, 0.1);
+  box-shadow: var(--shadow-soft);
 }
 
 .btn-primary:hover {
   background-color: var(--primary-hover);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-1px);
 }
 
 .btn-outline {
   border: 1px solid var(--border-light);
-  background-color: #F0EDEC;
+  background-color: var(--white);
   color: var(--text-dark);
+  box-shadow: var(--shadow-soft);
 }
 
 .btn-outline:hover {
-  background-color: #E5E2E1;
+  background-color: var(--background-light);
+  border-color: #D0D5DD;
 }
 
 /* Badges */
@@ -126,7 +134,8 @@ button {
 .topbar {
   height: 72px;
   background-color: var(--white);
-  border-bottom: 1px solid var(--border-light);
+  border-bottom: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   display: flex;
   align-items: center;
   justify-content: space-between;

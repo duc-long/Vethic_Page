@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <link rel="icon" type="image/png" href="../assets/logo/logo.png">
@@ -12,6 +12,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/admin.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="admin-body">
 
@@ -82,9 +84,8 @@
                         <button class="chart-tab" type="button" data-range="month">Tháng trước</button>
                     </div>
                 </div>
-                <div class="chart-shell">
-                    <svg id="diagnosis-chart" class="trend-chart" viewBox="0 0 880 300" preserveAspectRatio="none" aria-label="Biểu đồ xu hướng chẩn đoán AI"></svg>
-                    <div id="chart-tooltip" class="chart-tooltip" hidden></div>
+                <div class="chart-shell" style="height: 300px; padding: 20px;">
+                    <canvas id="diagnosis-chart"></canvas>
                 </div>
                 <div class="chart-metrics">
                     <div class="chart-metric">
@@ -175,155 +176,113 @@
             ]
         };
 
-        const chart = document.getElementById('diagnosis-chart');
-        const tooltip = document.getElementById('chart-tooltip');
-        const chartShell = document.querySelector('.chart-shell');
+        let chartInstance = null;
+        const ctx = document.getElementById('diagnosis-chart').getContext('2d');
         const tabButtons = document.querySelectorAll('.chart-tab');
-        const width = 880;
-        const height = 300;
-        const padding = { top: 28, right: 24, bottom: 52, left: 24 };
-        const plotWidth = width - padding.left - padding.right;
-        const plotHeight = height - padding.top - padding.bottom;
-
         let activeRange = 'week';
-        let pinnedPointIndex = null;
-
-        function formatValue(value) {
-            return new Intl.NumberFormat('vi-VN').format(value);
-        }
-
-        function getPoints(data) {
-            const maxValue = Math.max(...data.map((item) => item.value)) * 1.15;
-            const xStep = data.length === 1 ? 0 : plotWidth / (data.length - 1);
-
-            return data.map((item, index) => {
-                const x = padding.left + index * xStep;
-                const y = padding.top + plotHeight - (item.value / maxValue) * plotHeight;
-                return { ...item, x, y };
-            });
-        }
-
-        function buildPath(points) {
-            return points.reduce((path, point, index) => {
-                const command = index === 0 ? 'M' : 'L';
-                return `${path}${command}${point.x.toFixed(1)} ${point.y.toFixed(1)} `;
-            }, '').trim();
-        }
-
-        function showTooltip(point, index) {
-            const shellRect = chartShell.getBoundingClientRect();
-            const pointRect = chart.querySelector(`[data-point-index="${index}"]`)?.getBoundingClientRect();
-
-            if (!pointRect) {
-                return;
-            }
-
-            const offsetX = pointRect.left - shellRect.left + (pointRect.width / 2);
-            const offsetY = pointRect.top - shellRect.top;
-            const tooltipWidth = 118;
-            const tooltipHeight = 70;
-            const left = Math.min(Math.max(offsetX - tooltipWidth / 2, 12), shellRect.width - tooltipWidth - 12);
-            const top = Math.max(offsetY - tooltipHeight - 18, 10);
-
-            tooltip.innerHTML = `
-                <div class="chart-tooltip-label">${point.label}</div>
-                <div class="chart-tooltip-value">${formatValue(point.value)} Ca</div>
-            `;
-            tooltip.style.left = `${left}px`;
-            tooltip.style.top = `${top}px`;
-            tooltip.hidden = false;
-        }
-
-        function hideTooltip() {
-            if (pinnedPointIndex === null) {
-                tooltip.hidden = true;
-            }
-        }
-
-        function setActivePoint(index) {
-            const activeDot = chart.querySelector('.chart-point.is-active');
-            if (activeDot) {
-                activeDot.classList.remove('is-active');
-            }
-
-            const nextDot = chart.querySelector(`[data-point-index="${index}"]`);
-            if (nextDot) {
-                nextDot.classList.add('is-active');
-            }
-        }
 
         function renderChart(range) {
             const data = diagnosisDataSets[range];
-            const points = getPoints(data);
-            const linePath = buildPath(points);
-            const areaPath = `${linePath} L ${points[points.length - 1].x.toFixed(1)} ${padding.top + plotHeight} L ${points[0].x.toFixed(1)} ${padding.top + plotHeight} Z`;
-            const tooltipPoint = points[Math.min(points.length - 1, Math.floor(points.length / 2))];
+            const labels = data.map(item => item.label);
+            const values = data.map(item => item.value);
 
-            chart.innerHTML = `
-                <defs>
-                    <linearGradient id="chartAreaFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(0, 105, 80, 0.26)" />
-                        <stop offset="100%" stop-color="rgba(0, 105, 80, 0.02)" />
-                    </linearGradient>
-                    <linearGradient id="chartLineGlow" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stop-color="rgba(0, 105, 80, 0.22)" />
-                        <stop offset="100%" stop-color="rgba(0, 105, 80, 0.02)" />
-                    </linearGradient>
-                    <filter id="chartShadow" x="-20%" y="-20%" width="140%" height="140%">
-                        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0, 105, 80, 0.16)" />
-                    </filter>
-                </defs>
-                <path d="${areaPath}" fill="url(#chartAreaFill)"></path>
-                <path d="${linePath}" fill="none" stroke="var(--primary)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#chartShadow)"></path>
-                ${points.map((point, index) => `
-                    <g class="chart-point-group" transform="translate(${point.x.toFixed(1)}, ${point.y.toFixed(1)})" data-point-index="${index}">
-                        <circle class="chart-point-hit" cx="0" cy="0" r="18" fill="transparent"></circle>
-                        <circle class="chart-point" cx="0" cy="0" r="4.8" fill="var(--primary)"></circle>
-                    </g>
-                `).join('')}
-                ${points.map((point) => `
-                    <text x="${point.x.toFixed(1)}" y="272" text-anchor="middle" class="chart-label">${point.label}</text>
-                `).join('')}
-            `;
-
-            const pointGroups = chart.querySelectorAll('.chart-point-group');
-            pointGroups.forEach((group, index) => {
-                const point = points[index];
-
-                group.addEventListener('mouseenter', () => {
-                    pinnedPointIndex = index;
-                    setActivePoint(index);
-                    showTooltip(point, index);
-                });
-
-                group.addEventListener('mousemove', () => {
-                    if (pinnedPointIndex === index) {
-                        showTooltip(point, index);
-                    }
-                });
-
-                group.addEventListener('mouseleave', () => {
-                    if (pinnedPointIndex === index) {
-                        pinnedPointIndex = null;
-                    }
-                    hideTooltip();
-                });
-
-                group.addEventListener('click', () => {
-                    pinnedPointIndex = index;
-                    setActivePoint(index);
-                    showTooltip(point, index);
-                });
-            });
-
-            if (pinnedPointIndex !== null && points[pinnedPointIndex]) {
-                setActivePoint(pinnedPointIndex);
-                showTooltip(points[pinnedPointIndex], pinnedPointIndex);
-            } else {
-                pinnedPointIndex = null;
-                setActivePoint(Math.min(points.length - 1, Math.floor(points.length / 2)));
-                showTooltip(tooltipPoint, Math.min(points.length - 1, Math.floor(points.length / 2)));
+            if (chartInstance) {
+                chartInstance.destroy();
             }
+
+            // Create gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, 'rgba(0, 105, 80, 0.4)');
+            gradient.addColorStop(1, 'rgba(0, 105, 80, 0.0)');
+
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Số ca chẩn đoán',
+                        data: values,
+                        borderColor: '#006950', // var(--primary)
+                        backgroundColor: gradient,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: '#006950',
+                        pointBorderWidth: 2,
+                        pointRadius: 4,
+                        pointHoverRadius: 6,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#ffffff',
+                            titleColor: '#1A1A1A',
+                            bodyColor: '#006950',
+                            borderColor: 'rgba(0, 105, 80, 0.1)',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            titleFont: {
+                                family: 'Inter',
+                                size: 13,
+                                weight: '500'
+                            },
+                            bodyFont: {
+                                family: 'Inter',
+                                size: 15,
+                                weight: 'bold'
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed.y + ' Ca';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 12
+                                },
+                                color: '#666666'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)',
+                                drawBorder: false,
+                                borderDash: [5, 5]
+                            },
+                            ticks: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 12
+                                },
+                                color: '#666666',
+                                padding: 10
+                            },
+                            beginAtZero: true
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index',
+                    },
+                }
+            });
         }
 
         tabButtons.forEach((button) => {
@@ -331,15 +290,8 @@
                 tabButtons.forEach((item) => item.classList.remove('active'));
                 button.classList.add('active');
                 activeRange = button.dataset.range;
-                pinnedPointIndex = null;
                 renderChart(activeRange);
             });
-        });
-
-        chartShell.addEventListener('mouseleave', () => {
-            if (pinnedPointIndex === null) {
-                tooltip.hidden = true;
-            }
         });
 
         renderChart(activeRange);
