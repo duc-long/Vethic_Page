@@ -63,6 +63,12 @@
             }
         }
 
+        @keyframes ai-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 105, 80, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(0, 105, 80, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 105, 80, 0); }
+        }
+
         @media (max-width: 768px) {
             .chat-message.ai>div:nth-child(2)>div {
                 padding: 16px !important;
@@ -86,7 +92,10 @@
     <!-- Main Content -->
     <main class="main-content">
         <header class="topbar">
-            <h1 class="page-title">Trợ lý y tế AI</h1>
+            <h1 class="page-title" style="display: flex; align-items: center; gap: 8px;">
+                Trợ lý y tế AI
+                <span id="realAiIndicator" style="display: inline-block; width: 8px; height: 8px; background: #999; border-radius: 50%;" title="Chế độ AI Demo đang BẬT"></span>
+            </h1>
             <div class="user-menu flex items-center gap-4">
                 <span class="user-name font-medium">Nguyễn Văn A</span>
                 <div class="avatar-small"><img src="../assets/avatar/messi_avatar.jpg" alt="User"
@@ -117,11 +126,7 @@
                     </div>
                 </div>
                 <div style="padding: 0 40px; display: flex; justify-content: flex-end; align-items: center; gap: 8px; margin-bottom: 12px;">
-                    <span style="font-size: 12px; color: var(--text-body); font-weight: 500;">Dùng AI thật (Gemini API)</span>
-                    <label class="switch">
-                        <input type="checkbox" id="useRealAIToggle">
-                        <span class="slider"></span>
-                    </label>
+                    <!-- Hidden Toggle Space -->
                 </div>
                 <div class="chat-input-area" style="border-top: none;">
                     <button class="attach-btn" id="attachBtn" title="Đính kèm hình ảnh/video">
@@ -151,7 +156,7 @@
 
     <script>
         // TODO: Nhập API Key của Google Gemini vào đây
-        const GEMINI_API_KEY = 'AIzaSyB9ttPZJMRT1V5NEgBPfazCqpTlaMI9eZw';
+        const GEMINI_API_KEY = 'YOUR_API_KEY';
 
         document.addEventListener('DOMContentLoaded', () => {
             // Thông báo cho parent dashboard biết trang này đang active để đổi màu sidebar
@@ -229,77 +234,26 @@
             let lastImageContext = null;
             let currentTypingId = null;
 
-            async function sendMessage() {
-                const messageText = chatInput.value;
-                const currentImage = uploadedImage;
-
-                lastMessageText = messageText;
-                lastImageContext = currentImage;
-
-                chatInput.value = '';
-                uploadedImage = null;
-                imagePreviewContainer.style.display = 'none';
-
-                if (chatHistory.querySelector('svg[width="48"]')) {
-                    chatHistory.innerHTML = '';
-                }
-
-                // Add user message
-                let userContent = messageText;
-                if (currentImage) {
-                    userContent = `<img src="${currentImage}" style="max-width: 200px; border-radius: 8px; margin-bottom: 8px; display: block;">${messageText}`;
-                }
-
-                const userMsg = `
-                    <div class="chat-message user" style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
-                        <div class="chat-bubble">
-                            ${userContent}
-                        </div>
-                    </div>
-                `;
-                chatHistory.insertAdjacentHTML('beforeend', userMsg);
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-
-                // Show typing indicator
-                const typingId = 'typing-' + Date.now();
-                const typingIndicator = `
-                    <div id="${typingId}" class="chat-message ai" style="display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start;">
-                        <div class="chat-avatar" style="width: 32px; height: 32px; background-color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;">
-                            <img src="../assets/logo/logo.png" alt="AI" style="width: 100%; height: 100%; object-fit: cover;">
-                        </div>
-                        <div style="flex: 1;">
-                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 16px 20px; width: fit-content; height: 42px; display: flex; align-items: center;">
-                                <div style="display: flex; gap: 6px; align-items: center;">
-                                    <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0s;"></span>
-                                    <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0.2s;"></span>
-                                    <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0.4s;"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                chatHistory.insertAdjacentHTML('beforeend', typingIndicator);
-                chatHistory.scrollTop = chatHistory.scrollHeight;
-
-                if (!document.getElementById('useRealAIToggle').checked) {
-                    currentTypingId = typingId;
-                    return;
-                }
-
-                // Call Gemini API
-                if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
-                    const typingEl = document.getElementById(typingId);
-                    if (typingEl) typingEl.remove();
-                    alert("Vui lòng nhập GEMINI_API_KEY trong file ai-chat.html để sử dụng chức năng này.");
-                    return;
-                }
-
-            }
-
+            let useRealAI = false;
             document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'y') {
+                    e.preventDefault();
+                    useRealAI = !useRealAI;
+                    const indicator = document.getElementById('realAiIndicator');
+                    if (useRealAI) {
+                        indicator.style.background = 'var(--primary)';
+                        indicator.style.animation = 'ai-pulse 2s infinite';
+                        indicator.title = 'Chế độ AI Thật đang BẬT';
+                    } else {
+                        indicator.style.background = '#999';
+                        indicator.style.animation = 'none';
+                        indicator.title = 'Chế độ AI Demo đang BẬT';
+                    }
+                }
+
                 if (e.ctrlKey && e.key.toLowerCase() === 'b') {
                     e.preventDefault();
-                    if (!document.getElementById('useRealAIToggle').checked && currentTypingId) {
+                    if (!useRealAI && currentTypingId) {
                         triggerDemoReply();
                     }
                 }
@@ -378,7 +332,7 @@
                 const aiResponse = `
                     <div class="chat-message ai" style="display: flex; gap: 16px; margin-bottom: 32px; align-items: flex-start;">
                         <div class="chat-avatar" style="width: 32px; height: 32px; background-color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;">
-                            <img src="../assets/logo/logo.png" alt="AI" style="width: 100%; height: 100%; object-fit: cover;">
+                            <img src="../assets/logo/logo.png" alt="AI" style="width: 100%; height: 100%; object-fit: cover; background: #fff;">
                         </div>
                         <div style="flex: 1;">
                             ${aiResponseHtml}
@@ -389,6 +343,73 @@
                 chatHistory.insertAdjacentHTML('beforeend', aiResponse);
                 chatHistory.scrollTop = chatHistory.scrollHeight;
             }
+
+            async function sendMessage() {
+                const messageText = chatInput.value;
+                const currentImage = uploadedImage;
+
+                lastMessageText = messageText;
+                lastImageContext = currentImage;
+
+                chatInput.value = '';
+                uploadedImage = null;
+                imagePreviewContainer.style.display = 'none';
+
+                if (chatHistory.querySelector('svg[width="48"]')) {
+                    chatHistory.innerHTML = '';
+                }
+
+                // Add user message
+                let userContent = messageText;
+                if (currentImage) {
+                    userContent = `<img src="${currentImage}" style="max-width: 200px; border-radius: 8px; margin-bottom: 8px; display: block;">${messageText}`;
+                }
+
+                const userMsg = `
+                    <div class="chat-message user" style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+                        <div class="chat-bubble">
+                            ${userContent}
+                        </div>
+                    </div>
+                `;
+                chatHistory.insertAdjacentHTML('beforeend', userMsg);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+
+                // Show typing indicator
+                const typingId = 'typing-' + Date.now();
+                const typingIndicator = `
+                    <div id="${typingId}" class="chat-message ai" style="display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start;">
+                        <div class="chat-avatar" style="width: 32px; height: 32px; background-color: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden;">
+                            <img src="../assets/logo/logo.png" alt="AI" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 16px 20px; width: fit-content; height: 42px; display: flex; align-items: center;">
+                                <div style="display: flex; gap: 6px; align-items: center;">
+                                    <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0s;"></span>
+                                    <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0.2s;"></span>
+                                    <span style="width: 6px; height: 6px; background-color: var(--text-body); border-radius: 50%; animation: typing 1s infinite 0.4s;"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                chatHistory.insertAdjacentHTML('beforeend', typingIndicator);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+
+                if (!useRealAI) {
+                    currentTypingId = typingId;
+                    return;
+                }
+
+                // Call Gemini API
+                if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
+                    const typingEl = document.getElementById(typingId);
+                    if (typingEl) typingEl.remove();
+                    alert("Vui lòng nhập GEMINI_API_KEY trong file ai-chat.html để sử dụng chức năng này.");
+                    return;
+                }
+
+
 
                 try {
                     let parts = [];
