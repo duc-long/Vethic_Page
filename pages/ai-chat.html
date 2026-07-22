@@ -156,7 +156,7 @@
 
     <script>
         // TODO: Nhập API Key của Google Gemini vào đây
-        const GEMINI_API_KEY = 'YOUR_API_KEY';
+        const GEMINI_API_KEY = '';
 
         document.addEventListener('DOMContentLoaded', () => {
             // Thông báo cho parent dashboard biết trang này đang active để đổi màu sidebar
@@ -173,8 +173,17 @@
             const imagePreview = document.getElementById('imagePreview');
             const removeImageBtn = document.getElementById('removeImageBtn');
 
-            const fakeQuestion1 = "Bé mèo nhà tôi bị nôn mửa từ sáng nay, tôi nên làm gì?";
-            const fakeQuestion2 = "Bác sĩ ơi, chó nhà em dạo này rụng lông nhiều, da nổi mẩn đỏ và ngứa ngáy lở loét như trong ảnh. Đây là bệnh gì ạ?";
+            const fakeQuestion1 = "Bác sĩ ơi, chó Poodle nhà em dạo này rụng lông nhiều, da nổi mẩn đỏ và ngứa ngáy lở loét. Đây là bệnh gì ạ?";
+            const fakeQuestion2 = "Em có thể bôi thuốc mỡ của người hoặc thuốc xanh methylen tạm thời cho bé bớt ngứa được không?";
+            const fakeQuestion3 = "Dạ vâng, em đã đeo vòng chống liếm rồi. Bé có cần kiêng ăn thịt gà hay bò không bác sĩ?";
+            
+            const fakeQuestion4 = "Bé Corgi nhà tôi 4 tháng tuổi bị nôn mửa từ sáng nay 3 lần rồi, tôi nên làm gì?";
+            const fakeQuestion5 = "Bé nôn ra bọt trắng và có vẻ mệt mỏi, bỏ ăn. Em cho bé uống men tiêu hóa của người được không?";
+            const fakeQuestion6 = "Giờ em sẽ đưa bé đi khám luôn. Bác sĩ cho em hỏi test Parvo/Care mất bao lâu và giá khoảng bao nhiêu ạ?";
+            
+            const fakeQuestion7 = "Bé cún Phốc Hươu nhà tôi bị sổ mũi, hắt hơi liên tục từ tối qua. Có phải bị cảm không bác sĩ?";
+            const fakeQuestion8 = "Bé vẫn ăn uống bình thường, dịch mũi trong. Mình có cần cho bé uống kháng sinh hay siro ho không?";
+            const fakeQuestion9 = "Vâng, em đã lót thêm chăn ấm cho bé. Em có thể xông tinh dầu tràm trong phòng để bé dễ thở hơn không?";
             let uploadedImage = null;
 
             // Xử lý upload ảnh thật
@@ -184,8 +193,24 @@
             fileInput.style.display = 'none';
             document.body.appendChild(fileInput);
 
-            attachBtn.addEventListener('click', () => {
-                fileInput.click();
+            attachBtn.addEventListener('click', (e) => {
+                if (e.ctrlKey) {
+                    const img = new Image();
+                    img.crossOrigin = "Anonymous";
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0);
+                        uploadedImage = canvas.toDataURL('image/jpeg');
+                        imagePreview.src = uploadedImage;
+                        imagePreviewContainer.style.display = 'block';
+                    };
+                    img.src = '../assets/picture/mangy_dog_chat.jpeg';
+                } else {
+                    fileInput.click();
+                }
             });
 
             fileInput.addEventListener('change', (e) => {
@@ -213,9 +238,30 @@
                     if (e.key === 'a' || e.key === 'A') {
                         e.preventDefault();
                         chatInput.value = fakeQuestion1;
-                    } else if (e.key === 'b' || e.key === 'B') {
+                    } else if (e.key === '1') {
                         e.preventDefault();
                         chatInput.value = fakeQuestion2;
+                    } else if (e.key === '2') {
+                        e.preventDefault();
+                        chatInput.value = fakeQuestion3;
+                    } else if (e.key === 'b' || e.key === 'B') {
+                        e.preventDefault();
+                        chatInput.value = fakeQuestion4;
+                    } else if (e.key === '3') {
+                        e.preventDefault();
+                        chatInput.value = fakeQuestion5;
+                    } else if (e.key === '4') {
+                        e.preventDefault();
+                        chatInput.value = fakeQuestion6;
+                    } else if (e.key === 'c' || e.key === 'C') {
+                        e.preventDefault();
+                        chatInput.value = fakeQuestion7;
+                    } else if (e.key === '5') {
+                        e.preventDefault();
+                        chatInput.value = fakeQuestion8;
+                    } else if (e.key === '6') {
+                        e.preventDefault();
+                        chatInput.value = fakeQuestion9;
                     }
                 }
 
@@ -286,40 +332,134 @@
                                 <ol style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
                                     <li><strong>Cách ly:</strong> Nếu nuôi nhiều bé, hãy cách ly bé để tránh lây chéo.</li>
                                     <li><strong>Sử dụng loa chống liếm:</strong> Đeo vòng cổ để bé không gãi làm vết thương nặng thêm.</li>
-                                    <li><strong>Đi khám thú y:</strong> Cần soi da dưới kính hiển vi để xác định chính xác loại rận/ghẻ và có phác đồ thuốc bôi/tiêm phù hợp. Tuyệt đối không tự bôi các loại dầu nhớt, thuốc dân gian.</li>
+                                    <li><strong>Đi khám thú y:</strong> Cần soi da dưới kính hiển vi để xác định chính xác loại rận/ghẻ và có phác đồ thuốc bôi/tiêm phù hợp. Tuyệt đối không tự bôi các loại thuốc dân gian.</li>
                                 </ol>
                             </div>
                             
                             <div style="display: flex; gap: 12px;">
                                 <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Tìm bác sĩ da liễu</a>
-                                <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;">Lưu vào hồ sơ</button>
+                            </div>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('xanh methylen') || lastMessageText.toLowerCase().includes('bôi thuốc')) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Vethic AI <span style="color: var(--danger); font-weight: 700;">khuyên bạn tuyệt đối KHÔNG</span> tự ý bôi thuốc người cho chó:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                <li><strong>Thuốc xanh methylen:</strong> Chỉ sát khuẩn nhẹ ngoài da, không có tác dụng trị ghẻ/nấm, làm chó dễ liếm phải và gây ngộ độc. Hơn nữa màu xanh sẽ làm bác sĩ khó quan sát tổn thương khi khám.</li>
+                                <li><strong>Thuốc mỡ người:</strong> Nồng độ và thành phần không phù hợp với pH da chó, có thể gây kích ứng nặng hơn hoặc bỏng da.</li>
+                                <li><strong>Giải pháp tạm thời:</strong> Bạn chỉ nên vệ sinh vùng da lở loét bằng <strong>nước muối sinh lý (NaCl 0.9%)</strong>, lau khô và bắt buộc phải <strong>đeo vòng chống liếm</strong> cho đến khi đi khám.</li>
+                            </ul>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('kiêng ăn') || lastMessageText.toLowerCase().includes('thịt gà')) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Về chế độ ăn uống khi chó đang bị viêm da mẩn ngứa, Vethic AI khuyên bạn:</p>
+                            <div style="background-color: #E8F5E9; color: var(--primary); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                CHẾ ĐỘ DINH DƯỠNG LÀNH TÍNH
+                            </div>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                <li><strong>Nên kiêng:</strong> Tạm thời ngưng cho bé ăn <strong>thịt gà, thịt bò, hải sản và trứng</strong> vì đây là những thực phẩm giàu protein dễ gây dị ứng, làm tình trạng ngứa ngáy nghiêm trọng hơn.</li>
+                                <li><strong>Thực phẩm khuyên dùng:</strong> Hãy cho bé ăn hạt chuyên dụng (Hypoallergenic) hoặc thức ăn tự nấu từ <strong>thịt lợn nạc, cá hồi (nếu bé không dị ứng cá) và rau củ (cà rốt, bí đỏ)</strong>.</li>
+                                <li><strong>Bổ sung:</strong> Bạn có thể bổ sung thêm Omega-3 hoặc dầu cá để giúp phục hồi hàng rào bảo vệ da và lông mọc lại nhanh hơn sau khi điều trị khỏi.</li>
+                            </ul>
+                            <div style="display: flex; gap: 12px; margin-top: 16px;">
+                                <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;">Lưu vào hồ sơ sức khỏe</button>
                             </div>
                         </div>
                     `;
                 } else if (lastMessageText.toLowerCase().includes('nôn mửa') || lastMessageText.toLowerCase().includes('nôn')) {
                     aiResponseHtml = `
-                            <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
-                                <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, dựa trên triệu chứng nôn mửa, đây là phân tích từ Vethic AI:</p>
-                                
-                                <div style="background-color: #FEEBEB; color: var(--danger); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                    NGUY HIỂM - CẦN ĐI KHÁM NGAY
-                                </div>
-                                
-                                <div style="border: 1px solid rgba(0, 105, 80, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-                                    <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px;">Khuyến nghị quan trọng:</h4>
-                                    <ol style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
-                                        <li style="padding-left: 8px;"><strong>Ngừng cho ăn</strong> hoàn toàn trong vòng 12 giờ tới để hệ tiêu hóa được nghỉ ngơi.</li>
-                                        <li style="padding-left: 8px;"><strong>Theo dõi sát sao</strong> tần suất nôn (bao nhiêu lần/giờ) và màu sắc chất nôn.</li>
-                                        <li style="padding-left: 8px;"><span style="color: var(--danger); font-weight: 700;">Đưa đến thú y ngay lập tức</span> nếu thấy bé có dấu hiệu lờ đờ, tiêu chảy kèm máu hoặc nôn liên tục không ngừng.</li>
-                                    </ol>
-                                </div>
-                                
-                                <div style="display: flex; gap: 12px;">
-                                    <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Tìm bác sĩ gần nhất</a>
-                                    <button class="btn btn-outline" style="padding: 8px 16px; font-size: 13px;">Lưu vào hồ sơ</button>
-                                </div>
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, dựa trên triệu chứng nôn mửa 3 lần ở chó con, đây là phân tích từ Vethic AI:</p>
+                            
+                            <div style="background-color: #FEEBEB; color: var(--danger); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                NGUY HIỂM - CẦN ĐI KHÁM NGAY
                             </div>
+                            
+                            <div style="border: 1px solid rgba(0, 105, 80, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px;">Khuyến nghị quan trọng:</h4>
+                                <ol style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                    <li style="padding-left: 8px;"><strong>Ngừng cho ăn</strong> hoàn toàn trong vòng 12 giờ tới để hệ tiêu hóa được nghỉ ngơi.</li>
+                                    <li style="padding-left: 8px;"><strong>Theo dõi sát sao</strong> tần suất nôn (bao nhiêu lần/giờ) và màu sắc chất nôn.</li>
+                                    <li style="padding-left: 8px;"><span style="color: var(--danger); font-weight: 700;">Đưa đến thú y ngay lập tức</span> nếu thấy bé có dấu hiệu lờ đờ, tiêu chảy kèm máu hoặc nôn liên tục không ngừng.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('men tiêu hóa') || lastMessageText.toLowerCase().includes('bọt trắng')) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Vethic AI xin lưu ý khẩn cấp về tình trạng nôn bọt trắng và bỏ ăn:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                <li>Chó con 4 tháng tuổi nôn bọt trắng, mệt mỏi, bỏ ăn là <strong>triệu chứng rất điển hình của bệnh truyền nhiễm nguy hiểm (Parvovirus hoặc Care)</strong>, đặc biệt nếu bé chưa tiêm phòng đầy đủ.</li>
+                                <li><span style="color: var(--danger); font-weight: 700;">Tuyệt đối không tự ý cho uống men tiêu hóa hay thuốc chống nôn của người.</span> Việc tự chữa trị lúc này sẽ làm mất "thời gian vàng" để cứu sống bé và thuốc người có thể gây ngộ độc gan/thận.</li>
+                                <li>Bé đang mất nước trầm trọng qua đường nôn. Bạn hãy giữ ấm, không ép uống nước hay ăn gì và <strong>đưa đến phòng khám thú y gần nhất có hỗ trợ 24/7 lập tức</strong>.</li>
+                            </ul>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('test parvo') || lastMessageText.toLowerCase().includes('bao lâu')) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, thủ tục xét nghiệm tại phòng khám thú y thông thường diễn ra như sau:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                <li><strong>Thời gian test:</strong> Test nhanh (Test kit) phân hoặc dịch mũi để kiểm tra Parvo/Care diễn ra rất nhanh, chỉ mất khoảng <strong>10 - 15 phút</strong> là có kết quả.</li>
+                                <li><strong>Chi phí tham khảo:</strong> Giá một que test nhanh dao động khoảng <strong>150.000 VNĐ - 250.000 VNĐ</strong> tùy phòng khám.</li>
+                                <li><strong>Lưu ý thêm:</strong> Bác sĩ có thể yêu cầu làm thêm xét nghiệm máu (khoảng 200.000 - 400.000 VNĐ) để kiểm tra mức độ viêm nhiễm và lượng bạch cầu. Bạn nên chuẩn bị sẵn chi phí và tâm lý, chúc bé nhà mình chỉ bị viêm ruột nhẹ!</li>
+                            </ul>
+                            <div style="display: flex; gap: 12px; margin-top: 20px;">
+                                <a href="find-clinic.html" class="btn" style="background-color: var(--white); color: var(--primary); border: 1px solid var(--primary); padding: 8px 16px; font-size: 13px; font-weight: 600;">Xem danh sách phòng khám</a>
+                            </div>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('sổ mũi') || lastMessageText.toLowerCase().includes('hắt hơi')) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Chào bạn, chó bị sổ mũi hắt hơi có thể là triệu chứng hô hấp, Vethic AI xin lưu ý:</p>
+                            
+                            <div style="background-color: #FFF8E1; color: #F57C00; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                CẦN THEO DÕI - BỆNH LÝ HÔ HẤP
+                            </div>
+                            
+                            <div style="border: 1px solid rgba(0, 105, 80, 0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                                <h4 style="color: var(--primary); font-size: 14px; font-weight: 700; margin-bottom: 16px;">Đánh giá triệu chứng:</h4>
+                                <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                    <li><strong>Cảm lạnh thông thường:</strong> Nếu bé vẫn ăn uống bình thường, chơi đùa tốt, dịch mũi trong, bạn hãy giữ ấm, cho nằm chỗ kín gió.</li>
+                                    <li><strong>Bệnh viêm phế quản/Viêm phổi:</strong> Nếu bé có kèm ho, sốt, bỏ ăn, lờ đờ, thở dốc, hoặc dịch mũi có màu xanh/vàng/đục.</li>
+                                    <li><strong>Khuyến nghị:</strong> Hãy theo dõi thân nhiệt. Nếu tình trạng hắt hơi sổ mũi kéo dài trên 2 ngày hoặc có các triệu chứng nặng đi kèm, cần đưa đi khám thú y để kiểm tra phổi.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('kháng sinh') || lastMessageText.toLowerCase().includes('siro ho')) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Vethic AI giải đáp thắc mắc về việc dùng thuốc hô hấp cho bé Phốc Hươu:</p>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                <li>Vì bé vẫn ăn uống tốt và dịch mũi trong, rất có thể bé chỉ bị <strong>cảm lạnh nhẹ do thay đổi thời tiết</strong> hoặc dị ứng (bụi, mùi hương). Tạm thời <strong>chưa cần dùng đến kháng sinh</strong>.</li>
+                                <li><strong>KHÔNG dùng siro ho của người (như thuốc chứa Paracetamol, Codein, Pseudoephedrine)</strong> vì chúng cực độc đối với chó, có thể gây suy gan hoặc ngộ độc thần kinh.</li>
+                                <li>Bạn có thể lau sạch mũi cho bé bằng nước ấm, giữ cho chỗ ngủ khô ráo, kín gió. Nếu sau 3 ngày không thuyên giảm, lúc đó mới cần đi khám để bác sĩ kê đơn kháng sinh phù hợp cho thú cưng.</li>
+                            </ul>
+                        </div>
+                    `;
+                } else if (lastMessageText.toLowerCase().includes('tinh dầu tràm') || lastMessageText.toLowerCase().includes('xông')) {
+                    aiResponseHtml = `
+                        <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                            <p style="font-size: 15px; color: var(--text-dark); margin-bottom: 16px;">Khuyến cáo quan trọng về việc sử dụng tinh dầu xung quanh chó:</p>
+                            <div style="background-color: #FFF8E1; color: #F57C00; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                CẨN THẬN NGỘ ĐỘC TINH DẦU
+                            </div>
+                            <ul style="margin: 0; padding-left: 20px; color: var(--text-dark); font-size: 14px; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                                <li>Khứu giác của chó nhạy cảm gấp hàng nghìn lần con người. Xông tinh dầu quá nồng có thể làm <strong>kích ứng đường hô hấp</strong>, khiến bé hắt hơi và chảy nước mũi nhiều hơn.</li>
+                                <li>Một số loại tinh dầu (như tràm trà, khuynh diệp, bạc hà, quế) có chứa các hợp chất phenol, xeton <strong>có thể gây ngộ độc cho chó</strong> nếu hít phải quá nhiều hoặc tiếp xúc qua da.</li>
+                                <li><strong>Giải pháp thay thế:</strong> Tốt nhất bạn chỉ nên bật máy tạo độ ẩm phun sương (chỉ dùng nước sạch) để làm ẩm không khí, giúp niêm mạc mũi của bé không bị khô rát, hoặc cho bé xông hơi nước ấm trong phòng tắm khoảng 10 phút.</li>
+                            </ul>
+                        </div>
                     `;
                 } else {
                     aiResponseHtml = `
@@ -402,10 +542,9 @@
                 }
 
                 // Call Gemini API
-                if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '') {
-                    const typingEl = document.getElementById(typingId);
-                    if (typingEl) typingEl.remove();
-                    alert("Vui lòng nhập GEMINI_API_KEY trong file ai-chat.html để sử dụng chức năng này.");
+                if (!GEMINI_API_KEY || GEMINI_API_KEY.trim() === '' || GEMINI_API_KEY === 'YOUR_API_KEY') {
+                    currentTypingId = typingId;
+                    setTimeout(() => triggerDemoReply(), 1500);
                     return;
                 }
 
@@ -414,7 +553,7 @@
                 try {
                     let parts = [];
                     // Add text prompt
-                    const promptText = "Bạn là Vethic AI, một trợ lý y tế thú y thông minh. Hãy phân tích các triệu chứng và hình ảnh được cung cấp, sau đó đưa ra lời khuyên hữu ích, chuyên môn bằng tiếng Việt. Sử dụng định dạng danh sách (bullet points) và in đậm những phần quan trọng. Luôn nhắc nhở người dùng cần đưa thú cưng đến phòng khám nếu có dấu hiệu nguy hiểm.\n\nCâu hỏi của người dùng: " + messageText;
+                    const promptText = "Bạn là Vethic AI, một trợ lý y tế thú y thông minh. Hãy phân tích các triệu chứng và hình ảnh được cung cấp, sau đó đưa ra lời khuyên hữu ích, chuyên môn bằng tiếng Việt. Mở đầu câu trả lời, hãy ĐÁNH GIÁ MỨC ĐỘ NGUY HIỂM bằng cách bắt đầu với đúng một trong 3 từ khóa sau ở dòng đầu tiên (chỉ một dòng duy nhất): [NGUY HIỂM], [CẢNH BÁO], hoặc [BÌNH THƯỜNG]. Sau đó mới viết các lời khuyên bên dưới bằng định dạng danh sách (bullet points) và in đậm những phần quan trọng. Luôn nhắc nhở người dùng cần đưa thú cưng đến phòng khám nếu có dấu hiệu nguy hiểm.\n\nCâu hỏi của người dùng: " + messageText;
                     parts.push({ text: promptText });
 
                     // Add image if any
@@ -438,6 +577,12 @@
                         })
                     });
 
+                    if (response.status === 503 || response.status === 429) {
+                        currentTypingId = typingId;
+                        setTimeout(() => triggerDemoReply(), 1000);
+                        return;
+                    }
+
                     const data = await response.json();
 
                     const typingEl = document.getElementById(typingId);
@@ -445,15 +590,52 @@
 
                     let aiResponseHtml = '';
                     if (data.error) {
+                        if (data.error.code === 503 || data.error.code === 429 || (data.error.message && data.error.message.includes('API key not valid'))) {
+                            currentTypingId = typingId;
+                            setTimeout(() => triggerDemoReply(), 1000);
+                            return;
+                        }
                         aiResponseHtml = `
                             <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px; color: var(--danger);">
                                 Lỗi API: ${data.error.message}
                             </div>
                         `;
                     } else if (data.candidates && data.candidates.length > 0) {
-                        const text = data.candidates[0].content.parts[0].text;
+                        let text = data.candidates[0].content.parts[0].text;
+                        
+                        let dangerLevelHtml = '';
+                        if (text.includes('[NGUY HIỂM]')) {
+                            dangerLevelHtml = `
+                                <div style="background-color: #FEEBEB; color: var(--danger); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                    NGUY HIỂM - CẦN ĐI KHÁM NGAY
+                                </div>
+                            `;
+                            text = text.replace('[NGUY HIỂM]', '');
+                        } else if (text.includes('[CẢNH BÁO]')) {
+                            dangerLevelHtml = `
+                                <div style="background-color: #FFF8E1; color: #F57C00; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                                    CẢNH BÁO - CẦN THEO DÕI
+                                </div>
+                            `;
+                            text = text.replace('[CẢNH BÁO]', '');
+                        } else if (text.includes('[BÌNH THƯỜNG]')) {
+                            dangerLevelHtml = `
+                                <div style="background-color: #E8F5E9; color: var(--primary); font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; margin-bottom: 24px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                    BÌNH THƯỜNG - CHĂM SÓC DỰ PHÒNG
+                                </div>
+                            `;
+                            text = text.replace('[BÌNH THƯỜNG]', '');
+                        }
+
+                        // Xóa các dòng trống thừa ở đầu chuỗi sau khi replace
+                        text = text.replace(/^\s*[\r\n]/gm, '').trim();
+
                         aiResponseHtml = `
                             <div style="background-color: white; border: none; border-radius: 0 20px 20px 20px; box-shadow: var(--shadow-soft); padding: 24px;">
+                                ${dangerLevelHtml}
                                 <div class="markdown-body" style="font-size: 14px; color: var(--text-dark); line-height: 1.6;">
                                     ${marked.parse(text)}
                                 </div>
