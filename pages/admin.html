@@ -21,10 +21,18 @@
     <main class="main-content">
         <!-- Topbar -->
         <header class="topbar">
-            <h1 class="page-title">Tổng quan</h1>
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <h1 class="page-title">Tổng quan</h1>
+                <button id="export-report-btn" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px; cursor: pointer; padding: 8px 16px; background-color: var(--primary, #006950); color: white; border: none; border-radius: 8px; font-weight: 500; font-family: 'Inter', sans-serif;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Xuất báo cáo
+                </button>
+            </div>
             <div class="user-profile">
                 <span class="user-name">Adminstrator</span>
-                <div class="avatar">A</div>
+                <div class="avatar" style="padding: 0; overflow: hidden; background: transparent;">
+                    <img src="../assets/avatar/admin_avatar.png" alt="Admin" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
             </div>
         </header>
 
@@ -295,6 +303,36 @@
         });
 
         renderChart(activeRange);
+
+        // Export Report Logic
+        document.getElementById('export-report-btn').addEventListener('click', function() {
+            // Generate report data
+            const csvContent = "data:text/csv;charset=utf-8,\uFEFF" 
+                + "Tên Thống Kê,Giá Trị\n"
+                + "Tổng Số User,1200\n"
+                + "Tổng Số Thú Cưng,3500\n"
+                + "Chẩn Đoán AI Hôm Nay,150\n"
+                + "Số Ca Cảnh Báo Đỏ,12\n\n"
+                + "PET,CHỦ NUÔI,LOẠI BỆNH,TRẠNG THÁI\n"
+                + "Milo,nguyen.a@example.com,Viêm tai ngoài,Ổn định\n"
+                + "Lucy,tran.b@example.com,Rối loạn tiêu hóa,Đang theo dõi\n"
+                + "Max,le.c@example.com,Cảnh báo đỏ,Khẩn cấp\n";
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Vethic_Dashboard_Report.csv");
+            document.body.appendChild(link); // Required for FF
+            
+            link.click();
+            document.body.removeChild(link);
+            
+            if (window.parent && window.parent.showAdminToast) {
+                window.parent.showAdminToast("Thành công", "Đã xuất báo cáo CSV thành công!");
+            } else {
+                alert("Đã xuất báo cáo thành công!");
+            }
+        });
     </script>
 </body>
 </html>

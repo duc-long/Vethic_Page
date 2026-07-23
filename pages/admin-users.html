@@ -19,7 +19,9 @@
             <h1 class="page-title">Quản lý người dùng</h1>
             <div class="user-profile">
                 <span class="user-name">Administrator</span>
-                <div class="avatar">A</div>
+                <div class="avatar" style="padding: 0; overflow: hidden; background: transparent;">
+                    <img src="../assets/avatar/admin_avatar.png" alt="Admin" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
             </div>
         </header>
 
@@ -50,7 +52,7 @@
                         <option value="active">Hoạt động</option>
                         <option value="locked">Bị khóa</option>
                     </select>
-                    <button class="btn btn-primary">Xuất báo cáo</button>
+                    <button id="export-users-btn" class="btn btn-primary">Xuất báo cáo</button>
                 </div>
 
                 <div class="activity-table-container">
@@ -110,26 +112,25 @@
         .btn-secondary:hover {
             background: rgba(90, 90, 108, 0.16);
         }
-
     </style>
 
     <script>
         const users = [
             {
                 id: 'U001',
-                name: 'Nguyễn Văn A',
-                email: 'nguyen.van.a@example.com',
+                name: 'Nguyễn Văn Đức Long',
+                email: 'nguyenvanduclong@example.com',
                 role: 'user',
                 roleLabel: 'Người dùng',
                 status: 'active',
                 statusLabel: 'Hoạt động',
                 joined: '15/04/2026',
-                avatar: "https://tse1.mm.bing.net/th?id=OIF.RvfrDE%2bsI9gMnJUMrSmShA&rs=1&pid=ImgDetMain&o=7&rm=3"
+                avatar: "../assets/avatar/account.jpg"
             },
             {
                 id: 'U002',
-                name: 'Trần Thị B',
-                email: 'tran.thi.b@vethic.vn',
+                name: 'Nguyễn Duy Anh',
+                email: 'nguyenduyanh@gmail.com',
                 role: 'vet',
                 roleLabel: 'Bác sĩ thú y',
                 status: 'active',
@@ -139,8 +140,8 @@
             },
             {
                 id: 'U003',
-                name: 'Lê Minh C',
-                email: 'le.minh.c@example.com',
+                name: 'Lê Minh Kha',
+                email: 'leminhkhang@gmail.com',
                 role: 'user',
                 roleLabel: 'Người dùng',
                 status: 'locked',
@@ -150,14 +151,14 @@
             },
             {
                 id: 'U004',
-                name: 'Phạm Thu D',
-                email: 'pham.thu.d@example.com',
+                name: 'Phạm Thu Diễm',
+                email: 'phamthudiem@gmail.com',
                 role: 'admin',
                 roleLabel: 'Quản trị viên',
                 status: 'active',
                 statusLabel: 'Hoạt động',
                 joined: '01/03/2026',
-                avatar: "https://i.vgt.vn/2023/12/6/do-mixi-danh-tieng-mua-gop-gao-vai-ngay-da-thu-ve-tram-trieu-xung-danh-bo-toc-mixigaming-c6d-7041760.png"
+                avatar: "../assets/avatar/admin_avatar.png"
             }
         ];
 
@@ -186,6 +187,8 @@
         }
 
 
+        let currentFilteredUsers = [];
+
         function renderUsers() {
             const query = searchInput.value.trim().toLowerCase();
             const role = roleFilter.value;
@@ -200,6 +203,8 @@
                 const matchesStatus = status === 'all' || user.status === status;
                 return matchesQuery && matchesRole && matchesStatus;
             });
+
+            currentFilteredUsers = filteredUsers;
 
             if (!filteredUsers.length) {
                 usersTableBody.innerHTML = `
@@ -222,7 +227,7 @@
                     ? 'background:#E5E7EB;color:#666;'
                     : ''}">
 
-                                                    ${user.avatar.startsWith("http")
+                                                    ${(user.avatar.startsWith("http") || user.avatar.includes("/"))
                     ? `
                                                                 <img
                                                                     src="${user.avatar}"
@@ -323,11 +328,11 @@
             if (!user) return;
 
             const nextStatus = user.status === 'locked' ? 'active' : 'locked';
-            
+
             const titleText = nextStatus === 'locked' ? 'Xác nhận khóa tài khoản' : 'Xác nhận mở khóa tài khoản';
             const messageText = nextStatus === 'locked'
-                        ? `Bạn có chắc muốn khóa tài khoản ${user.name}? Sau khi khóa, user sẽ không thể truy cập tài khoản.`
-                        : `Bạn có chắc muốn mở khóa tài khoản ${user.name}? Tài khoản sẽ hoạt động trở lại ngay sau khi xác nhận.`;
+                ? `Bạn có chắc muốn khóa tài khoản ${user.name}? Sau khi khóa, user sẽ không thể truy cập tài khoản.`
+                : `Bạn có chắc muốn mở khóa tài khoản ${user.name}? Tài khoản sẽ hoạt động trở lại ngay sau khi xác nhận.`;
             const confirmText = nextStatus === 'locked' ? 'Khóa tài khoản' : 'Mở khóa tài khoản';
 
             const doToggleLock = () => {
@@ -336,7 +341,7 @@
                 const successMsg = user.status === 'locked'
                     ? `Đã khóa tài khoản ${user.name} thành công.`
                     : `Đã mở khóa tài khoản ${user.name} thành công.`;
-                
+
                 if (window.parent && window.parent.showAdminToast) {
                     window.parent.showAdminToast('Thành công', successMsg, 'success');
                 } else {
@@ -365,6 +370,45 @@
         searchInput.addEventListener('input', renderUsers);
         roleFilter.addEventListener('change', renderUsers);
         statusFilter.addEventListener('change', renderUsers);
+
+        document.getElementById('export-users-btn').addEventListener('click', () => {
+            if (currentFilteredUsers.length === 0) {
+                if (window.parent && window.parent.showAdminToast) {
+                    window.parent.showAdminToast('Thông báo', 'Không có dữ liệu để xuất.', 'warning');
+                } else {
+                    alert('Không có dữ liệu để xuất.');
+                }
+                return;
+            }
+
+            let csvContent = "\uFEFFID,Họ Tên,Email,Vai trò,Trạng thái,Ngày tham gia\n";
+            
+            currentFilteredUsers.forEach(user => {
+                const name = `"${user.name.replace(/"/g, '""')}"`;
+                const email = `"${user.email.replace(/"/g, '""')}"`;
+                const role = `"${user.roleLabel}"`;
+                const status = `"${user.statusLabel}"`;
+                const joined = `"${user.joined}"`;
+                
+                csvContent += `${user.id},${name},${email},${role},${status},${joined}\n`;
+            });
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.setAttribute("href", url);
+            
+            const dateStr = new Date().toISOString().split('T')[0];
+            link.setAttribute("download", `bao-cao-nguoi-dung-${dateStr}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+            
+            if (window.parent && window.parent.showAdminToast) {
+                window.parent.showAdminToast('Thành công', 'Đã xuất báo cáo người dùng (CSV)!', 'success');
+            }
+        });
 
         renderUsers();
     </script>

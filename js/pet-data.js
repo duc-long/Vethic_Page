@@ -9,7 +9,7 @@ const initialPets = [
         age: 24, // in months
         weight: '25kg',
         type: 'DOG',
-        image: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=800&q=80',
+        image: '../assets/pictures/dog1.jpg',
         status: 'Tiêm phòng đủ',
         statusClass: 'success'
     },

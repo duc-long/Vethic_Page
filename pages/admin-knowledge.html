@@ -322,7 +322,9 @@
             <h1 class="page-title">Quản lý cơ sở dữ liệu y tế (AI)</h1>
             <div class="user-profile">
                 <span class="user-name">Administrator</span>
-                <div class="avatar">A</div>
+                <div class="avatar" style="padding: 0; overflow: hidden; background: transparent;">
+                    <img src="../assets/avatar/admin_avatar.png" alt="Admin" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
             </div>
         </header>
 
@@ -335,14 +337,20 @@
                             <p class="section-subtitle">Quản lý danh sách bệnh, mở trang riêng để tạo mới hoặc cập nhật
                                 nội dung.</p>
                         </div>
-                        <a class="btn btn-primary knowledge-link-btn" href="admin-knowledge-editor.html">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                            </svg>
-                            Tạo kiến thức mới
-                        </a>
+                        <div style="display: flex; gap: 12px; align-items: center;">
+                            <button id="export-knowledge-btn" class="btn btn-secondary knowledge-link-btn" style="background-color: white; border: 1px solid rgba(188, 202, 194, 0.55); color: var(--text-body); cursor: pointer; padding: 0 16px; min-height: 40px; border-radius: 12px; font-weight: 500;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                Xuất báo cáo
+                            </button>
+                            <a class="btn btn-primary knowledge-link-btn" href="admin-knowledge-editor.html">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                Tạo kiến thức mới
+                            </a>
+                        </div>
                     </div>
 
                     <div class="knowledge-toolbar">
@@ -528,6 +536,45 @@
         });
 
         renderKnowledgeTable();
+
+        // Export Report Logic
+        document.getElementById('export-knowledge-btn').addEventListener('click', function() {
+            if (!knowledgeData || knowledgeData.length === 0) {
+                alert("Không có dữ liệu để xuất.");
+                return;
+            }
+
+            // Define CSV headers
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
+            csvContent += "Mã Bệnh,Tên Bệnh,Loài Mắc,Mức Độ Nghiêm Trọng,Triệu Chứng,Cập Nhật Lần Cuối\n";
+
+            // Add rows
+            knowledgeData.forEach(function(item) {
+                const id = item.id || "";
+                const name = item.name ? `"${item.name.replace(/"/g, '""')}"` : "";
+                const species = item.species ? `"${item.species.join(', ')}"` : "";
+                const severity = item.severity ? getSeverityLabel(item.severity) : "";
+                const symptoms = item.symptoms ? `"${item.symptoms.replace(/"/g, '""')}"` : "";
+                const updatedAt = item.updatedAt || "";
+
+                csvContent += `${id},${name},${species},${severity},${symptoms},${updatedAt}\n`;
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Vethic_Knowledge_Report.csv");
+            document.body.appendChild(link); // Required for FF
+            
+            link.click();
+            document.body.removeChild(link);
+            
+            if (window.parent && window.parent.showAdminToast) {
+                window.parent.showAdminToast("Thành công", "Đã xuất báo cáo kiến thức bệnh thành công!");
+            } else {
+                alert("Đã xuất báo cáo thành công!");
+            }
+        });
     </script>
 </body>
 

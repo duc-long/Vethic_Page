@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <link rel="icon" type="image/png" href="../assets/logo/logo.png">
     <meta charset="UTF-8">
@@ -30,7 +31,7 @@
             width: 100%;
             max-width: 448px;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
             overflow: hidden;
             border: 1px solid #dadce0;
             padding: 48px 0 36px 0;
@@ -90,7 +91,7 @@
             flex-shrink: 0;
             overflow: hidden;
         }
-        
+
         .avatar img {
             width: 100%;
             height: 100%;
@@ -104,7 +105,7 @@
         .avatar-admin {
             background-color: #006950;
         }
-        
+
         .avatar-icon {
             border: 1px solid #dadce0;
             background: white;
@@ -131,7 +132,7 @@
             padding: 16px 40px;
             border-bottom: none;
         }
-        
+
         .account-item.another .account-name {
             font-size: 14px;
             font-weight: 500;
@@ -148,7 +149,7 @@
             color: #1a73e8;
             text-decoration: none;
         }
-        
+
         .footer-text a:hover {
             text-decoration: underline;
         }
@@ -162,13 +163,13 @@
             font-size: 12px;
             color: #757575;
         }
-        
+
         .bottom-links .lang-selector {
             display: flex;
             align-items: center;
             cursor: pointer;
         }
-        
+
         .bottom-links .lang-selector::after {
             content: '';
             display: inline-block;
@@ -182,18 +183,19 @@
             display: flex;
             gap: 24px;
         }
-        
+
         .bottom-links .right-links a {
             color: #757575;
             text-decoration: none;
         }
-        
+
         .bottom-links .right-links a:hover {
             background-color: #f1f3f4;
             border-radius: 4px;
         }
     </style>
 </head>
+
 <body>
 
     <div style="display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 448px;">
@@ -207,11 +209,12 @@
                 <!-- User Account -->
                 <a href="user-dashboard.html" class="account-item">
                     <div class="avatar avatar-user">
-                        <img src="../assets/avatar/messi_avatar.jpg" alt="N">
+                        <img src="../assets/avatar/account.jpg" alt="User"
+                            style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
                     </div>
                     <div class="account-info">
-                        <span class="account-name">Nguyen Van A</span>
-                        <span class="account-email">nguyenvana@gmail.com</span>
+                        <span class="account-name">Nguyễn Văn Đức Long</span>
+                        <span class="account-email">nguyenvanduclong@gmail.com</span>
                     </div>
                 </a>
 
@@ -225,11 +228,15 @@
                         <span class="account-email">vethic.platform@gmail.com</span>
                     </div>
                 </a>
-                
+
                 <!-- Another Account -->
                 <a href="#" class="account-item another">
                     <div class="avatar avatar-icon">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5f6368" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
                     </div>
                     <div class="account-info">
                         <span class="account-name">Use another account</span>
@@ -238,11 +245,13 @@
             </div>
 
             <div class="footer-text">
-                To continue, Google will share your name, email address, language preference, and profile picture with Vethic.
-                Before using this app, you can review Vethic's <a href="#">privacy policy</a> and <a href="#">terms of service</a>.
+                To continue, Google will share your name, email address, language preference, and profile picture with
+                Vethic.
+                Before using this app, you can review Vethic's <a href="#">privacy policy</a> and <a href="#">terms of
+                    service</a>.
             </div>
         </div>
-        
+
         <div class="bottom-links" style="width: 100%;">
             <div class="lang-selector">English (United States)</div>
             <div class="right-links">
@@ -254,5 +263,5 @@
     </div>
 
 </body>
-</html>
 
+</html>
